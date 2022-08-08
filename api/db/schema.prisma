@@ -1,0 +1,42 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["extendedIndexes"]
+  binaryTargets   = "native"
+}
+
+// Define your own datamodels here and run `yarn redwood prisma migrate dev`
+// to create migrations for them and apply to your dev DB.
+// TODO: Please remove the following example:
+model User {
+  id    Int     @id @default(autoincrement())
+  name  String?
+  email String  @unique
+  roles String  @default("user")
+}
+
+model Member {
+  id          Int      @id @default(autoincrement()) @db.UnsignedInt
+  name        String
+  birthDate   DateTime @db.Date()
+  phoneNumber String   @db.VarChar(20)
+  email       String
+  address     String
+  group       Group?   @relation(fields: [groupId], references: [id])
+  groupId     Int?     @db.UnsignedInt
+  createdAt   DateTime @default(now())
+
+  @@index([createdAt(sort: Desc)])
+}
+
+model Group {
+  id        Int      @id @default(autoincrement()) @db.UnsignedInt
+  name      String   @unique(sort: Asc)
+  member    Member[]
+  leader    String
+  createdAt DateTime @default(now())
+}

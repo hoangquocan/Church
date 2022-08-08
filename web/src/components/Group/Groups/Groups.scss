@@ -1,0 +1,28 @@
+.groups-wrapper {
+  margin: var(--mg-10);
+
+  .groups-header {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 20px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th,
+  td {
+    padding: 8px;
+    border: 1px solid #dee2e6;
+  }
+  th {
+    height: 40px;
+    text-align: left;
+  }
+
+  nav{
+    display: flex;
+    justify-content: space-evenly;
+  }
+}
