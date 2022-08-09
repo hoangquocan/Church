@@ -15,7 +15,7 @@ export const schema = gql`
   type Query {
     membersNoGroup: [Member!]! @requireAuth
     members: [Member!]! @requireAuth
-    member(id: Int!): Member @skipAuth
+    member(id: Int!): Member @requireAuth
   }
 
   input CreateMemberInput {

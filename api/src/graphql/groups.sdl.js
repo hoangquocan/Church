@@ -8,10 +8,13 @@ export const schema = gql`
     createdAt: DateTime!
   }
 
+  type members {
+    members: [Member!]!
+  }
   type Query {
-    groupMembers(id: Int!): Group @skipAuth
+    groupMembers(id: Int!): members @requireAuth
     groups: [Group!]! @requireAuth
-    group(id: Int!): Group @skipAuth
+    group(id: Int!): Group @requireAuth
   }
 
   input CreateGroupInput {
