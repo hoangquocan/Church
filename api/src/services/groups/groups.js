@@ -30,8 +30,12 @@ export const deleteGroup = ({ id }) => {
 }
 
 export const Group = {
-  member: (_obj, { root }) =>
-    db.group.findUnique({ where: { id: root.id } }).member(),
+  members: (_obj, { root }) =>
+    db.group.findUnique({ where: { id: root.id } }).members(),
+  activities: (_obj, { root }) =>
+    db.group.findUnique({ where: { id: root.id } }).activities(),
 }
 
-
+export const groupMembers = ({ id }) => {
+  return db.group.findUnique({where: { id }, select: { members: true }})
+}

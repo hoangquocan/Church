@@ -3,7 +3,7 @@ export const standard = defineScenario({
     one: {
       data: {
         name: 'String',
-        birthDate: '2022-08-05T16:00:11Z',
+        birthDate: '2022-08-08T15:05:35Z',
         phoneNumber: 'String',
         email: 'String',
         address: 'String',
@@ -13,7 +13,7 @@ export const standard = defineScenario({
     two: {
       data: {
         name: 'String',
-        birthDate: '2022-08-05T16:00:11Z',
+        birthDate: '2022-08-08T15:05:35Z',
         phoneNumber: 'String',
         email: 'String',
         address: 'String',

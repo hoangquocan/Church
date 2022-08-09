@@ -1,5 +1,5 @@
 import { useMutation } from '@redwoodjs/web'
-import { QUERY as MembersQuery } from '../MemberOfGroupCell'
+import { QUERY as MembersQuery } from 'src/components/Group/GroupMembersCell'
 import './Member.scss'
 
 const UPDATE_MEMBER = gql`
@@ -19,11 +19,9 @@ const Member = ({ member, summary = false }) => {
 
   const [updateMember] = useMutation(UPDATE_MEMBER, {
     refetchQueries: [
-      { query: MembersQuery, variables: { groupId: member.groupId } },
+      { query: MembersQuery, variables: { id: member.groupId } },
     ],
   })
-
-  console.log(member.groupId)
   const handleClick = (id, groupId) => {
     if (confirm('Are you sure?')) {
       updateMember({

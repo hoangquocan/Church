@@ -8,14 +8,14 @@ export const schema = gql`
     address: String!
     group: Group
     groupId: Int
+    attendance: Attendance
     createdAt: DateTime!
   }
 
   type Query {
-    memberOfGroup(groupId: Int!): [Member!]! @requireAuth
-    membersNogroup: [Member!]! @requireAuth
+    membersNoGroup: [Member!]! @requireAuth
     members: [Member!]! @requireAuth
-    member(id: Int!): Member @requireAuth
+    member(id: Int!): Member @skipAuth
   }
 
   input CreateMemberInput {

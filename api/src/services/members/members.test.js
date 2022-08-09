@@ -29,7 +29,7 @@ describe('members', () => {
     const result = await createMember({
       input: {
         name: 'String',
-        birthDate: '2022-08-05T16:00:11Z',
+        birthDate: '2022-08-08T15:05:35Z',
         phoneNumber: 'String',
         email: 'String',
         address: 'String',
@@ -37,7 +37,7 @@ describe('members', () => {
     })
 
     expect(result.name).toEqual('String')
-    expect(result.birthDate).toEqual('2022-08-05T16:00:11Z')
+    expect(result.birthDate).toEqual('2022-08-08T15:05:35Z')
     expect(result.phoneNumber).toEqual('String')
     expect(result.email).toEqual('String')
     expect(result.address).toEqual('String')

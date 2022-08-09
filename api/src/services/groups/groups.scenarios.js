@@ -1,6 +1,6 @@
 export const standard = defineScenario({
   group: {
-    one: { data: { name: 'String3779715', leader: 'String' } },
-    two: { data: { name: 'String7942347', leader: 'String' } },
+    one: { data: { name: 'String801302', leader: 'String' } },
+    two: { data: { name: 'String425329', leader: 'String' } },
   },
 })

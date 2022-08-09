@@ -1,11 +1,11 @@
 import GroupCell from 'src/components/Group/GroupCell'
-import MemberOfGroupCell from 'src/components/Member/MemberOfGroupCell'
+import GroupMembersCell from 'src/components/Group/GroupMembersCell'
 
 const GroupPage = ({ id }) => {
   return (
     <div>
       <GroupCell id={id} />
-      <MemberOfGroupCell groupId={id} />
+      <GroupMembersCell id={id} />
     </div>
   )
 }

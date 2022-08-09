@@ -4,7 +4,7 @@ import Member from 'src/components/Member/Member'
 
 export const QUERY = gql`
   query MemberNoGroupQuery {
-    membersNogroup {
+    membersNoGroup {
       id
       name
       birthDate
@@ -23,7 +23,7 @@ const UPDATE_MEMBER = gql`
     }
   }
 `
-export const Success = ({ membersNogroup, id }) => {
+export const Success = ({ membersNoGroup, id }) => {
   const [updateMember, { loading, error }] = useMutation(UPDATE_MEMBER, {
     onCompleted: () => {
       toast.success('Member added to Group!')
@@ -32,14 +32,20 @@ export const Success = ({ membersNogroup, id }) => {
     awaitRefetchQueries: true,
   })
   const handleClick = (id, groupId) => {
-    updateMember({ variables: { id, input: {groupId} }})
+    updateMember({ variables: { id, input: { groupId } } })
   }
   return (
     <div>
-      {membersNogroup.map((member) => (
+      {membersNoGroup.map((member) => (
         <div key={member.id}>
-          <Member  member={member} />
-          <button className="rw-button rw-button-small rw-button-green" disabled={loading} onClick={() => handleClick(member.id, id )}>Add To Group</button>
+          <Member member={member} />
+          <button
+            className="rw-button rw-button-small rw-button-green"
+            disabled={loading}
+            onClick={() => handleClick(member.id, id)}
+          >
+            Add To Group
+          </button>
         </div>
       ))}
     </div>

@@ -1,11 +1,5 @@
 import { db } from 'src/lib/db'
 
-export const membersNogroup = () => {
-  return db.member.findMany({
-    where: { groupId: null },
-  })
-}
-
 export const members = () => {
   return db.member.findMany()
 }
@@ -38,11 +32,12 @@ export const deleteMember = ({ id }) => {
 export const Member = {
   group: (_obj, { root }) =>
     db.member.findUnique({ where: { id: root.id } }).group(),
+  attendance: (_obj, { root }) =>
+    db.member.findUnique({ where: { id: root.id } }).attendance(),
 }
 
-export const memberOfGroup = ({ groupId }) => {
+export const membersNoGroup = () => {
   return db.member.findMany({
-    where: { groupId },
-    select: { id: true, name: true, email: true, phoneNumber: true, groupId: true },
+    where: { groupId: null}
   })
 }
