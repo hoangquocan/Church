@@ -35,3 +35,9 @@ export const Activity = {
   attendance: (_obj, { root }) =>
     db.activity.findUnique({ where: { id: root.id } }).attendance(),
 }
+
+export const activityNotAtten = () => {
+  return db.activity.findMany({
+    where: { attendance: null}
+  })
+}

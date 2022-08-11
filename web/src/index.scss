@@ -24,6 +24,7 @@ label {
 
 button,
 input,
+select,
 [tabindex] {
   outline: none;
   border: none;
@@ -93,4 +94,12 @@ a[href] {
   font-size: 2rem;
   line-height: 1;
   margin-right: 0.25rem;
+}
+
+input, select {
+  width: 100%;
+  padding: 0 12px;
+  border: 1px solid transparent;
+  border-radius: var(--br-5);
+  height: 35px;
 }

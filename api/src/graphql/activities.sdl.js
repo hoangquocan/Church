@@ -10,6 +10,7 @@ export const schema = gql`
   }
 
   type Query {
+    activityNotAtten: [Activity!]! @requireAuth
     activities: [Activity!]! @requireAuth
     activity(id: Int!): Activity @requireAuth
   }

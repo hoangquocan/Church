@@ -20,7 +20,7 @@ const GroupForm = (props) => {
 
         <Label name="leader">Leader</Label>
         <Input type="text" name="leader" placeholder="Trưởng Nhóm" />
-        <FieldError name='text'/>
+        <FieldError name='leader'/>
 
         <Button disable={props.loading} btn_size="large">Save</Button>
       </Form>

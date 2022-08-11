@@ -84,7 +84,6 @@ const Groups = ({ groups }) => {
             ))}
           </tbody>
         </table>
-      {/* </div> */}
     </div>
   )
 }
