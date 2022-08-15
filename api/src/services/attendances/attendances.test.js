@@ -29,13 +29,13 @@ describe('attendances', () => {
     const result = await createAttendance({
       input: {
         activityId: scenario.attendance.two.activityId,
-        groupId: scenario.attendance.two.groupId,
+        memberId: scenario.attendance.two.memberId,
         present: true,
       },
     })
 
     expect(result.activityId).toEqual(scenario.attendance.two.activityId)
-    expect(result.groupId).toEqual(scenario.attendance.two.groupId)
+    expect(result.memberId).toEqual(scenario.attendance.two.memberId)
     expect(result.present).toEqual(true)
   })
 

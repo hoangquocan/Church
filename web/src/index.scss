@@ -29,10 +29,20 @@ select,
   outline: none;
   border: none;
 }
+select, input {
+  width: 100%;
+  padding: 0 12px;
+  border: 1px solid transparent;
+  border-radius: var(--br-5);
+  height: 35px;
+}
 
 a[href] {
   color: var(--text-color);
   text-decoration: none;
+}
+ul {
+  list-style-type: none;
 }
 
 .text-center {
@@ -96,10 +106,3 @@ a[href] {
   margin-right: 0.25rem;
 }
 
-input, select {
-  width: 100%;
-  padding: 0 12px;
-  border: 1px solid transparent;
-  border-radius: var(--br-5);
-  height: 35px;
-}

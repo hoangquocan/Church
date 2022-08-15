@@ -1,7 +1,7 @@
 import { Label, Form, FieldError } from '@redwoodjs/forms'
 import Input from 'src/components/Form/Input'
 import Button from 'src/components/Form/Button'
-
+import './GroupForm.scss'
 const GroupForm = (props) => {
   const handleSubmit = (data) => {
     props.onSave(data)

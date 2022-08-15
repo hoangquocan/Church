@@ -5,7 +5,7 @@ export const schema = gql`
     date: DateTime!
     group: Group!
     groupId: Int!
-    attendance: Attendance
+    attendance: [Attendance]!
     createdAt: DateTime!
   }
 
@@ -26,7 +26,6 @@ export const schema = gql`
     date: DateTime
     groupId: Int
   }
-
   type Mutation {
     createActivity(input: CreateActivityInput!): Activity! @requireAuth
     updateActivity(id: Int!, input: UpdateActivityInput!): Activity!

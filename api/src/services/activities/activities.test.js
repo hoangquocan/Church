@@ -29,13 +29,13 @@ describe('activities', () => {
     const result = await createActivity({
       input: {
         name: 'String',
-        date: '2022-08-08T15:04:55Z',
+        date: '2022-08-12T11:30:23Z',
         groupId: scenario.activity.two.groupId,
       },
     })
 
     expect(result.name).toEqual('String')
-    expect(result.date).toEqual('2022-08-08T15:04:55Z')
+    expect(result.date).toEqual('2022-08-12T11:30:23Z')
     expect(result.groupId).toEqual(scenario.activity.two.groupId)
   })
 

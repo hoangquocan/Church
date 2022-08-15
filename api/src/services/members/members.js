@@ -1,5 +1,19 @@
 import { db } from 'src/lib/db'
 
+const MEMBERS_PER_PAGE = 5
+
+export const memberPage = ({ page = 1}) => {
+  const offset = (page - 1) * MEMBERS_PER_PAGE
+
+  return {
+    members: db.member.findMany({
+      take: MEMBERS_PER_PAGE,
+      skip: offset,
+      orderBy: { createdAt: 'desc'}
+    }),
+    count: db.member.count()
+  }
+}
 export const members = () => {
   return db.member.findMany()
 }

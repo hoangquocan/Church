@@ -8,11 +8,16 @@ export const schema = gql`
     address: String!
     group: Group
     groupId: Int
-    attendance: Attendance
+    attendance: [Attendance]!
     createdAt: DateTime!
   }
 
+  type MemberPage {
+    members: [Member!]!
+    count: Int!
+  }
   type Query {
+    memberPage(page: Int): MemberPage @requireAuth
     membersNoGroup: [Member!]! @requireAuth
     members: [Member!]! @requireAuth
     member(id: Int!): Member @requireAuth

@@ -4,7 +4,7 @@ export const schema = gql`
     activity: Activity!
     activityId: Int!
     member: Member!
-    groupId: Int!
+    memberId: Int!
     present: Boolean!
     submittedBy: String
     createdAt: DateTime!
@@ -17,19 +17,23 @@ export const schema = gql`
 
   input CreateAttendanceInput {
     activityId: Int!
-    groupId: Int!
+    memberId: Int!
     present: Boolean!
     submittedBy: String
   }
 
   input UpdateAttendanceInput {
     activityId: Int
-    groupId: Int
+    memberId: Int
     present: Boolean
     submittedBy: String
   }
 
+  type Attendances {
+    attendances: [Attendance]
+  }
   type Mutation {
+    createManyAttendance(input: [CreateAttendanceInput!]!): Attendances @requireAuth
     createAttendance(input: CreateAttendanceInput!): Attendance! @requireAuth
     updateAttendance(id: Int!, input: UpdateAttendanceInput!): Attendance!
       @requireAuth

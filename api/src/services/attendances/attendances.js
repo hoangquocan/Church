@@ -31,7 +31,13 @@ export const deleteAttendance = ({ id }) => {
 
 export const Attendance = {
   activity: (_obj, { root }) =>
-    db.attendance.findUnique({ where: { id: root.id } }).activity(),
+  db.attendance.findUnique({ where: { id: root.id } }).activity(),
   member: (_obj, { root }) =>
-    db.attendance.findUnique({ where: { id: root.id } }).member(),
+  db.attendance.findUnique({ where: { id: root.id } }).member(),
+}
+
+export const createManyAttendance = ({input}) => {
+  return db.attendance.createMany({
+    data: input,
+  })
 }

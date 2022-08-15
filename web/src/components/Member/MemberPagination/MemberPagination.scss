@@ -1,0 +1,12 @@
+.pagination {
+  text-align: center;
+  ul {
+    margin-top: 5px;
+    :hover {
+      background-color: rgb(163, 159, 159);
+     }
+    li{
+   display: inline;
+   padding: 0 5px;
+  }}
+}

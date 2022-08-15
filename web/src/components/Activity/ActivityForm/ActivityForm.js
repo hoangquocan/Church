@@ -1,15 +1,16 @@
-import { Label, Form, FieldError, SelectField } from '@redwoodjs/forms'
-import Input from 'src/components/Form/Input'
-import Button from 'src/components/Form/Button'
-import DatePick from 'src/components/Form/DatePicker/DatePicker'
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/dist/toast'
 import { navigate, routes } from '@redwoodjs/router'
-import './ActivityForm.scss'
+
 import React from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { Controller, useForm } from 'react-hook-form'
+
+import { Label, Form, FieldError, SelectField } from '@redwoodjs/forms'
+import Input from 'src/components/Form/Input'
+import Button from 'src/components/Form/Button'
+import './ActivityForm.scss'
 
 const CREATE_ACTIVITY = gql`
   mutation CreateActivityMutation($input: CreateActivityInput!) {

@@ -3,16 +3,16 @@ export const standard = defineScenario({
     one: {
       data: {
         name: 'String',
-        date: '2022-08-08T15:04:55Z',
-        group: { create: { name: 'String7941105', leader: 'String' } },
+        date: '2022-08-12T11:30:23Z',
+        group: { create: { name: 'String3226645', leader: 'String' } },
       },
     },
 
     two: {
       data: {
         name: 'String',
-        date: '2022-08-08T15:04:55Z',
-        group: { create: { name: 'String8815698', leader: 'String' } },
+        date: '2022-08-12T11:30:23Z',
+        group: { create: { name: 'String8330492', leader: 'String' } },
       },
     },
   },

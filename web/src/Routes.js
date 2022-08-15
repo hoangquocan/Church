@@ -22,7 +22,7 @@ const Routes = () => {
         <Route path="/reports" page={ReportsPage} name="reports" />
 
         <Route path="/attendance" page={AttendanceAttendancePage} name="attendance" />
-        <Route path="/attendance/activity-not-attendance" page={AttendanceActivityNotAttenPage} name="attendanceActivity" />
+        <Route path="/attendance/activity/{id:Int}" page={AttendanceActivityNotAttenPage} name="attendanceActivity" />
 
         <Route path="/members" page={MemberMembersPage} name="members" />
         <Route path="/members/new" page={MemberNewMemberPage} name="newMember" />

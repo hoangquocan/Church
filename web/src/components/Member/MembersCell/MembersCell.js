@@ -1,28 +1,38 @@
-import Member from 'src/components/Member/Member'
 import { Link, routes } from '@redwoodjs/router'
+import Member from 'src/components/Member/Member'
+import MemberPagination from 'src/components/Member/MemberPagination'
 
 export const QUERY = gql`
-  query MembersQuery {
-    members {
-      id
-      name
-      birthDate
-      address
-      phoneNumber
-      email
-      createdAt
+  query MembersQuery($page: Int) {
+    memberPage(page: $page) {
+      members {
+        id
+        name
+        birthDate
+        address
+        phoneNumber
+        email
+        createdAt
+      }
+      count
     }
   }
 `
 
+export const beforeQuery = ({ page }) => {
+  page = page ? parseInt(page, 10) : 1
+  return { variables: { page } }
+}
+
 export const Loading = () => {
-  return (<h3 className='text-center'>Loading...</h3>)}
+  return <h3 className="text-center">Loading...</h3>
+}
 
 export const Empty = () => {
   return (
-    <div className='text-center'>
+    <div className="text-center">
       <h3>No members yet.</h3>
-      <Link to={routes.newMember()} style={{color: 'var(--color-link)'}}>
+      <Link to={routes.newMember()} style={{ color: 'var(--color-link)' }}>
         {'Create one?'}
       </Link>
     </div>
@@ -32,13 +42,13 @@ export const Failure = ({ error }) => (
   <div style={{ color: 'red' }}>Error: {error.message}</div>
 )
 
-export const Success = ({ members }) => {
-
+export const Success = ({ memberPage, count }) => {
   return (
-    <div>
-      {members.map((member) => (
+    <>
+      {memberPage.members.map((member) => (
         <Member key={member.id} member={member} />
       ))}
-    </div>
+      <MemberPagination count={memberPage.count} />
+    </>
   )
 }

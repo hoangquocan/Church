@@ -41,19 +41,19 @@ model Group {
 }
 
 model Activity {
-  id         Int         @id @default(autoincrement()) @db.UnsignedInt
+  id         Int          @id @default(autoincrement()) @db.UnsignedInt
   name       String
-  date       DateTime    @db.Date
-  group      Group       @relation(fields: [groupId], references: [id])
-  groupId    Int         @db.UnsignedInt()
-  attendance Attendance?
-  createdAt  DateTime    @default(now())
+  date       DateTime     @db.Date
+  group      Group        @relation(fields: [groupId], references: [id])
+  groupId    Int          @db.UnsignedInt()
+  attendance Attendance[]
+  createdAt  DateTime     @default(now())
 }
 
 model Attendance {
   id          Int      @id @default(autoincrement())
   activity    Activity @relation(fields: [activityId], references: [id])
-  activityId  Int      @unique @db.UnsignedInt
+  activityId  Int      @db.UnsignedInt
   member      Member   @relation(fields: [memberId], references: [id])
   memberId    Int      @db.UnsignedInt
   present     Boolean  @db.Bit(1)

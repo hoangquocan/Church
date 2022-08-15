@@ -38,6 +38,6 @@ export const Activity = {
 
 export const activityNotAtten = () => {
   return db.activity.findMany({
-    where: { attendance: null}
+    where: { attendance: { none: {} } },
   })
 }

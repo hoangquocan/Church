@@ -1,0 +1,33 @@
+.attendance-wrapper {
+  margin: var(--mg-10);
+  label, input {
+    margin: 0;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+  }
+  .attendance-header {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 20px;
+  }
+  .attendance-box {
+    display: flex;
+    justify-content: space-evenly;
+  }
+  table {
+    align-items: center;
+    width: 60%;
+    border-collapse: collapse;
+    margin: 0 auto;
+  }
+  th,
+  td {
+    padding: 8px;
+    border: 1px solid #dee2e6;
+  }
+  th {
+    height: 40px;
+    text-align: left;
+  }
+}

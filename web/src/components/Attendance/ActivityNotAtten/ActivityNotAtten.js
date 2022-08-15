@@ -23,7 +23,7 @@ const ActivityNotAtten = ({ activities }) => {
               <td>
                 <nav>
                   <Link
-                    to={routes.attendanceActivity()}
+                    to={routes.attendanceActivity({id: activity.id})}
                     className="rw-button rw-button-small rw-button-blue"
                     title={'Attendance Activity ' + activity.name}
                   >
