@@ -36,7 +36,7 @@
     line-height: 22px;
     height: 100%;
     padding-right: 30px;
-    font-size: 2rem;
+    font-size: 1.4rem;
     // caret-color: var(--primary);
     background-color: transparent;
   }
@@ -64,7 +64,7 @@
 .search-btn {
   width: var(--search-btn-width);
   height: 100%;
-  font-size: 2rem;
+  font-size: 1.6rem;
   border-top-right-radius: var(--search-border-radius);
   border-bottom-right-radius: var(--search-border-radius);
   color: rgba(22, 24, 35, 0.34);
@@ -81,7 +81,7 @@
 
 .search-clear {
     position: absolute;
-    font-size: 2rem;
+    font-size: 1.4rem;
     right: calc(var(--search-btn-width) + 16px);
     top: 50%;
     transform: translateY(-50%);
@@ -93,7 +93,7 @@
 
 
   button {
-    font-size: 3rem;
+    font-size: 2.4rem;
     background-color: rgb(235, 184, 184);
     border-radius: var(--br-5);
 

@@ -1,5 +1,7 @@
 .attendance-wrapper {
-  margin: var(--mg-10);
+  margin: 10px auto;
+  // display: flex;
+    // justify-content: space-between;
   label, input {
     margin: 0;
     padding: 0;
@@ -7,8 +9,6 @@
     height: 20px;
   }
   .attendance-header {
-    display: flex;
-    justify-content: space-between;
     padding-bottom: 20px;
   }
   .attendance-box {

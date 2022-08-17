@@ -1,12 +1,11 @@
 import { MetaTags } from '@redwoodjs/web'
 import AttendanceActivityCell from 'src/components/Attendance/AttendanceActivityCell'
 
-const ActivityNotAttenPage = ({id}) => {
+const ActivityNotAttenPage = ({ id }) => {
   return (
     <>
       <MetaTags title="ActivityNotAtten" description="ActivityNotAtten page" />
-      <AttendanceActivityCell id={id}/>
-
+      <AttendanceActivityCell id={id} />
     </>
   )
 }

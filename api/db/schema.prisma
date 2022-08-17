@@ -43,7 +43,7 @@ model Group {
 model Activity {
   id         Int          @id @default(autoincrement()) @db.UnsignedInt
   name       String
-  date       DateTime     @db.Date
+  date       DateTime     
   group      Group        @relation(fields: [groupId], references: [id])
   groupId    Int          @db.UnsignedInt()
   attendance Attendance[]

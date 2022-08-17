@@ -8,6 +8,7 @@ import { RedwoodApolloProvider } from '@redwoodjs/web/apollo'
 
 import FatalErrorPage from 'src/pages/FatalErrorPage'
 import Routes from 'src/Routes'
+import { ContextProvider } from './components/Context/Context/Context'
 
 import './index.scss'
 import './Variables.scss'
@@ -43,7 +44,9 @@ const App = () => (
     <RedwoodProvider titleTemplate="%PageTitle | %AppTitle">
       <AuthProvider client={firebaseClient} type="firebase">
         <RedwoodApolloProvider>
+          <ContextProvider>
           <Routes />
+          </ContextProvider>
         </RedwoodApolloProvider>
       </AuthProvider>
     </RedwoodProvider>

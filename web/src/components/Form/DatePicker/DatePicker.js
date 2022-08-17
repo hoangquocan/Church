@@ -1,27 +1,29 @@
-import React, { useState } from 'react'
-import DatePicker from 'react-datepicker'
+import React from 'react'
+import ReactDatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import './DatePicker.scss'
-import { Controller, useForm } from 'react-hook-form'
+import { Controller } from 'react-hook-form'
 
-const DatePick = ({ name }) => {
-  const {
-    control,
-    // formState: { errors }
-  } = useForm()
+const DatePicker = ({ name, control, showTimeSelect, dateFormat }) => {
   return (
     <Controller
       control={control}
       name={name}
       render={({ field }) => (
-        <DatePicker
+        <ReactDatePicker
+          dateFormat={dateFormat}
           placeholderText="Select Date"
           onChange={(date) => field.onChange(date)}
           selected={field.value}
+          showMonthDropdown
+          showYearDropdown
+          dropdownMode="select"
+          showTimeSelect={showTimeSelect}
+          className="datepicker"
         />
       )}
     />
   )
 }
 
-export default DatePick
+export default DatePicker

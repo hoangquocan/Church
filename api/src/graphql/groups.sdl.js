@@ -7,12 +7,22 @@ export const schema = gql`
     activities: [Activity]!
     createdAt: DateTime!
   }
+  type count {
+    members: Int
+  }
 
-  type members {
-    members: [Member!]!
+  type groupCount {
+    id: Int!
+    name: String!
+    members: [Member]!
+    leader: String!
+    activities: [Activity]!
+    createdAt: DateTime!
+    count: count
   }
   type Query {
-    groupMembers(id: Int!): members @requireAuth
+    groupCount: [groupCount] @requireAuth
+    # groupMembers(id: Int!): members @requireAuth
     groups: [Group!]! @requireAuth
     group(id: Int!): Group @requireAuth
   }

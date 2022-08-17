@@ -41,3 +41,15 @@ export const activityNotAtten = () => {
     where: { attendance: { none: {} } },
   })
 }
+
+export const activityInGroupByDate = ({ groupId, startDate, endDate }) => {
+  return db.activity.findMany({
+    where: {
+      AND: [
+        { groupId },
+        { date: { gte: startDate } },
+        { date: { lte: endDate } },
+      ],
+    },
+  })
+}

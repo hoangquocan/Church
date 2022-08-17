@@ -1,17 +1,14 @@
-import Group from 'src/components/Group/Group'
-
+import { ContextProvider } from "../Context/Context"
 export const QUERY = gql`
-  query FindGroupById($id: Int!) {
-    group: group(id: $id) {
+  query FindContextQuery {
+    groups: groups {
       id
       name
-      leader
-      members {
-        id
-      }
+
     }
   }
 `
+
 export const Loading = () => <div>Loading...</div>
 
 export const Empty = () => <div>Empty</div>
@@ -20,7 +17,6 @@ export const Failure = ({ error }) => (
   <div style={{ color: 'red' }}>Error: {error.message}</div>
 )
 
-export const Success = ({ group }) => {
-
-  return <Group group={group} />
- }
+export const Success = ({ groups }) => {
+  return <ContextProvider groups={groups}/>
+}

@@ -15,14 +15,18 @@ const GroupForm = (props) => {
         error={props.error}
       >
         <Label name="name">Name</Label>
-        <Input type="text" name="name" placehoder="Hội Thánh + Tên Nhóm" />
-        <FieldError name='name'/>
+        <Input type="text" name="name" placeholder="Hội Thánh + Tên Nhóm" />
+        <FieldError name="name" />
 
         <Label name="leader">Leader</Label>
-        <Input type="text" name="leader" placeholder="Trưởng Nhóm" />
-        <FieldError name='leader'/>
+        <Input type="text" name="leader" />
+        <FieldError name="leader" />
 
-        <Button disable={props.loading} btn_size="large">Save</Button>
+        <div className="form-btn">
+          <Button disable={props.loading} btn_size="large">
+            Save
+          </Button>
+        </div>
       </Form>
     </div>
   )

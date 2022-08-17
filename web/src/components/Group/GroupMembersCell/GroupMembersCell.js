@@ -20,6 +20,7 @@ export const Failure = ({ error }) => {
 }
 
 export const Success = ({ group }) => {
+
   return (
     <div>
       {group.members.map((member) => (

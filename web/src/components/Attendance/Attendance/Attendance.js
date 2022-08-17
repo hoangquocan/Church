@@ -24,8 +24,9 @@ const Attendance = ({ activity }) => {
     memberId: member.id,
     present: false,
   }))
-  const [checkedState, setCheckedState] = useState(new Array(members.length).fill(false))
-
+  const [checkedState, setCheckedState] = useState(
+    new Array(members.length).fill(false)
+  )
 
   const [createAttendance, { loading, error }] = useMutation(
     CREATE_ATTENDANCE,
@@ -51,7 +52,7 @@ const Attendance = ({ activity }) => {
   }, [checkedState])
 
   const onSubmit = (result) => {
-    createAttendance({ variables: {input: result} })
+    createAttendance({ variables: { input: result } })
   }
 
   return (
@@ -85,7 +86,11 @@ const Attendance = ({ activity }) => {
             ))}
           </tbody>
         </table>
-        <Button disabled={loading}>SUBMIT</Button>
+        <div className="form-btn">
+          <Button disabled={loading} btn_size="md">
+            SUBMIT
+          </Button>
+        </div>
       </Form>
     </div>
   )

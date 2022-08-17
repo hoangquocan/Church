@@ -41,3 +41,22 @@ export const createManyAttendance = ({input}) => {
     data: input,
   })
 }
+
+export const attendanceByDate = ({startDate, endDate, groupId}) => {
+  return db.attendance.findMany({
+    where: {
+      activity: {
+        AND: [
+          {groupId: { equals: groupId }},
+          { date: { gte: startDate } },
+          { date: { lte: endDate } },
+        ]
+      }
+    },
+    include: {
+      _count: {
+        select: { present: true }
+      }
+    }
+  })
+}

@@ -42,7 +42,7 @@ export const Failure = ({ error }) => (
   <div style={{ color: 'red' }}>Error: {error.message}</div>
 )
 
-export const Success = ({ memberPage, count }) => {
+export const Success = ({ memberPage }) => {
   return (
     <>
       {memberPage.members.map((member) => (

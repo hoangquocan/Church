@@ -1,3 +1,4 @@
+import { back } from '@redwoodjs/router'
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/dist/toast'
 import Member from 'src/components/Member/Member'
@@ -23,6 +24,14 @@ const UPDATE_MEMBER = gql`
     }
   }
 `
+export const Empty = () => {
+  return (
+    <>
+      <h2 className="text-center">All Members Added To Group!</h2>
+      <button className="rw-button" style={{margin: "auto"}} onClick={() => back()}>Go Back</button>
+    </>
+  )
+}
 export const Success = ({ membersNoGroup, id }) => {
   const [updateMember, { loading, error }] = useMutation(UPDATE_MEMBER, {
     onCompleted: () => {

@@ -16,23 +16,25 @@ const CREATE_MEMBER_MUTATION = gql`
   }
 `
 const NewMember = () => {
-  const [createMember, { loading, error }] = useMutation(CREATE_MEMBER_MUTATION, {
-    onCompleted: () => {
-      toast.success('Member Created!')
-      navigate(routes.members())
+  const [createMember, { loading, error }] = useMutation(
+    CREATE_MEMBER_MUTATION,
+    {
+      onCompleted: () => {
+        toast.success('Member Created!')
+        navigate(routes.members())
+      },
     }
-  })
+  )
 
-  const onSave = (input) => {
-    createMember({ variables: { input }})
+  const onSave = (data, input) => {
+    createMember({ variables: { input: { ...input, ...data } } })
   }
 
   return (
     <>
-      <h2 className='text-center'>ADD NEW MEMBER</h2>
-      <div>
-        <MemberForm onSave={onSave} loading={loading} error={error} />
-      </div>
+      <h2 className="text-center">ADD NEW MEMBER</h2>
+
+      <MemberForm onSave={onSave} loading={loading} error={error} />
     </>
   )
 }

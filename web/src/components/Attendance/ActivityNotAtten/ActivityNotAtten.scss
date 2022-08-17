@@ -1,10 +1,10 @@
 .attendance-page {
   margin: var(--mg-10);
 
-
   table {
     width: 100%;
     border-collapse: collapse;
+    counter-reset: rowNumber 1;
   }
   th,
   td {
@@ -16,8 +16,18 @@
     text-align: left;
   }
 
-  nav{
+  nav {
     display: flex;
     justify-content: space-evenly;
+  }
+
+  table tr:not(:first-child) {
+    counter-increment: rowNumber;
+  }
+
+  table tr td:first-child::before {
+    content: counter(rowNumber);
+    min-width: 1em;
+    margin-right: 0.5em;
   }
 }

@@ -60,7 +60,7 @@ const Activities = ({ activities }) => {
               <tr key={activity.id}>
                 <td>{activity.id}</td>
                 <td>{activity.name}</td>
-                <td>{new Date(activity.date).toLocaleDateString('en-GB')}</td>
+                <td>{new Date(activity.date).toLocaleString( { timeZone: 'UTC' })}</td>
                 <td>{activity.group.name}</td>
                 <td>{timeTag(activity.createdAt)}</td>
                 <td>

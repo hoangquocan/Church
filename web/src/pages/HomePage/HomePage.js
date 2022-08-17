@@ -1,6 +1,6 @@
 import { Link, routes } from '@redwoodjs/router'
 import { MetaTags } from '@redwoodjs/web'
-
+import ContextCell from 'src/components/Context/ContextCell'
 const HomePage = () => {
   return (
     <>
@@ -8,16 +8,8 @@ const HomePage = () => {
 
       <h1>HomePage</h1>
 
-      <p>
-        Find me in
-        <code>./web/src/pages/HomePage/HomePage.js</code>
-      </p>
+      <ContextCell />
 
-      <p>
-        My default route is named
-        <code>home</code>, link to me with `<Link to={routes.home()}>Home</Link>
-        `
-      </p>
     </>
   )
 }

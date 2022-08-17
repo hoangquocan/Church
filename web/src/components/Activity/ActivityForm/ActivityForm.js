@@ -3,13 +3,14 @@ import { toast } from '@redwoodjs/web/dist/toast'
 import { navigate, routes } from '@redwoodjs/router'
 
 import React from 'react'
-import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
-import { Controller, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 
 import { Label, Form, FieldError, SelectField } from '@redwoodjs/forms'
 import Input from 'src/components/Form/Input'
 import Button from 'src/components/Form/Button'
+import DatePicker from 'src/components/Form/DatePicker/DatePicker'
+
 import './ActivityForm.scss'
 
 const CREATE_ACTIVITY = gql`
@@ -38,27 +39,25 @@ const ActivityForm = ({ groups }) => {
         <Label name="name">Name</Label>
         <Input type="text" name="name" placeholder="Tên Hoạt Động" />
         <FieldError name="name" />
+
         <Label name="date" className="label-group">
           Date
         </Label>
-        <Controller
-          control={control}
+        <DatePicker
           name="date"
-          render={({ field }) => (
-            <DatePicker
-              placeholderText="Select Date"
-              onChange={(date) => field.onChange(date)}
-              selected={field.value}
-            />
-          )}
+          control={control}
+          showTimeSelect
+          dateFormat="yyyy/MM/dd hh:mm aa"
         />
-        {/* <DatePick name="date" /> */}
         <FieldError name="date" />
-        <Label name="group">Group Participate</Label>
+
+        <Label name="groupId">Group Participate</Label>
+
         <SelectField
           name="groupId"
           defaultValue=""
           validation={{ valueAsNumber: true }}
+          required
         >
           <option value="" disabled hidden>
             Select One Group
@@ -69,10 +68,14 @@ const ActivityForm = ({ groups }) => {
             </option>
           ))}
         </SelectField>
-        <FieldError name="group" />
-        <Button disable={loading} btn_size="large">
-          Save
-        </Button>
+
+        <FieldError name="groupId" />
+
+        <div className="form-btn">
+          <Button disable={loading} btn_size="large">
+            Save
+          </Button>
+        </div>
       </Form>
     </div>
   )
