@@ -3,26 +3,4 @@
   margin: 20px auto;
   font-size: 1.4rem;
   font-weight: 500;
-
-    select {
-      background-color: transparent;
-      border: 1px solid #ccc;
-      font-size: 1em;
-      border-radius: var(--br-20);
-      appearance: none;
-      background: transparent;
-      background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
-      background-repeat: no-repeat;
-      background-position-x: 97%;
-      background-position-y: 5px;
-    }
-    select:required:invalid {
-      color: gray;
-    }
-    option[value=""][disabled] {
-      display: none;
-    }
-    option {
-      color: black;
-    }
-  }
+}

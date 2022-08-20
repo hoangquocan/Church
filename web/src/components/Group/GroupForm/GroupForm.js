@@ -15,12 +15,12 @@ const GroupForm = (props) => {
         error={props.error}
       >
         <Label name="name">Name</Label>
-        <Input type="text" name="name" placeholder="Hội Thánh + Tên Nhóm" />
-        <FieldError name="name" />
+        <Input type="text" name="name" />
+        <FieldError name="name" className="error"/>
 
         <Label name="leader">Leader</Label>
         <Input type="text" name="leader" />
-        <FieldError name="leader" />
+        <FieldError name="leader" className="error"/>
 
         <div className="form-btn">
           <Button disable={props.loading} btn_size="large">

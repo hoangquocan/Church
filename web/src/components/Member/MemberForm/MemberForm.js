@@ -20,25 +20,29 @@ const MemberForm = (props) => {
         <FormError error={props.error} />
         <Label name="name">Full Name</Label>
         <Input type="text" name="name" />
-        <FieldError name="name"></FieldError>
+        <FieldError name="name" className="error"></FieldError>
 
         <Label name="birthDate">Birth Date</Label>
-        <DatePicker name="birthDate" control={control} dateFormat="yyyy/MM/dd"/>
+        <DatePicker
+          name="birthDate"
+          control={control}
+          dateFormat="yyyy/MM/dd"
+        />
         <FieldError name="birthDate"></FieldError>
 
         <Label name="phoneNumber">Phone Number</Label>
         <Input type="text" name="phoneNumber" />
-        <FieldError name="phoneNumber"></FieldError>
+        <FieldError name="phoneNumber" className="error"></FieldError>
 
         <Label name="email">Email</Label>
-        <Input type="email" name="email" placeholder="Example@gmail.com" />
-        <FieldError name="email"></FieldError>
+        <Input type="email" name="email" />
+        <FieldError name="email" className="error"></FieldError>
 
         <Label name="address">Address</Label>
-        <Input type="text" name="address" placeholder="" />
-        <FieldError name="adress"></FieldError>
+        <Input type="text" name="address" />
+        <FieldError name="adress" className="error"></FieldError>
 
-        <div className='form-btn'>
+        <div className="form-btn">
           <Button disable={props.loading} btn_size="large">
             Save
           </Button>

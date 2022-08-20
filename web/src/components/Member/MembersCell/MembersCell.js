@@ -1,6 +1,6 @@
 import { Link, routes } from '@redwoodjs/router'
-import Member from 'src/components/Member/Member'
 import MemberPagination from 'src/components/Member/MemberPagination'
+import Members from '../Members/Members'
 
 export const QUERY = gql`
   query MembersQuery($page: Int) {
@@ -12,6 +12,9 @@ export const QUERY = gql`
         address
         phoneNumber
         email
+        group {
+          name
+        }
         createdAt
       }
       count
@@ -45,9 +48,7 @@ export const Failure = ({ error }) => (
 export const Success = ({ memberPage }) => {
   return (
     <>
-      {memberPage.members.map((member) => (
-        <Member key={member.id} member={member} />
-      ))}
+      <Members members={memberPage.members}/>
       <MemberPagination count={memberPage.count} />
     </>
   )

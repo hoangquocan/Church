@@ -1,14 +1,20 @@
-import Member from 'src/components/Member/Member'
+import Members from 'src/components/Member/Members/Members'
 
 export const QUERY = gql`
   query GroupMembersQuery($id: Int!) {
     group(id: $id) {
+      id
       members {
         id
         name
         email
+        birthDate
         phoneNumber
         address
+        group{
+          name
+          id
+        }
         groupId
       }
     }
@@ -22,10 +28,6 @@ export const Failure = ({ error }) => {
 export const Success = ({ group }) => {
 
   return (
-    <div>
-      {group.members.map((member) => (
-        <Member summary key={member.id} member={member} />
-      ))}
-    </div>
+   <Members groupId={group.id} members={group.members} isGroup={true}/>
   )
 }

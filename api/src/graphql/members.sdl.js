@@ -11,7 +11,9 @@ export const schema = gql`
     attendance: [Attendance]!
     createdAt: DateTime!
   }
-
+  type GroupMember {
+    group: [Group!]
+  }
   type MemberPage {
     members: [Member!]!
     count: Int!

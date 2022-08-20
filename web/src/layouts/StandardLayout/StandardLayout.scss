@@ -2,15 +2,27 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
-.layout-menu {
+.layout-container {
+  margin-top: var(--header-height);
   display: flex;
-  width: 100%;
+  width: 100vw;
+  align-items: center;
+}
+.layout-sidebar {
+  position: relative;
+  width: var(--sidebar-width);
+  flex: 0 0 var(--sidebar-width);
 }
 
 .layout-content {
-  padding: var(--pd-10);
+  padding: var(--pd-20);
+  padding-right: var(--pd-30);
+  background: #fff;
+  width: 100%;
+  height: 100%;
   flex: 1;
-  background: #f2f2f2;
 }

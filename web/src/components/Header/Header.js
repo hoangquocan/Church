@@ -28,24 +28,24 @@ const Header = () => {
   const { loading, isAuthenticated, logIn, logOut, currentUser, userMetadata } =
     useAuth()
 
-    const onClick = async () => {
-      if (isAuthenticated) {
-        await logOut()
-        navigate('/')
-      } else {
-        // console.log(logIn);
+  const onClick = async () => {
+    if (isAuthenticated) {
+      await logOut()
+      navigate('/')
+    } else {
+      // console.log(logIn);
 
-        await logIn()
-        // await create({
-        //       variables: { input: { 'email': currentUser.email, roles: 'user' } },
-        //     })
-      }
-      // return create({
-      //         variables: { input: { 'email': currentUser.email, roles: 'user' } },
-      //       })
+      await logIn()
+      // await create({
+      //       variables: { input: { 'email': currentUser.email, roles: 'user' } },
+      //     })
     }
-    return (
-      <div className="header-wrapper">
+    // return create({
+    //         variables: { input: { 'email': currentUser.email, roles: 'user' } },
+    //       })
+  }
+  return (
+    <header className="header-wrapper">
       <Toaster />
       <div className="header-logo">
         <Link to={routes.home()}>
@@ -58,9 +58,11 @@ const Header = () => {
         <button className="search-clear">
           <FontAwesomeIcon icon={faCircleXmark} />
         </button>
-        <button className="search-btn">
-          <FontAwesomeIcon icon={faMagnifyingGlass} />
-        </button>
+       <div className="search-btn">
+          <button >
+          <ion-icon name="search-outline"></ion-icon>
+          </button>
+       </div>
       </div>
 
       <div className="header-login">
@@ -68,7 +70,7 @@ const Header = () => {
           {isAuthenticated ? 'Log out' : 'Log in'}
         </button>
       </div>
-    </div>
+    </header>
   )
 }
 

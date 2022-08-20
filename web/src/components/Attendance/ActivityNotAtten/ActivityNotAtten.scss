@@ -6,20 +6,6 @@
     border-collapse: collapse;
     counter-reset: rowNumber 1;
   }
-  th,
-  td {
-    padding: 8px;
-    border: 1px solid #dee2e6;
-  }
-  th {
-    height: 40px;
-    text-align: left;
-  }
-
-  nav {
-    display: flex;
-    justify-content: space-evenly;
-  }
 
   table tr:not(:first-child) {
     counter-increment: rowNumber;
@@ -29,5 +15,31 @@
     content: counter(rowNumber);
     min-width: 1em;
     margin-right: 0.5em;
+  }
+
+  th,
+  td {
+    padding: 8px;
+    border: 1px solid #dee2e6;
+  }
+  th {
+    height: 40px;
+    background-color: var(--bg-active);
+    text-align: left;
+  }
+
+
+  tr {
+    &:nth-child(2n) {
+      background-color: #fff;
+    }
+    &:nth-child(2n + 1) {
+      background-color: #f2f2f2;
+    }
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-evenly;
   }
 }

@@ -41,7 +41,7 @@ const Groups = ({ groups }) => {
           GROUPS LIST
         </Link>
         <Link to={routes.newGroup()} className="rw-button rw-button-green">
-          <span>+</span> New Group
+          <ion-icon name="add-circle-outline"></ion-icon>New Group
         </Link>
       </header>
       <table>
@@ -56,7 +56,7 @@ const Groups = ({ groups }) => {
         <tbody>
           {groups.map((group) => (
             <tr key={group.id}>
-              <td>{group.id}</td>
+              <td></td>
               <td>{group.name}</td>
               <td>{group.leader}</td>
               <td>{timeTag(group.createdAt)}</td>

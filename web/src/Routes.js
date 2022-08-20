@@ -19,7 +19,8 @@ const Routes = () => {
         <Route path="/activities/new" page={ActivityNewActivityPage} name="newActivity" />
         <Route path="/activities/{id:Int}" page={ActivityActivityPage} name="activity" />
 
-        <Route path="/reports" page={ReportsPage} name="reports" />
+        <Route path="/reports" page={ReportReportsPage} name="reports" />
+        <Route path="/report-info" page={ReportReportInfoPage} name="reportInfo" />
 
         <Route path="/attendance" page={AttendanceAttendancePage} name="attendance" />
         <Route path="/attendance/activity/{id:Int}" page={AttendanceActivityNotAttenPage} name="attendanceActivity" />

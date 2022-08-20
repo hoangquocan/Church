@@ -5,12 +5,27 @@
     display: flex;
     justify-content: space-between;
     padding-bottom: 20px;
+    ion-icon {
+      padding-right: 10px;
+    }
   }
 
   table {
     width: 100%;
+    counter-reset: rowNumber 1;
     border-collapse: collapse;
   }
+
+  table tr:not(:first-child) {
+    counter-increment: rowNumber;
+  }
+
+  table tr td:first-child::before {
+    content: counter(rowNumber);
+    min-width: 1em;
+    margin-right: 0.5em;
+  }
+
   th,
   td {
     padding: 8px;
@@ -19,6 +34,16 @@
   th {
     height: 40px;
     text-align: left;
+    background-color: var(--bg-active);
+
+  }
+  tr {
+    &:nth-child(2n) {
+      background-color: #fff;
+    }
+    &:nth-child(2n + 1) {
+      background-color: #f2f2f2;
+    }
   }
 
   nav{

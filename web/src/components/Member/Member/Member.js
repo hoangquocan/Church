@@ -11,11 +11,6 @@ const UPDATE_MEMBER = gql`
   }
 `
 const Member = ({ member, summary = false }) => {
-  const formattedDate = (datetime) => {
-    const parsedDate = new Date(datetime)
-    const month = parsedDate.toLocaleString('default', { month: 'long' })
-    return `${parsedDate.getDate()} ${month} ${parsedDate.getFullYear()}`
-  }
 
   const [updateMember] = useMutation(UPDATE_MEMBER, {
     refetchQueries: [
@@ -45,17 +40,28 @@ const Member = ({ member, summary = false }) => {
         </div>
       ) : (
         <div>
-          <h4>Họ Và Tên: {member.name}</h4>
-          <h5>Ngày Sinh: {formattedDate(member.birthDate)}</h5>
-          <h5>Địa Chỉ: {member.address}</h5>
-          <p>Điện Thoại: {member.phoneNumber}</p>
-          <p>Email: {member.email}</p>
-          <p>
-            Khởi Tạo:{' '}
-            <time dateTime={member.createdAt}>
-              {formattedDate(member.createdAt)}
-            </time>
-          </p>
+          <table >
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Birth Date</th>
+              <th>Email</th>
+              <th>Phone Number</th>
+              <th>Address</th>
+              <th>group</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{member.name}</td>
+              <td>{member.birthDate}</td>
+              <td>{member.email}</td>
+              <td>{member.phoneNumber}</td>
+              <td>{member.address}</td>
+              <td>{member.group || ''}</td>
+            </tr>
+          </tbody>
+          </table>
         </div>
       )}
     </div>

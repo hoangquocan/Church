@@ -5,11 +5,24 @@
     display: flex;
     justify-content: space-between;
     padding-bottom: 20px;
+    ion-icon {
+      padding-right: 10px;
+    }
   }
 
   table {
     width: 100%;
     border-collapse: collapse;
+    counter-reset: rowNumber 1;
+  }
+  table tr:not(:first-child) {
+    counter-increment: rowNumber;
+  }
+
+  table tr td:first-child::before {
+    content: counter(rowNumber);
+    min-width: 1em;
+    margin-right: 0.5em;
   }
   th,
   td {
@@ -17,11 +30,19 @@
     border: 1px solid #dee2e6;
   }
   th {
+    background-color: var(--bg-active);
     height: 40px;
     text-align: left;
   }
-
-  nav{
+  tr {
+    &:nth-child(2n) {
+      background-color: #fff;
+    }
+    &:nth-child(2n + 1) {
+      background-color: #f2f2f2;
+    }
+  }
+  nav {
     display: flex;
     justify-content: space-evenly;
   }

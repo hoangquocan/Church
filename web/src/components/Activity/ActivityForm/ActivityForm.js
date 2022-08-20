@@ -37,8 +37,8 @@ const ActivityForm = ({ groups }) => {
     <div className="activity-form">
       <Form onSubmit={handleSubmit(onSubmit)} config={{ mode: 'onBlur' }}>
         <Label name="name">Name</Label>
-        <Input type="text" name="name" placeholder="Tên Hoạt Động" />
-        <FieldError name="name" />
+        <Input type="text" name="name" />
+        <FieldError name="name" className="error"/>
 
         <Label name="date" className="label-group">
           Date
@@ -49,7 +49,7 @@ const ActivityForm = ({ groups }) => {
           showTimeSelect
           dateFormat="yyyy/MM/dd hh:mm aa"
         />
-        <FieldError name="date" />
+        <FieldError name="date" className="error"/>
 
         <Label name="groupId">Group Participate</Label>
 

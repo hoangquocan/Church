@@ -1,7 +1,12 @@
 .group-wrapper {
-  // padding: var(--pd-10);
-  // margin: var(--mg-10);
-  .group-info {
-    margin-top: var(--mg-10);
-  }
+  display: flex;
+  justify-content: space-between;
+}
+.group-info {
+  margin-top: var(--mg-10);
+}
+.group-addmem {
+ ion-icon{
+  padding-right: 10px;
+ }
 }

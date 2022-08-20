@@ -1,12 +1,9 @@
-import Report from "../Report"
+import ReportInfo from "../ReportInfo"
 
 export const QUERY = gql`
-  query ReportByGroupQuery($groupId: Int!, $startDate: DateTime!, $endDate: DateTime!) {
-    groups {
-      id
+  query ReportByGroupQuery($groupId: Int!, $fromDate: DateTime!, $toDate: DateTime!) {
+    activities: activityInGroupByDate(groupId: $groupId, fromDate: $fromDate, toDate: $toDate) {
       name
-    }
-    activityInGroupByDate(groupId: $groupId, startDate: $startDate, endDate: $endDate) {
       attendance {
         present
       }
@@ -14,7 +11,9 @@ export const QUERY = gql`
 
   }
 `
-
+export const beforeQuery = ({variables}) => {
+  return { variables: variables }
+}
 export const Loading = () => <div>Loading...</div>
 
 export const Empty = () => <div>Empty</div>
@@ -23,6 +22,6 @@ export const Failure = ({ error }) => (
   <div style={{ color: 'red' }}>Error: {error.message}</div>
 )
 
-export const Success = ({ groups }) => {
-  return <Report />
+export const Success = ({ activities }) => {
+  return <ReportInfo activities={activities}/>
 }

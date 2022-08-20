@@ -42,13 +42,13 @@ const Activities = ({ activities }) => {
           ACTIVITIES LIST
         </Link>
         <Link to={routes.newActivity()} className="rw-button rw-button-green">
-        <span>+</span>  New Activity
+        <ion-icon name="add-circle-outline"></ion-icon>New Activity
         </Link>
       </header>
         <table>
           <thead>
             <tr>
-              <th>ID</th>
+              <th>STT</th>
               <th>Activity Name</th>
               <th>Date Participate</th>
               <th>Group Participate</th>
@@ -58,7 +58,7 @@ const Activities = ({ activities }) => {
           <tbody>
             {activities.map((activity) => (
               <tr key={activity.id}>
-                <td>{activity.id}</td>
+                <td></td>
                 <td>{activity.name}</td>
                 <td>{new Date(activity.date).toLocaleString( { timeZone: 'UTC' })}</td>
                 <td>{activity.group.name}</td>
