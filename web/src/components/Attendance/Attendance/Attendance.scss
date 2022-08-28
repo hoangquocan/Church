@@ -1,12 +1,26 @@
 .attendance-wrapper {
-  margin: 10px auto;
-  // display: flex;
-    // justify-content: space-between;
-  label, input {
-    margin: 0;
-    padding: 0;
-    width: 20px;
-    height: 20px;
+  width: var(--form-width);
+  margin: 20px auto;
+  font-weight: 200;
+  @media (max-width: 480px) {
+    width: var(--form-width-mobile);
+    margin: 10px auto;
+    font-size: 1rem;
+  }
+  img {
+    display: block;
+    margin: 1rem 0;
+    max-width: 380px;
+    max-height: 380px;
+    @media (max-width: 480px) {
+      padding-left: -8px;
+      margin-left: -8px;
+    }
+  }
+  span:not(:last-child) {
+    font-style: normal;
+    color: #5F3DC4;
+
   }
   .attendance-header {
     padding-bottom: 20px;
@@ -17,17 +31,83 @@
   }
   table {
     align-items: center;
-    width: 60%;
+    width: 98%;
     border-collapse: collapse;
-    margin: 0 auto;
+    border-spacing: 0;
+    margin: 8px auto;
+    box-shadow: 0 3px 2px -2px gray;
+
+    label, input {
+      margin: 0;
+      padding: 0;
+      width: 20px;
+      height: 20px;
+    }
+
   }
   th,
   td {
-    padding: 8px;
-    border: 1px solid #dee2e6;
+    padding: 8px 4px;
   }
   th {
     height: 40px;
+    background-color: var(--bg-active);
     text-align: left;
+  }
+  tr {
+    &:nth-child(2n+1) {
+      background-color: #f2f2f2;
+    }
+    &:nth-child(2n) {
+      background-color: #fff;
+    }
+  }
+
+  .attendance-imgpicker {
+    position: relative;
+    z-index: 1;
+    background-color: transparent;
+    input {
+      background-color: transparent;
+      border-radius: var(--br-20);
+      border: var(--border-input);
+      padding: auto;
+      font-size: 1rem;
+      &:focus {
+        box-shadow: var(--box-shadow-input-focus);
+        border-color: var(--border-color-input-focus);
+      }
+    }
+
+    ion-icon {
+      z-index: -1;
+      width: 30px;
+      height: 30px;
+      position: absolute;
+      right: 18px;
+      top: 44%;
+      transform: translateY(-50%);
+      color: #555151e5;
+    }
+  }
+
+  .attendance-img {
+    max-width: 390px;
+  margin: 0 auto;
+  text-align: center;
+  input {
+    width: 50%;
+    background-color: transparent;
+    border-radius: var(--br-20);
+    border: 1px solid #46e6fc;
+    padding: auto;
+    color: #46e6fc;
+    font-size: 1rem;
+    &:hover {
+      color: #fff;
+      border: 1.5px solid #05dcf8;
+      background-color: #a6eaf3;
+    }
+  }
   }
 }

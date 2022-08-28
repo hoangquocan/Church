@@ -15,7 +15,9 @@ export const memberPage = ({ page = 1}) => {
   }
 }
 export const members = () => {
-  return db.member.findMany()
+  return db.member.findMany({
+    orderBy: { name: 'asc'}
+  })
 }
 
 export const member = ({ id }) => {

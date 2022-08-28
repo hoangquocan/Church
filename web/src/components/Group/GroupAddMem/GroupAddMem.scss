@@ -1,0 +1,121 @@
+.group-addmem {
+  position: relative;
+  background-color: #fff;
+  width: 100%;
+  margin: 0 auto;
+  min-height: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  @media (max-width: 640px) {
+    min-height: 580px;
+  }
+  @media (max-width: 480px) {
+    min-height: 370px;
+  }
+  .members-link {
+    width: 150px;
+    height: 36px;
+    margin-left: -8px;
+    ion-icon {
+      padding-right: 6px;
+      transform: translateY(-5%);
+    }
+  }
+
+  img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    @media (max-width: 480px) {
+      width: 30px;
+      height: 30px;
+    }
+  }
+  table {
+    position: absolute;
+    top: 40px;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-bottom: 0.5px solid #dee2e6;
+
+    @media (max-width: 480px) {
+      top: 28px;
+      width: 396px;
+    }
+    @media (max-width: 400px) {
+      top: 28px;
+      width: 384px;
+    }
+    ion-icon {
+      border: 0.5px solid rgb(177, 172, 172);
+      border-radius: 50%;
+      background-color: rgba(233, 247, 247, 0.925);
+      width: 50px;
+      height: 50px;
+      @media (max-width: 480px) {
+        width: 30px;
+        height: 30px;
+      }
+    }
+  }
+  table tr:first-child th:first-child {
+    border-top-left-radius: 18px;
+  }
+  table tr:first-child th:last-child {
+    border-top-right-radius: 18px;
+  }
+  // table tr:first-child th:nth-last-child(3) {
+  //   @media (max-width: 480px) {
+  //     border-top-right-radius: 18px;
+  //   }
+  // }
+  table tr:not(:first-child) {
+    counter-increment: rowNumber;
+  }
+  td,
+  th {
+    padding: 5px;
+    color: black;
+    text-align: left;
+    vertical-align: center;
+  }
+  th {
+    background-color: var(--bg-active);
+  }
+  table tr:last-child {
+    border-bottom: 1px solid #adb5bd;
+  }
+  tr {
+    &:nth-child(2n) {
+      background-color: #f2f2f2;
+    }
+    &:nth-child(2n + 1) {
+      background-color: #fff;
+    }
+  }
+  td:last-child {
+    ion-icon {
+      position: relative;
+      background-color: transparent;
+      width: 18px;
+      height: 16px;
+      border-style: none;
+      transform: translateY(-5%);
+      padding-right: 2px;
+    }
+  }
+  th:nth-child(4),
+  td:nth-child(4) {
+    @media (max-width: 540px) {
+      display: none;
+    }
+  }
+  th:nth-last-child(2),
+  td:nth-last-child(2) {
+    @media (max-width: 600px) {
+      display: none;
+    }
+  }
+}

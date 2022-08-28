@@ -2,8 +2,18 @@ import Member from "../Member/Member"
 
 export const QUERY = gql`
   query FindMemberQuery($id: Int!) {
-    member: member(id: $id) {
+     member(id: $id) {
       id
+      name
+      birthDate
+      email
+      phoneNumber
+      address
+      urlAvatar
+      group {
+        name
+      }
+      createdAt
     }
   }
 `

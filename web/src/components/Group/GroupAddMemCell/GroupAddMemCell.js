@@ -10,6 +10,7 @@ export const QUERY = gql`
       address
       phoneNumber
       email
+      urlAvatar
       createdAt
     }
   }
@@ -18,8 +19,8 @@ export const QUERY = gql`
 export const Empty = () => {
   return (
     <>
-      <h2 className="text-center">All Members Added To Group!</h2>
-      <button className="rw-button" style={{margin: "auto"}} onClick={() => back()}>Go Back</button>
+      <h3 className="text-center" style={{margin: "1rem"}}>All Members Added To Group!</h3>
+      <button className="inline-button inline-button-blue" style={{margin: "0 auto"}} onClick={() => back()}><ion-icon style={{padding: '5px', fontSize: '2rem'}} name="arrow-back-circle-outline"></ion-icon>Go Back</button>
     </>
   )
 }

@@ -6,6 +6,7 @@ export const schema = gql`
     phoneNumber: String!
     email: String!
     address: String!
+    urlAvatar: String
     group: Group
     groupId: Int
     attendance: [Attendance]!
@@ -32,6 +33,7 @@ export const schema = gql`
     email: String!
     address: String!
     groupId: Int
+    urlAvatar: String
   }
 
   input UpdateMemberInput {
@@ -41,6 +43,7 @@ export const schema = gql`
     email: String
     address: String
     groupId: Int
+    urlAvatar: String
   }
 
   type Mutation {

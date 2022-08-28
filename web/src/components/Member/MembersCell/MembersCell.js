@@ -1,31 +1,23 @@
 import { Link, routes } from '@redwoodjs/router'
-import MemberPagination from 'src/components/Member/MemberPagination'
 import Members from '../Members/Members'
 
 export const QUERY = gql`
-  query MembersQuery($page: Int) {
-    memberPage(page: $page) {
-      members {
-        id
+  query MembersQuery {
+    members {
+      id
+      name
+      birthDate
+      address
+      phoneNumber
+      email
+      urlAvatar
+      group {
         name
-        birthDate
-        address
-        phoneNumber
-        email
-        group {
-          name
-        }
-        createdAt
       }
-      count
+      createdAt
     }
   }
 `
-
-export const beforeQuery = ({ page }) => {
-  page = page ? parseInt(page, 10) : 1
-  return { variables: { page } }
-}
 
 export const Loading = () => {
   return <h3 className="text-center">Loading...</h3>
@@ -45,11 +37,6 @@ export const Failure = ({ error }) => (
   <div style={{ color: 'red' }}>Error: {error.message}</div>
 )
 
-export const Success = ({ memberPage }) => {
-  return (
-    <>
-      <Members members={memberPage.members}/>
-      <MemberPagination count={memberPage.count} />
-    </>
-  )
+export const Success = ({ members }) => {
+  return <Members members={members} />
 }

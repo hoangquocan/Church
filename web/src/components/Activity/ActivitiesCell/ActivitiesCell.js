@@ -11,7 +11,11 @@ export const QUERY = gql`
         name
       }
       groupId
+      urlAttendance
       createdAt
+      attendance {
+        id
+      }
     }
   }
 `
@@ -20,9 +24,9 @@ export const Loading = () => <div>Loading...</div>
 
 export const Empty = () => {
   return (
-    <div className='text-center'>
+    <div className="text-center">
       <h3>No Activity Yet</h3>
-      <Link to={routes.newActivity()} style={{color: 'var(--color-link)'}}>
+      <Link to={routes.newActivity()} style={{ color: 'var(--color-link)' }}>
         {'Create one?'}
       </Link>
     </div>
@@ -34,7 +38,5 @@ export const Failure = ({ error }) => (
 )
 
 export const Success = ({ activities }) => {
-  return (
-    <Activities activities={activities} />
-  )
+  return <Activities activities={activities} />
 }

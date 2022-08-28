@@ -1,0 +1,15 @@
+.home-activities {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  text-align: center;
+  .activity-random {
+    display: flex;
+    flex-direction: column;
+
+  }
+  img {
+    width: 100px;
+    height: 100px;
+margin: 5px auto;
+  }
+}

@@ -23,6 +23,7 @@ model Member {
   phoneNumber String       @db.VarChar(20)
   email       String
   address     String
+  urlAvatar   String?
   group       Group?       @relation(fields: [groupId], references: [id])
   groupId     Int?         @db.UnsignedInt
   attendance  Attendance[]
@@ -36,18 +37,20 @@ model Group {
   name       String     @unique(sort: Asc)
   members    Member[]
   leader     String
+  reports     Report[]
   activities Activity[]
   createdAt  DateTime   @default(now())
 }
 
 model Activity {
-  id         Int          @id @default(autoincrement()) @db.UnsignedInt
-  name       String
-  date       DateTime     
-  group      Group        @relation(fields: [groupId], references: [id])
-  groupId    Int          @db.UnsignedInt()
-  attendance Attendance[]
-  createdAt  DateTime     @default(now())
+  id            Int          @id @default(autoincrement()) @db.UnsignedInt
+  name          String
+  date          DateTime
+  urlAttendance String?
+  group         Group        @relation(fields: [groupId], references: [id])
+  groupId       Int          @db.UnsignedInt()
+  attendance    Attendance[]
+  createdAt     DateTime     @default(now())
 }
 
 model Attendance {
@@ -59,4 +62,18 @@ model Attendance {
   present     Boolean  @db.Bit(1)
   submittedBy String?
   createdAt   DateTime @default(now())
+}
+
+model Report {
+  id             Int      @id @default(autoincrement())
+  group          Group    @relation(fields: [groupId], references: [id])
+  groupId        Int      @db.UnsignedInt()
+  time           DateTime @db.Date()
+  totalActivity  Int
+  totalCompleted Int
+  percentCompleted Decimal
+  presentTrue    Int
+  presentFalse   Int
+  percentPresent Decimal
+  comment        String
 }

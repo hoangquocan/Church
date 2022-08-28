@@ -1,6 +1,9 @@
 import { useMutation } from '@redwoodjs/web'
-import { toast } from '@redwoodjs/web/dist/toast'
+import { openConfirmModal } from '@mantine/modals'
+import { showNotification } from '@mantine/notifications'
 import { QUERY } from '../GroupAddMemCell'
+
+import './GroupAddMem.scss'
 
 const UPDATE_MEMBER = gql`
   mutation UpdateMemberMutation($id: Int!, $input: UpdateMemberInput!) {
@@ -13,31 +16,49 @@ const UPDATE_MEMBER = gql`
 const GroupAddMem = ({ members, id }) => {
   const [updateMember, { loading, error }] = useMutation(UPDATE_MEMBER, {
     onCompleted: () => {
-      toast.success('Member added to Group!')
+      showNotification({
+        color: 'teal',
+        title: 'Member Has Been Added!',
+        message: 'You can add another member to this Group',
+        icon: <ion-icon name="checkmark-outline"></ion-icon>,
+        autoClose: 4000,
+        radius: 'lg',
+      })
     },
     refetchQueries: [{ query: QUERY }],
     awaitRefetchQueries: true,
   })
-  const handleClick = (id, groupId) => {
-    if (confirm('Are you sure?')) {
-      updateMember({ variables: { id, input: { groupId } } })
-    }
-  }
+  const handleClick = (id, groupId) =>
+    openConfirmModal({
+      title: 'Please Confirm Your Action!',
+      children: <p>Are you sure add to this Group?</p>,
+      labels: { confirm: 'Yes', cancel: 'Cancel' },
+      onConfirm: () => updateMember({ variables: { id, input: { groupId } } }),
+    })
   return (
-    <div className="members-table">
-      <table cellspacing="0">
+    <div className="group-addmem">
+      <table cellSpacing="0">
         <thead>
           <tr>
+            <th></th>
             <th>Name</th>
-            <th>Birth Date</th>
+            <th>Date Of Birth</th>
             <th>Email</th>
             <th>Phone Number</th>
             <th>Address</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           {members.map((member) => (
             <tr key={member.id}>
+              <td>
+                {member.urlAvatar ? (
+                  <img src={member.urlAvatar} alt="Avatar" />
+                ) : (
+                  <ion-icon name="person-outline"></ion-icon>
+                )}
+              </td>
               <td>{member.name}</td>
               <td>{new Date(member.birthDate).toLocaleDateString('sv')}</td>
               <td>{member.email}</td>
@@ -45,7 +66,7 @@ const GroupAddMem = ({ members, id }) => {
               <td>{member.address}</td>
               <td>
                 <button
-                  className="rw-button rw-button-small rw-button-green"
+                  className="inline-button inline-button-small inline-button-green"
                   disabled={loading}
                   onClick={() => handleClick(member.id, id)}
                 >

@@ -1,8 +1,8 @@
-import { Label, Form, FieldError, SelectField } from '@redwoodjs/forms'
+import { Label, Form, FieldError } from '@redwoodjs/forms'
+import SelectField from 'src/components/Form/SelectField/SelectField'
 import DatePicker from '../../Form/DatePicker/DatePicker'
 import Button from 'src/components/Form/Button/Button'
 import { QUERY } from 'src/components/Group/GroupsCell'
-
 import { useState, useEffect, useRef } from 'react'
 import { useQuery } from '@redwoodjs/web'
 import { useForm } from 'react-hook-form'
@@ -11,9 +11,13 @@ import './Report.scss'
 import { navigate, routes } from '@redwoodjs/router'
 
 const Report = () => {
+  const [value, setValue] = useState(null)
   const [groupView, setGroupView] = useState({})
-  const { handleSubmit, control } = useForm()
+  const { handleSubmit, control } = useForm({
+    initialValues: value,
+  })
   const didMount = useRef(false)
+
   useEffect(() => {
     if (!didMount.current) {
       return (didMount.current = true)
@@ -25,29 +29,21 @@ const Report = () => {
   if (loading) return <h1 className="text-center">Loading...</h1>
   if (error) return `Error! ${error.message}`
 
+  const dataSelect = data.groups.map((group) => ({
+    value: group.id,
+    label: group.name,
+  }))
   const onSubmit = (input, data) => {
-    setGroupView({ ...data, ...input })
+    setGroupView(Object.assign(data, {...input }, {groupId: value}))
   }
+
+  console.log('render')
 
   return (
     <div className="report-form">
       <Form onSubmit={handleSubmit(onSubmit)} config={{ mode: 'onBlur' }}>
         <Label name="groupId">Group To View</Label>
-        <SelectField
-          name="groupId"
-          defaultValue=""
-          validation={{ valueAsNumber: true }}
-          required
-        >
-          <option value="" disabled hidden>
-            Select One Group
-          </option>
-          {data.groups.map((group) => (
-            <option key={group.id} value={group.id}>
-              {group.name}
-            </option>
-          ))}
-        </SelectField>
+        <SelectField value={value} onChange={setValue} data={dataSelect} />
         <FieldError name="groupId" />
 
         <Label name="fromDate">From Date</Label>
@@ -58,11 +54,10 @@ const Report = () => {
 
         <div className="form-btn">
           <Button disable={loading} btn_size="md">
-            Save
+            Submit
           </Button>
         </div>
       </Form>
-      {/* {(groupView != null) ? <ReportInfo groupView={groupView}/> : <ReportInfo hiden="hiden"/>} */}
     </div>
   )
 }

@@ -4,18 +4,22 @@
 
   .datepicker-icon {
     position: absolute;
-    right: 18px;
+    ion-icon {
+      width: 30px;
+      height: 28px;
+    }
+    right: 12px;
     top: 55%;
     transform: translateY(-50%);
-    color: #838080e5;
+    color: #615f5fe5;
     z-index: -1;
   }
 }
 .datepicker {
+  box-shadow: inset 0 1px 2px #ADB5BD;
   background-color: transparent;
   border-radius: var(--br-20);
   border: var(--border-input);
-  box-shadow: inset 0 1px 2px #eee;
   &:focus {
     box-shadow: var(--box-shadow-input-focus);
     border-color: var(--border-color-input-focus);

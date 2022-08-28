@@ -27,13 +27,15 @@ const Routes = () => {
 
         <Route path="/members" page={MemberMembersPage} name="members" />
         <Route path="/members/new" page={MemberNewMemberPage} name="newMember" />
+        <Route path="/member/{id:Int}" page={MemberMemberPage} name="member" />
+        <Route path="/update-member/{id:Int}" page={MemberEditMemberPage} name="editMember" />
 
-        <Private unauthenticated="home">
-          <Route path="/groups" page={GroupGroupsPage} name="groups" />
-          <Route path="/groups/new" page={GroupNewGroupPage} name="newGroup" />
-          <Route path="/groups/{id:Int}" page={GroupGroupPage} name="group" />
-          <Route path="/groups/{id:Int}/add-member" page={GroupGroupAddMemPage} name="groupAddMem" />
-        </Private>
+        {/* <Private unauthenticated="home"> */}
+        <Route path="/groups" page={GroupGroupsPage} name="groups" />
+        <Route path="/groups/new" page={GroupNewGroupPage} name="newGroup" />
+        <Route path="/groups/{id:Int}" page={GroupGroupPage} name="group" />
+        <Route path="/groups/{id:Int}/add-member" page={GroupGroupAddMemPage} name="groupAddMem" />
+        {/* </Private> */}
 
         <Route path="/" page={HomePage} name="home" />
       </Set>

@@ -1,19 +1,74 @@
 .activities-wrapper {
-  margin: var(--mg-10);
+  height: 100%;
+  width: 100%;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    background-color: transparent;
+    width: 0px;
+  }
+  @media (max-width: 1024px) {
+    margin-bottom: 80px;
+  }
+  @media (max-width: 480px) {
+    margin-bottom: 50px;
+  }
 
   .activities-header {
+    height: 40px;
+    position: relative;
     display: flex;
     justify-content: space-between;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
+    margin-left: -8px;
+
     ion-icon {
-      padding-right: 10px;
+      padding-right: 2px;
+      font-size: 1.2rem;
+    }
+    @media (max-width: 480px) {
+      height: 45px;
     }
   }
 
   table {
     width: 100%;
-    border-collapse: collapse;
+    // position: relative;
+    // top: 45px;
     counter-reset: rowNumber 1;
+    border-collapse: separate;
+    border-spacing: 0;
+    box-shadow: 0 4px 2px -2px gray;
+    flex: 1;
+  }
+  tbody {
+    tr {
+      line-height: normal;
+      @media (max-width: 775px) {
+        line-height: normal;
+      }
+    }
+    img {
+      width: 70px;
+      height: 65px;
+      padding-top: 5px;
+      @media (max-height: 920px) {
+        height: 48px;
+      }
+      @media (max-width: 480px) {
+        width: 62px;
+        height: 56px;
+      }
+    }
+  }
+  table tr:first-child th:first-child {
+    border-top-left-radius: 18px;
+  }
+  table tr:first-child th:last-child {
+    border-top-right-radius: 18px;
   }
   table tr:not(:first-child) {
     counter-increment: rowNumber;
@@ -21,29 +76,71 @@
 
   table tr td:first-child::before {
     content: counter(rowNumber);
-    min-width: 1em;
-    margin-right: 0.5em;
   }
   th,
   td {
-    padding: 8px;
+    padding-left: 10px;
     border: 1px solid #dee2e6;
+    @media (max-width: 480px) {
+      padding-left: 2px;
+    }
   }
   th {
-    background-color: var(--bg-active);
     height: 40px;
     text-align: left;
+    background-color: var(--bg-active);
   }
+
   tr {
     &:nth-child(2n) {
-      background-color: #fff;
-    }
-    &:nth-child(2n + 1) {
       background-color: #f2f2f2;
     }
+    &:nth-child(2n + 1) {
+      background-color: #fff;
+    }
+    th,
+    td:nth-last-child(2) {
+      border-right: none;
+    }
+    th,
+    td:last-child {
+      border-left: none;
+    }
   }
+
   nav {
     display: flex;
     justify-content: space-evenly;
+  }
+  nav:last-child {
+    ion-icon {
+      border-radius: 50%;
+      background-color: transparent;
+      width: 20px;
+      height: 20px;
+      padding-right: 2px;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .activities-pagination {
+    height: 40px;
+    width: 100%;
+    margin-bottom: 10px;
+    margin-top: 14px;
+    button {
+      border: 0.5px solid #ced4da;
+    }
+    // @media (max-width: 1024px) {
+    //   // bottom: -74px;
+    // }
+    // @media (max-width: 480px) {
+    //   // margin-bottom: 100px;
+    // }
+    // //     @media (max-height: 900px) {
+    // // bottom: -74px;
+    // //     }
   }
 }

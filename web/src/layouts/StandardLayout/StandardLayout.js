@@ -6,9 +6,10 @@ const StandardLayout = ({ children }) => {
   return (
     <div className="layout-wrapper">
       <Header />
-
       <div className="layout-container">
-       <div className='layout-sidebar'> <Sidebar /></div>
+        <div className="layout-sidebar">
+          <Sidebar />
+        </div>
         <div className="layout-content">{children}</div>
       </div>
     </div>

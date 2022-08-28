@@ -2,12 +2,9 @@ import { useAuth } from '@redwoodjs/auth'
 import { Link, routes, navigate } from '@redwoodjs/router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faMagnifyingGlass,
   faCircleXmark,
 } from '@fortawesome/free-solid-svg-icons'
-import { Toaster } from '@redwoodjs/web/toast'
-import { useMutation } from '@redwoodjs/web'
-
+import { getAuth } from "firebase/auth";
 import logo from 'src/Assets/images/Logo.png'
 import './Header.scss'
 
@@ -23,30 +20,44 @@ const CREATE_USER = gql`
 `
 
 const Header = () => {
-  const [create] = useMutation(CREATE_USER)
+  // const [create] = useMutation(CREATE_USER)
 
-  const { loading, isAuthenticated, logIn, logOut, currentUser, userMetadata } =
+  const { loading, isAuthenticated, logIn, logOut, currentUser, userMetadata,getCurrentUser } =
     useAuth()
+    const auth = getAuth();
+    const user = auth.currentUser;
+    if (user !== null) {
+      // The user object has basic properties such as display name, email, etc.
+      const displayName = user.displayName;
+      const email = user.email;
+      const photoURL = user.photoURL;
+      const emailVerified = user.emailVerified;
 
+      // The user's ID, unique to the Firebase project. Do NOT use
+      // this value to authenticate with your backend server, if
+      // you have one. Use User.getToken() instead.
+      const uid = user.uid;
+    }
   const onClick = async () => {
     if (isAuthenticated) {
       await logOut()
       navigate('/')
     } else {
-      // console.log(logIn);
-
       await logIn()
+    }
       // await create({
       //       variables: { input: { 'email': currentUser.email, roles: 'user' } },
       //     })
-    }
     // return create({
     //         variables: { input: { 'email': currentUser.email, roles: 'user' } },
     //       })
   }
+  // console.log(displayName)
+  // console.log(currentUser.uid)
+  // console.log(getCurrentUser)
+  // console.log(userMetadata)
   return (
     <header className="header-wrapper">
-      <Toaster />
       <div className="header-logo">
         <Link to={routes.home()}>
           <img src={logo} alt="VGM" />
@@ -67,7 +78,7 @@ const Header = () => {
 
       <div className="header-login">
         <button onClick={onClick}>
-          {isAuthenticated ? 'Log out' : 'Log in'}
+          {isAuthenticated ? 'Out' : 'Log in'}
         </button>
       </div>
     </header>

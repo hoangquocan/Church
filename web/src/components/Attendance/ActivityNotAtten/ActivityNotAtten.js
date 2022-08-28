@@ -11,6 +11,7 @@ const ActivityNotAtten = ({ activities }) => {
             <th>Activity Name</th>
             <th>Date Participate</th>
             <th>Group Participate</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -24,10 +25,10 @@ const ActivityNotAtten = ({ activities }) => {
                 <nav>
                   <Link
                     to={routes.attendanceActivity({id: activity.id})}
-                    className="rw-button rw-button-small rw-button-blue"
+                    className="inline-button inline-button-small inline-button-blue"
                     title={'Attendance Activity ' + activity.name}
                   >
-                    ATTENDANCE
+                    Attendance
                   </Link>
                 </nav>
               </td>

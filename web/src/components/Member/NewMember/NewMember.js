@@ -1,7 +1,8 @@
 import { useMutation } from '@redwoodjs/web'
 import { navigate, routes } from '@redwoodjs/router'
+import { showNotification, updateNotification } from '@mantine/notifications'
+
 import MemberForm from 'src/components/Member/MemberForm'
-import { toast } from '@redwoodjs/web/toast'
 
 const CREATE_MEMBER_MUTATION = gql`
   mutation CreateMemberMutation($input: CreateMemberInput!) {
@@ -20,8 +21,39 @@ const NewMember = () => {
     CREATE_MEMBER_MUTATION,
     {
       onCompleted: () => {
-        toast.success('Member Created!')
-        navigate(routes.members())
+        showNotification({
+          id: 'load-data',
+          loading: true,
+          title: 'Loading your data!',
+          message: 'Data will be loaded in just one second',
+          autoClose: false,
+          disallowClose: true,
+          radius: 'lg',
+        })
+
+        setTimeout(() => {
+          updateNotification({
+            id: 'load-data',
+            color: 'cyan',
+            title: 'Member Has Been Created!',
+            message: 'You can add member to one Group',
+            icon: <ion-icon name="checkmark-outline"></ion-icon>,
+            autoClose: 3000,
+            radius: 'lg',
+        styles: (theme) => ({
+          root: {
+            borderColor: theme.colors.blue[4],
+          },
+          closeButton: {
+            color: theme.gray,
+            '&:hover': { color: theme.white, backgroundColor: theme.colors.gray[6] },
+          },
+        }),
+          })
+        }, 1000)
+        setTimeout(() => {
+          navigate(routes.members())
+        }, 1200)
       },
     }
   )
@@ -32,7 +64,7 @@ const NewMember = () => {
 
   return (
     <>
-      <h2 className="text-center">ADD NEW MEMBER</h2>
+      <h3 className="text-center">Add New Member</h3>
 
       <MemberForm onSave={onSave} loading={loading} error={error} />
     </>

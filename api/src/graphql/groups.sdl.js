@@ -5,6 +5,7 @@ export const schema = gql`
     members: [Member]!
     leader: String!
     activities: [Activity]!
+    reports: [Report]!
     createdAt: DateTime!
   }
   type count {

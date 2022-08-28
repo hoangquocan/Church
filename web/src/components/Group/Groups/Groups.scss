@@ -1,21 +1,45 @@
 .groups-wrapper {
-  margin: var(--mg-10);
-
+  height: 100%;
+  width: 100%;
+  background-color: #fff;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  @media (max-width: 480px) {
+    top: 0px;
+  }
   .groups-header {
+    height: 40px;
+    position: relative;
     display: flex;
     justify-content: space-between;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
     ion-icon {
-      padding-right: 10px;
+      padding-right: 2px;
+      font-size: 1.2rem;
+    }
+    @media (max-width: 480px) {
+      height: 45px;
     }
   }
 
   table {
+    position: absolute;
     width: 100%;
+    top: 40px;
     counter-reset: rowNumber 1;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
+    flex: 1;
+    box-shadow: 0 4px 2px -2px gray;
   }
-
+  table tr:first-child th:first-child {
+    border-top-left-radius: 18px;
+  }
+  table tr:first-child th:last-child {
+    border-top-right-radius: 18px;
+  }
   table tr:not(:first-child) {
     counter-increment: rowNumber;
   }
@@ -35,19 +59,56 @@
     height: 40px;
     text-align: left;
     background-color: var(--bg-active);
-
+  }
+  tbody {
+    tr {
+      line-height: 2.4rem;
+      @media (max-width: 550px) {
+        line-height: normal;
+      }
+    }
   }
   tr {
     &:nth-child(2n) {
-      background-color: #fff;
+      background-color: #f2f2f2;
     }
     &:nth-child(2n + 1) {
-      background-color: #f2f2f2;
+      background-color: #fff;
+    }
+    th,
+    td:nth-last-child(2) {
+      border-right: none;
+    }
+    th,
+    td:last-child {
+      border-left: none;
     }
   }
 
-  nav{
+  nav {
     display: flex;
     justify-content: space-evenly;
+  }
+  nav:last-child {
+    ion-icon {
+      border-radius: 50%;
+      background-color: transparent;
+      width: 20px;
+      height: 20px;
+      padding-right: 2px;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+  .groups-pagination {
+    height: 40px;
+    width: 100%;
+    margin-top: 20px;
+    bottom: 0;
+    position: absolute;
+    button {
+      border: 0.5px solid #ced4da;
+    }
   }
 }

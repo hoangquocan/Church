@@ -10,14 +10,14 @@ const Group = ({ group }) => {
 
         <h4>Leader: {group.leader}</h4>
         <h4>Total Member: {totalMember}</h4>
-        </div>
-        <div className='group-addmem'>
-          <Link
-            to={routes.groupAddMem({ id: group.id })}
-            className="rw-button rw-button-green"
-          >
-           <ion-icon name="person-add-outline"></ion-icon> Add Member To Group
-          </Link>
+      </div>
+      <div className="group-button">
+        <Link
+          to={routes.groupAddMem({ id: group.id })}
+          className="inline-button inline-button-green"
+        >
+          <ion-icon name="person-add-outline"></ion-icon> Add Member
+        </Link>
       </div>
     </div>
   )

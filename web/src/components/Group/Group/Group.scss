@@ -1,12 +1,15 @@
 .group-wrapper {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
-.group-info {
-  margin-top: var(--mg-10);
-}
-.group-addmem {
+// .group-info {
+//   margin-top: var(--mg-10);
+// }
+.group-button {
  ion-icon{
-  padding-right: 10px;
+  padding-right: 6px;
+  font-size: 1.2rem;
+  transform: translateY(-5%);
  }
 }

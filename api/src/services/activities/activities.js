@@ -1,7 +1,9 @@
 import { db } from 'src/lib/db'
 
 export const activities = () => {
-  return db.activity.findMany()
+  return db.activity.findMany({
+    orderBy: { createdAt: 'desc'}
+  })
 }
 
 export const activity = ({ id }) => {

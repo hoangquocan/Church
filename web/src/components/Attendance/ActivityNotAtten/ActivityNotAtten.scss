@@ -1,12 +1,41 @@
 .attendance-page {
-  margin: var(--mg-10);
+  height: 100%;
+  width: 100%;
+  background-color: #fff;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
 
   table {
+    position: absolute;
     width: 100%;
-    border-collapse: collapse;
+    top: 40px;
     counter-reset: rowNumber 1;
-  }
+    border-collapse: separate;
+    border-spacing: 0;
+    flex: 1;
+    box-shadow: 0 3px 2px -2px gray;
 
+    @media (max-width: 480px) {
+      top: 6px;
+    }
+  }
+  tbody {
+    tr {
+      line-height: 2.4rem;
+      @media (max-width: 775px) {
+        line-height: normal;
+      }
+    }
+  }
+  table tr:first-child th:first-child {
+    border-top-left-radius: 18px;
+  }
+  table tr:first-child th:last-child {
+    border-top-right-radius: 18px;
+  }
   table tr:not(:first-child) {
     counter-increment: rowNumber;
   }
@@ -24,17 +53,24 @@
   }
   th {
     height: 40px;
-    background-color: var(--bg-active);
     text-align: left;
+    background-color: var(--bg-active);
   }
-
 
   tr {
     &:nth-child(2n) {
-      background-color: #fff;
+      background-color: #f2f2f2;
     }
     &:nth-child(2n + 1) {
-      background-color: #f2f2f2;
+      background-color: #fff;
+    }
+    th,
+    td:nth-last-child(2) {
+      border-right: none;
+    }
+    th,
+    td:last-child {
+      border-left: none;
     }
   }
 
@@ -42,4 +78,28 @@
     display: flex;
     justify-content: space-evenly;
   }
+  nav:last-child {
+    ion-icon {
+      border-radius: 50%;
+      background-color: transparent;
+      width: 20px;
+      height: 20px;
+      padding-right: 2px;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+
+  // .activities-pagination {
+  //   height: 40px;
+  //   width: 100%;
+  //   margin-top: 20px;
+  //   bottom: 0;
+  //   position: absolute;
+  //   button {
+  //     border: 0.5px solid #ced4da;
+  //   }
+  // }
 }

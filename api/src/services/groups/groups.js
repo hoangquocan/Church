@@ -1,7 +1,9 @@
 import { db } from 'src/lib/db'
 
 export const groups = () => {
-  return db.group.findMany()
+  return db.group.findMany({
+    orderBy: { name : 'asc'}
+  })
 }
 
 export const group = ({ id }) => {
