@@ -1,5 +1,7 @@
 import ActivityNotAtten from 'src/components/Attendance/ActivityNotAtten'
-import { navigate, routes, back } from '@redwoodjs/router'
+import { navigate, routes } from '@redwoodjs/router'
+import { Loader } from '@mantine/core'
+
 export const QUERY = gql`
   query FindActivityNotAttenQuery {
     activities: activityNotAtten {
@@ -16,13 +18,31 @@ export const QUERY = gql`
   }
 `
 
-export const Loading = () => <div>Loading...</div>
-
-export const Empty = () =>  {
+export const Loading = () => (
+  <div style={{ textAlign: 'center', marginTop: '25%' }}>
+    <Loader variant="oval" size="md" color="dark" />
+  </div>
+)
+export const Empty = () => {
   return (
     <>
-      <h3 className="text-center" style={{margin: "1rem"}}>All Activity Has Been Attendanced!</h3>
-      <button className="inline-button inline-button-blue" style={{margin: "0 auto"}} onClick={() => navigate(routes.activities())}><ion-icon style={{padding: '5px', fontSize: '2rem'}} name="arrow-back-circle-outline"></ion-icon>Go Back</button>
+      <h2
+        className="text-center"
+        style={{ margin: '20px auto' }}
+      >
+        All Activity Has Been Attendanced!
+      </h2>
+      <button
+        className="inline-button inline-button-blue"
+        style={{ margin: '0 auto', border: 'none', fontSize: '1rem' }}
+        onClick={() => navigate(routes.activities())}
+      >
+        <ion-icon
+          style={{ paddingRight: '10px', fontSize: '1.8rem' }}
+          name="arrow-back-circle-outline"
+        ></ion-icon>
+        Go Back
+      </button>
     </>
   )
 }

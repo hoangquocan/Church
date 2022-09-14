@@ -1,0 +1,13 @@
+.activity-wrapper {
+  text-align: center;
+  margin: 0 auto;
+  img {
+    margin-top: 20px;
+    width: 600px;
+    height:400px;
+    @media (max-width: 610px) {
+      width: 408px;
+      height: 300px;
+    }
+  }
+}

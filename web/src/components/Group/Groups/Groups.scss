@@ -2,44 +2,45 @@
   height: 100%;
   width: 100%;
   background-color: #fff;
-  position: relative;
+  // position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  @media (max-width: 480px) {
-    top: 0px;
-  }
+
+  // @media (max-width: 1024px) {
+  //   margin-bottom: 80px;
+  // }
+  // @media (max-width: 480px) {
+  //   margin-bottom: 50px;
+  // }
+
   .groups-header {
-    height: 40px;
-    position: relative;
+    // position: relative;
     display: flex;
     justify-content: space-between;
     padding-bottom: 10px;
     ion-icon {
-      padding-right: 2px;
-      font-size: 1.2rem;
-    }
-    @media (max-width: 480px) {
-      height: 45px;
+      padding-right: 4px;
+      transform: translateY(-4%);
     }
   }
 
   table {
-    position: absolute;
+    // position: absolute;
+    // top: 40px;
     width: 100%;
-    top: 40px;
     counter-reset: rowNumber 1;
     border-collapse: separate;
     border-spacing: 0;
     flex: 1;
     box-shadow: 0 4px 2px -2px gray;
   }
-  table tr:first-child th:first-child {
-    border-top-left-radius: 18px;
-  }
-  table tr:first-child th:last-child {
-    border-top-right-radius: 18px;
-  }
+  // table tr:first-child th:first-child {
+  //   border-top-left-radius: 12px;
+  // }
+  // table tr:first-child th:last-child {
+  //   border-top-right-radius: 12px;
+  // }
   table tr:not(:first-child) {
     counter-increment: rowNumber;
   }
@@ -56,9 +57,17 @@
     border: 1px solid #dee2e6;
   }
   th {
-    height: 40px;
+    // font-family: 'Dancing Script', cursive;
+    font-weight: 300;
+    // font-size: 1rem;
+    // height: 40px;
     text-align: left;
     background-color: var(--bg-active);
+    // background-color: #373A40;
+    // color: #fff;
+    @media (min-width: 480px) {
+      font-size: 1.4rem;
+    }
   }
   tbody {
     tr {
@@ -93,8 +102,6 @@
     ion-icon {
       border-radius: 50%;
       background-color: transparent;
-      width: 20px;
-      height: 20px;
       padding-right: 2px;
       &:hover {
         cursor: pointer;
@@ -105,9 +112,10 @@
     height: 40px;
     width: 100%;
     margin-top: 20px;
-    bottom: 0;
-    position: absolute;
+    // bottom: 0;
+    // position: absolute;
     button {
+      font-family: 'Dancing Script', cursive;
       border: 0.5px solid #ced4da;
     }
   }

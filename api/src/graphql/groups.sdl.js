@@ -3,39 +3,26 @@ export const schema = gql`
     id: Int!
     name: String!
     members: [Member]!
-    leader: String!
-    activities: [Activity]!
+    leader: User!
+    userId: Int!
     reports: [Report]!
+    activities: [Activity]!
     createdAt: DateTime!
-  }
-  type count {
-    members: Int
   }
 
-  type groupCount {
-    id: Int!
-    name: String!
-    members: [Member]!
-    leader: String!
-    activities: [Activity]!
-    createdAt: DateTime!
-    count: count
-  }
   type Query {
-    groupCount: [groupCount] @requireAuth
-    # groupMembers(id: Int!): members @requireAuth
     groups: [Group!]! @requireAuth
     group(id: Int!): Group @requireAuth
   }
 
   input CreateGroupInput {
     name: String!
-    leader: String!
+    userId: Int!
   }
 
   input UpdateGroupInput {
     name: String
-    leader: String
+    userId: Int
   }
 
   type Mutation {

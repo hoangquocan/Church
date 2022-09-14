@@ -1,15 +1,35 @@
+.home-wrapper {
+  // h5 {
+  //   margin-left: 12px;
+  //   // box-shadow: rgba(129, 124, 124, 0.9) 0 1px 1.5px;
+  // }
+}
 .home-activities {
+  // margin-left: -32px;
   display: grid;
   grid-template-columns: auto auto auto auto;
   text-align: center;
+  @media (max-width: 480px) {
+    grid-template-columns: auto auto;
+  }
+  span {
+    font-style: oblique;
+  }
   .activity-random {
     display: flex;
     flex-direction: column;
-
   }
   img {
-    width: 100px;
-    height: 100px;
-margin: 5px auto;
+    width: 300px;
+    height: 180px;
+    margin: 10px auto;
+    @media (max-width: 1024px) {
+      width: 200px;
+      height: 120px;
+    }
+    @media (max-width: 768px) {
+      width: 180px;
+      height: 120px;
+    }
   }
 }

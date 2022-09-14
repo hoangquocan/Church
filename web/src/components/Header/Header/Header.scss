@@ -1,0 +1,123 @@
+.header-wrapper {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: var(--header-height);
+  padding-left: 0px;
+  box-shadow: rgba(129, 124, 124, 0.9) 0 1px 1.5px;
+  background-color: #fff;
+  @media (max-width: 1024px) {
+    padding-left: 30px;
+    box-shadow: rgba(129, 124, 124, 0.9) 0 2px 1.5px;
+  }
+  @media (max-width: 480px) {
+    height: var(--header-height-mobile);
+    padding-left: 8px;
+    border-bottom: 0.1px solid #1a1b1e;
+    box-shadow: none;
+  }
+}
+#header-logo {
+  display: block;
+  position: relative;
+  height: 100%;
+  padding: 8px 2px;
+  a {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    span {
+      color: #031e3b;
+      font-weight: 600;
+      margin-left: 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      span {
+        font-size: 0.8rem;
+      }
+    }
+  }
+  img {
+    height: 100%;
+  }
+}
+#search-bar {
+  display: block;
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+.search-btn-mobile {
+  ion-icon {
+    color: rgba(10, 10, 15, 0.726);
+    position: absolute;
+    font-size: 1.8rem;
+    right: 70px;
+    top: 50%;
+    transform: translateY(-55%);
+    @media (max-width: 480px) {
+      right: 57px;
+    }
+  }
+  &:hover {
+    cursor: pointer;
+    background: rgba(22, 24, 35, 0.06);
+  }
+
+  &:active {
+    background-color: rgba(22, 24, 35, 0.06);
+  }
+  @media (min-width: 769px) {
+    display: none;
+  }
+}
+
+.header-login {
+  padding-right: 32px;
+  // height: 60%;
+  @media (max-width: 480px) {
+    padding-right: 6px;
+  }
+  button {
+    font-size: 1rem;
+    padding: 0 20px;
+    cursor: pointer;
+  }
+}
+.active {
+  display: block;
+}
+.search {
+  border: 1px solid #000;
+
+  &.active {
+    input {
+      width: 200px;
+    }
+  }
+  input {
+    width: 0;
+    transition: all ease 0.5s;
+    padding: 0;
+  }
+}
+
+.login-signup {
+  display: flex;
+  margin-top: 20px;
+  justify-content: center;
+  button {
+    color: blue;
+    font-weight: 500;
+    background-color: #fff;
+    padding-left: 6px;
+    cursor: pointer;
+  }
+}

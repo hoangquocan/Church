@@ -1,4 +1,5 @@
 import Activity from '../Activity/Activity'
+import { Loader } from '@mantine/core'
 
 export const QUERY = gql`
   query FindActivityQuery($id: Int!) {
@@ -6,6 +7,7 @@ export const QUERY = gql`
       id
       name
       date
+      urlAttendance
       group {
         id
         name
@@ -19,8 +21,11 @@ export const QUERY = gql`
   }
 `
 
-export const Loading = () => <div>Loading...</div>
-
+export const Loading = () => (
+  <div style={{ textAlign:'center', marginTop: '25%'}}>
+    <Loader variant="oval" size="md" color="dark" />
+  </div>
+)
 export const Empty = () => <div>Empty</div>
 
 export const Failure = ({ error }) => (

@@ -1,0 +1,16 @@
+.admin-setroles {
+  width: var(--form-width);
+  margin: 20px auto;
+  font-weight: 200;
+  @media (max-width: 768px) {
+    width: var(--form-width-tablet);
+  }
+  @media (max-width: 480px) {
+    width: var(--form-width-mobile);
+    margin: 10px auto;
+    font-size: 1rem;
+  }
+  input[type='search'] {
+    margin-bottom: 4px;
+  }
+}

@@ -1,8 +1,8 @@
 
 :root {
-  --border-input: 1px solid #dfe1e5;
+  --border-input: 1px solid #CED4DA;
   --box-shadow-input-focus: 0 1px 7px rgb(32 33 36 / 28%);
-  --border-color-input-focus: rgba(223, 225, 229, 0);
+  --border-color-input-focus: rgba(105, 106, 109, 0);
 
   --color-primary: rgba(140, 222, 247, 0.267);
 
@@ -15,7 +15,8 @@
   --bg-input: rgba(1, 1, 2, 0.842);
   --bg-active: rgba(22, 24, 35, 0.2);
 
-  --br-20: 20px;
+  --br-form-input: 18px;
+  --br-20: 18px;
   --br-10: 10px;
   --br-5: 5px;
 
@@ -29,9 +30,10 @@
   --pd-5: 5px;
 
   --form-width: 700px;
+  --form-width-tablet: 560px;
   --form-width-mobile: 388px;
 
-  --search-border-radius: 20px;
+  --search-border-radius: 30px;
   --search-btn-width: 50px;
   --search-width: 600px;
   --sidebar-width: 250px;
@@ -43,4 +45,10 @@
   --tablet-landscape: 1024px;
   --laptop-width: 1366px;
   --destop-width: 1680;
+
+
+  --font-lobster: 'Lobster Two', cursive;
+  --font-dancing-script: 'Dancing Script', cursive;
+  --font-great-vibes: 'Great Vibes', cursive;
+  --font-qwigley: 'Qwigley', cursive;
 }

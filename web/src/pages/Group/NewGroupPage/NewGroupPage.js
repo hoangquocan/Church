@@ -1,7 +1,7 @@
-import NewGroup from 'src/components/Group/NewGroup'
+import GroupForm from 'src/components/Group/GroupForm'
 
 const NewGroupPage = () => {
-  return <NewGroup />
+  return <GroupForm />
 }
 
 export default NewGroupPage

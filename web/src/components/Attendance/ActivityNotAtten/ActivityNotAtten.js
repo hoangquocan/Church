@@ -2,20 +2,27 @@ import { Link, routes } from '@redwoodjs/router'
 import './ActivityNotAtten.scss'
 
 const ActivityNotAtten = ({ activities }) => {
+  const nowDate = new Date()
+  const activitiesToAttendance = activities.filter((activity) =>
+
+  {const compareDate = new Date(activity.date)
+    compareDate.setDate(compareDate.getDate() + 30)
+  return compareDate > nowDate} )
+
   return (
     <div className="attendance-page">
       <table>
         <thead>
           <tr>
-            <th>STT</th>
-            <th>Activity Name</th>
+            <th>Stt</th>
+            <th>Activity</th>
             <th>Date Participate</th>
-            <th>Group Participate</th>
+            <th>Group</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          {activities.map((activity) => (
+          {activitiesToAttendance.map((activity) => (
             <tr key={activity.id}>
               <td></td>
               <td>{activity.name}</td>

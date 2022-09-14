@@ -1,13 +1,13 @@
 import { MetaTags } from '@redwoodjs/web'
 import ReportByGroupCell from 'src/components/Report/ReportByGroupCell'
 
-const ReportInfoPage = ({ variables }) => {
-  const data = JSON.parse(variables)
+const ReportInfoPage = ({ time }) => {
+  const data = JSON.parse(time)
   return (
     <>
       <MetaTags title="ReportInfo" description="ReportInfo page" />
 
-      <ReportByGroupCell variables={data} />
+      <ReportByGroupCell timequery={data} />
     </>
   )
 }

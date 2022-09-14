@@ -28,21 +28,27 @@ const NewMember = () => {
           message: 'Data will be loaded in just one second',
           autoClose: false,
           disallowClose: true,
-          radius: 'lg',
+          radius: 'md',
+          styles: (theme) => ({
+            root: {
+              borderColor: theme.colors.blue[4],
+            },
+          }),
         })
 
         setTimeout(() => {
           updateNotification({
             id: 'load-data',
-            color: 'cyan',
+            // color: 'cyan',
             title: 'Member Has Been Created!',
             message: 'You can add member to one Group',
-            icon: <ion-icon name="checkmark-outline"></ion-icon>,
+            // icon: <ion-icon name="checkmark-outline"></ion-icon>,
             autoClose: 3000,
-            radius: 'lg',
+            radius: 'md',
         styles: (theme) => ({
           root: {
-            borderColor: theme.colors.blue[4],
+            borderColor: theme.colors.blue[5],
+            '&::before': { backgroundColor: theme.blue },
           },
           closeButton: {
             color: theme.gray,
@@ -64,7 +70,7 @@ const NewMember = () => {
 
   return (
     <>
-      <h3 className="text-center">Add New Member</h3>
+      <h2 className="text-center">Add New Member</h2>
 
       <MemberForm onSave={onSave} loading={loading} error={error} />
     </>

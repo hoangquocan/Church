@@ -2,11 +2,14 @@ import { Select } from '@mantine/core'
 
 import './SelectField.scss'
 
-const SelectField = ({ data, value, onChange }) => {
+const SelectField = ({ data, value, onChange, label, ...props }) => {
   return (
-   <div className='form-select'>
+    <div className="form-select">
       <Select
+        {...props}
+        clearable
         searchable
+        label={label}
         value={value}
         onChange={onChange}
         nothingFound="No options! Please check again"
@@ -16,6 +19,13 @@ const SelectField = ({ data, value, onChange }) => {
         transitionDuration={80}
         transitionTimingFunction="ease"
         styles={(theme) => ({
+          wrapper: {
+            backgroundColor: 'white',
+            borderRadius: 18,
+          },
+          label: {
+              fontSize: '1.1rem',
+            },
           item: {
             // applies styles to selected item
             '&[data-selected]': {
@@ -34,9 +44,13 @@ const SelectField = ({ data, value, onChange }) => {
             // applies styles to hovered item (with mouse or keyboard)
             '&[data-hovered]': {},
           },
+          dropdown: {
+            boxShadow:
+              'rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px',
+          },
         })}
       />
-   </div>
+    </div>
   )
 }
 

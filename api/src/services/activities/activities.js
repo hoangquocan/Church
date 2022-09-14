@@ -2,7 +2,7 @@ import { db } from 'src/lib/db'
 
 export const activities = () => {
   return db.activity.findMany({
-    orderBy: { createdAt: 'desc'}
+    orderBy: { date: 'desc' },
   })
 }
 
@@ -53,5 +53,15 @@ export const activityInGroupByDate = ({ groupId, fromDate, toDate }) => {
         { date: { lte: toDate } },
       ],
     },
+  })
+}
+
+export const activitiesHome = () => {
+  return db.activity.findMany({
+    where: {
+      NOT: [{ attendance: {none :{} }}],
+    },
+    orderBy: { date: 'desc'},
+    take: 8,
   })
 }

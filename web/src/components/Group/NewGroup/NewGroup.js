@@ -9,7 +9,7 @@ const CREATE_GROUP_MUTATION = gql`
     createGroup(input: $input) {
       id
       name
-      leader
+      userId
       createdAt
     }
   }
@@ -30,7 +30,7 @@ const NewGroup = () => {
       setTimeout(() => {
         updateNotification({
           id: 'load-data',
-          color: 'cyan',
+          color: 'white',
           title: 'Group Has Been Created!',
           message: 'You can add member to this Group',
           icon: <ion-icon name="checkmark-outline"></ion-icon>,
@@ -39,6 +39,7 @@ const NewGroup = () => {
           styles: (theme) => ({
             root: {
               borderColor: theme.colors.blue[4],
+              '&::before': { backgroundColor: theme.white },
             },
             closeButton: {
               color: theme.gray,
@@ -55,16 +56,14 @@ const NewGroup = () => {
       }, 1200)
     },
   })
-  const onSave = (input) => {
-    createGroup({ variables: { input } })
+  const onSave = (input, leader) => {
+    createGroup({ variables: { input: { ...input, userId: leader } } })
   }
 
   return (
     <>
-      <h3 className="text-center">Add New Group</h3>
-      <div>
-        <GroupForm onSave={onSave} loading={loading} error={error} />
-      </div>
+      <h2 className="text-center">Add New Group</h2>
+      <GroupForm onSave={onSave} loading={loading} error={error} />
     </>
   )
 }

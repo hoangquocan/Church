@@ -1,9 +1,11 @@
 import { useMutation } from '@redwoodjs/web'
-import { useEffect, useState } from 'react'
+import { useState, useMemo } from 'react'
 import { navigate, routes } from '@redwoodjs/router'
 import { PickerInline } from 'filestack-react'
 import { showNotification } from '@mantine/notifications'
+import { openConfirmModal } from '@mantine/modals'
 import { Form, CheckboxField, Label, FieldError } from '@redwoodjs/forms'
+
 import Button from 'src/components/Form/Button'
 import './Attendance.scss'
 
@@ -32,23 +34,34 @@ const Attendance = ({ activity }) => {
   const [nameAttendance, setNameAttendance] = useState('')
 
   const members = activity.group.members
-  const result = members.map((member) => ({
-    activityId: activity.id,
-    memberId: member.id,
-    present: false,
-  }))
   const [checkedState, setCheckedState] = useState(
     new Array(members.length).fill(false)
   )
+
   const [updateActivity, { error }] = useMutation(UPDATE_ACTIVITY)
   const [createAttendance, { loading }] = useMutation(CREATE_ATTENDANCE, {
     onCompleted: () => {
       showNotification({
-        color: 'teal',
+        color: 'blue',
         title: 'Thank You! Your Result Has Been Saved',
-        icon: <ion-icon name="checkmark-outline"></ion-icon>,
+        // icon: <ion-icon name="checkmark-outline"></ion-icon>,
         autoClose: 3000,
-        radius: 'lg',
+        radius: 'md',
+        styles: (theme) => ({
+          root: {
+            borderColor: theme.colors.blue[7],
+
+            '&::before': { backgroundColor: theme.blue },
+          },
+
+          closeButton: {
+            color: theme.colors.gray[7],
+            '&:hover': {
+              color: theme.white,
+              backgroundColor: theme.colors.gray[6],
+            },
+          },
+        }),
       })
       navigate(routes.attendance())
     },
@@ -61,25 +74,62 @@ const Attendance = ({ activity }) => {
     setCheckedState(updatedCheckedState)
   }
 
-  useEffect(() => {
+  const result = useMemo(() => {
+    const resultPresent = members.map((member) => ({
+      activityId: activity.id,
+      memberId: member.id,
+      present: false,
+    }))
     checkedState.map((item, index) =>
-      item ? (result[index].present = item) : result[index].present
+      item
+        ? (resultPresent[index].present = item)
+        : resultPresent[index].present
     )
+    return resultPresent
   }, [checkedState])
 
   const onSubmit = (result) => {
-    console.log(urlAttendance)
-    if (urlAttendance == "") {
-      return alert(' Please take one Picture!')
+    if (urlAttendance == '') {
+      return showNotification({
+        color: 'red',
+        title: 'Notification',
+        message: 'Please Take One Picture Describing The Activity!',
+        rd: 'md',
+        autoClose: false,
+        styles: (theme) => ({
+          root: {
+            borderColor: theme.colors.red[4],
+
+            '&::before': { backgroundColor: theme.red },
+          },
+
+          title: { color: theme.colors.red[5] },
+          closeButton: {
+            color: theme.colors.gray[7],
+            '&:hover': {
+              color: theme.white,
+              backgroundColor: theme.colors.gray[6],
+            },
+          },
+        }),
+      })
     }
-    if (confirm('Are you sure?')) {
-      createAttendance({ variables: { input: result } })
-    }
-    if (urlAttendance !== "") {
+    if (urlAttendance !== '') {
       updateActivity({
         variables: { id: activity.id, input: { urlAttendance } },
       })
     }
+    openConfirmModal({
+      title: 'Please Confirm Your Action!',
+      children: <p>Are you sure create this activity?</p>,
+      labels: { confirm: 'Yes', cancel: 'Cancel' },
+      onConfirm: () =>
+      createAttendance({ variables: { input: result } }),
+    })
+    // if (confirm('Are you sure?')) {
+    //   // console.log(result)
+    //   createAttendance({ variables: { input: result } })
+    // }
   }
   const onFileUpload = (response) => {
     setUrlAttendance(response.filesUploaded[0].url)
@@ -130,7 +180,7 @@ const Attendance = ({ activity }) => {
           <input
             name="urlAttendance"
             type="button"
-            onClick={() => setIsChoose(isChoose == false ? true : false)}
+            onClick={() => setIsChoose(!isChoose)}
             value={nameAttendance}
             required={true}
           />
@@ -157,7 +207,7 @@ const Attendance = ({ activity }) => {
           </div>
         )}
         <div className="form-btn">
-          <Button disabled={loading} btn_size="md">
+          <Button disabled={loading} btn_size="large">
             Submit
           </Button>
         </div>

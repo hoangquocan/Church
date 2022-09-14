@@ -1,5 +1,6 @@
 import { Link, routes } from '@redwoodjs/router'
 import Members from 'src/components/Member/Members/Members'
+import { Loader } from '@mantine/core'
 
 export const QUERY = gql`
   query GroupMembersQuery($id: Int!) {
@@ -13,7 +14,7 @@ export const QUERY = gql`
         phoneNumber
         address
         urlAvatar
-        group{
+        group {
           name
           id
         }
@@ -22,22 +23,21 @@ export const QUERY = gql`
     }
   }
 `
-// export const beforeQuery = () => {
-//   if(group.members == undefined) return{
-//     <Link to={routes.newGroup()} style={{color: 'var(--color-link)'}}>
-//           {'Create one?'}
-//         </Link>
-//   }
-
-// }
 export const Failure = ({ error }) => {
   return <div style={{ color: 'red' }}>Error: {error.message}</div>
 }
+
+export const Loading = () => (
+  <div style={{ textAlign: 'center', marginTop: '50px' }}>
+    <Loader variant="oval" size="md" color="dark" />
+  </div>
+)
+
 export const Empty = () => {
   return (
-    <div className='text-center'>
+    <div className="text-center">
       <h3>No Groups Yet</h3>
-      <Link to={routes.newGroup()} style={{color: 'var(--color-link)'}}>
+      <Link to={routes.newGroup()} style={{ color: 'var(--color-link)' }}>
         {'Create one?'}
       </Link>
     </div>
@@ -45,10 +45,8 @@ export const Empty = () => {
 }
 
 export const Success = ({ group }) => {
-if(group.members.length == 0) {
-  return <h3>No Member Of Group</h3>
-}
-  return (
-   <Members groupId={group.id} members={group.members} isGroup={true} />
-  )
+  if (group.members.length == 0) {
+    return <h3>No Member Of Group</h3>
+  }
+  return <Members groupId={group.id} members={group.members} isGroup={true} />
 }

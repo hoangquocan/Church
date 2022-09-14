@@ -3,6 +3,7 @@ import { navigate, routes } from '@redwoodjs/router'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { showNotification } from '@mantine/notifications'
+import { openConfirmModal } from '@mantine/modals'
 import { Label, Form, FieldError } from '@redwoodjs/forms'
 import Input from 'src/components/Form/Input'
 import Button from 'src/components/Form/Button'
@@ -26,18 +27,41 @@ const ActivityForm = ({ groups }) => {
   const [createActivity, { loading, error }] = useMutation(CREATE_ACTIVITY, {
     onCompleted: () => {
       showNotification({
-        color: 'cyan',
+        color: 'blue',
         title: 'Activity Has Been Created!',
         message: 'Leader can view and attendance it',
-        icon: <ion-icon name="checkmark-outline"></ion-icon>,
+        // icon: <ion-icon name="checkmark-outline"></ion-icon>,
         autoClose: 3000,
-        radius: 'lg',
+        radius: 'md',
+        styles: (theme) => ({
+          root: {
+            borderColor: theme.colors.blue[7],
+
+            '&::before': { backgroundColor: theme.blue },
+          },
+
+          closeButton: {
+            color: theme.colors.gray[7],
+            '&:hover': {
+              color: theme.white,
+              backgroundColor: theme.colors.gray[6],
+            },
+          },
+        }),
       })
       navigate(routes.activities())
     },
   })
   const onSubmit = (input, data) => {
-    createActivity({ variables: { input: { ...data, ...input, groupId: value } } })
+    openConfirmModal({
+      title: 'Please Confirm Your Action!',
+      children: <p>Are you sure create this activity?</p>,
+      labels: { confirm: 'Yes', cancel: 'Cancel' },
+      onConfirm: () =>
+        createActivity({
+          variables: { input: { ...data, ...input, groupId: value } },
+        }),
+    })
   }
 
   const dataSelect = groups.map((group) => ({
@@ -47,9 +71,9 @@ const ActivityForm = ({ groups }) => {
 
   return (
     <div className="activity-form">
-      <h3 className="text-center" style={{ marginBottom: '6px' }}>
+      <h2 className="text-center" style={{ marginBottom: '6px' }}>
         Add New Activity
-      </h3>
+      </h2>
       <Form onSubmit={handleSubmit(onSubmit)} config={{ mode: 'onBlur' }}>
         <Label name="name">Name</Label>
         <Input type="text" name="name" />
@@ -67,9 +91,7 @@ const ActivityForm = ({ groups }) => {
         <FieldError name="date" className="error" />
 
         <Label name="groupId">Group Participate</Label>
-        <SelectField value={value} onChange={setValue} data={dataSelect} />
-
-
+        <SelectField onChange={setValue} data={dataSelect} />
         <FieldError name="groupId" />
 
         <div className="form-btn">

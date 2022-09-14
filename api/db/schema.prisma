@@ -5,21 +5,33 @@ datasource db {
 
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["extendedIndexes"]
+  previewFeatures = ["fullTextSearch", "fullTextIndex", "extendedIndexes"]
   binaryTargets   = "native"
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  name  String?
-  email String  @unique
-  roles String  @default("user")
+  id        Int        @id @default(autoincrement())
+  name      String?
+  email     String     @unique
+  avatar    String?
+  bio       String?
+  userRoles UserRole[]
+  group     Group?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @default(now())
+}
+
+model UserRole {
+  id     Int    @id @default(autoincrement())
+  name   String
+  user   User?  @relation(fields: [userId], references: [id])
+  userId Int
 }
 
 model Member {
   id          Int          @id @default(autoincrement()) @db.UnsignedInt
   name        String
-  birthDate   DateTime     @db.Date()
+  birthDate   DateTime
   phoneNumber String       @db.VarChar(20)
   email       String
   address     String
@@ -29,15 +41,16 @@ model Member {
   attendance  Attendance[]
   createdAt   DateTime     @default(now())
 
-  @@index([createdAt(sort: Desc)])
+  @@fulltext([name])
 }
 
 model Group {
   id         Int        @id @default(autoincrement()) @db.UnsignedInt
   name       String     @unique(sort: Asc)
   members    Member[]
-  leader     String
-  reports     Report[]
+  leader     User       @relation(fields: [userId], references: [id])
+  userId     Int        @unique
+  reports    Report[]
   activities Activity[]
   createdAt  DateTime   @default(now())
 }
@@ -51,6 +64,8 @@ model Activity {
   groupId       Int          @db.UnsignedInt()
   attendance    Attendance[]
   createdAt     DateTime     @default(now())
+
+  @@fulltext([name])
 }
 
 model Attendance {
@@ -65,15 +80,31 @@ model Attendance {
 }
 
 model Report {
-  id             Int      @id @default(autoincrement())
-  group          Group    @relation(fields: [groupId], references: [id])
-  groupId        Int      @db.UnsignedInt()
-  time           DateTime @db.Date()
-  totalActivity  Int
-  totalCompleted Int
+  id               Int      @id @default(autoincrement())
+  group            Group    @relation(fields: [groupId], references: [id])
+  groupId          Int      @db.UnsignedInt()
+  question         Question @relation(fields: [questionId], references: [id])
+  questionId       Int
+  time             String
+  totalActivity    Int
+  totalCompleted   Int
   percentCompleted Decimal
-  presentTrue    Int
-  presentFalse   Int
-  percentPresent Decimal
-  comment        String
+  totalPresent     Int
+  totalAbsent      Int
+  percentPresent   Decimal
+  comment          String
+  answerOne        String @db.Text
+  answerTwo        String @db.Text
+  answerThree      String @db.Text
+  createdAt        DateTime @default(now())
+}
+
+model Question {
+  id            Int      @id @default(autoincrement())
+  time          DateTime @unique
+  questionOne   String
+  questionTwo   String
+  questionThree String
+  reports       Report[]
+  createdAt     DateTime @default(now())
 }

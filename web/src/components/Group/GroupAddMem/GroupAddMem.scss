@@ -82,7 +82,10 @@
     vertical-align: center;
   }
   th {
+    font-family: 'Dancing Script', cursive;
     background-color: var(--bg-active);
+    font-size: 1rem;
+    font-weight: 400;
   }
   table tr:last-child {
     border-bottom: 1px solid #adb5bd;

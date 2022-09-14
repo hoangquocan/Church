@@ -1,8 +1,9 @@
-import Member from "../Member/Member"
+import Member from '../Member/Member'
+import { Loader } from '@mantine/core'
 
 export const QUERY = gql`
   query FindMemberQuery($id: Int!) {
-     member(id: $id) {
+    member(id: $id) {
       id
       name
       birthDate
@@ -18,7 +19,11 @@ export const QUERY = gql`
   }
 `
 
-export const Loading = () => <div>Loading...</div>
+export const Loading = () => (
+  <div style={{ textAlign:'center', marginTop: '25%'}}>
+    <Loader variant="oval" size="md" color="dark" />
+  </div>
+)
 
 export const Empty = () => <div>Empty</div>
 

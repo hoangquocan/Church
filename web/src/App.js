@@ -41,13 +41,16 @@ const App = () => (
   <FatalErrorBoundary page={FatalErrorPage}>
     <RedwoodProvider titleTemplate="%PageTitle | %AppTitle">
       <AuthProvider client={firebaseClient} type="firebase">
-        <MantineProvider withCSSVariables>
+        <MantineProvider
+          withCSSVariables
+          theme={{ fontFamily: 'Roboto Serif, serif' }}
+        >
           <NotificationsProvider position="top-right" zIndex={2077}>
             <ModalsProvider>
               <RedwoodApolloProvider>
-              {/* <ContextProvider> */}
+                {/* <ContextProvider> */}
                 <Routes />
-              {/* </ContextProvider> */}
+                {/* </ContextProvider> */}
               </RedwoodApolloProvider>
             </ModalsProvider>
           </NotificationsProvider>

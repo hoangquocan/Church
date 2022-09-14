@@ -14,6 +14,7 @@ export const schema = gql`
   # }
 
   type Query {
+    activitiesHome: [Activity!]! @requireAuth
     activityInGroupByDate(groupId: Int, fromDate: DateTime, toDate: DateTime ) : [Activity] @requireAuth
     activityNotAtten: [Activity!]! @requireAuth
     activities: [Activity!]! @requireAuth

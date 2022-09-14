@@ -22,21 +22,39 @@ const GroupAddMem = ({ members, id }) => {
         message: 'You can add another member to this Group',
         icon: <ion-icon name="checkmark-outline"></ion-icon>,
         autoClose: 4000,
-        radius: 'lg',
+        radius: 'md',
+        styles: (theme) => ({
+          root: {
+            borderColor: theme.colors.teal[7],
+
+            '&::before': { backgroundColor: theme.teal },
+          },
+
+          closeButton: {
+            color: theme.colors.gray[7],
+            '&:hover': {
+              color: theme.white,
+              backgroundColor: theme.colors.gray[6],
+            },
+          },
+        }),
       })
     },
     refetchQueries: [{ query: QUERY }],
     awaitRefetchQueries: true,
   })
   const handleClick = (id, groupId) =>
-    openConfirmModal({
+    {
+      openConfirmModal({
       title: 'Please Confirm Your Action!',
       children: <p>Are you sure add to this Group?</p>,
       labels: { confirm: 'Yes', cancel: 'Cancel' },
       onConfirm: () => updateMember({ variables: { id, input: { groupId } } }),
-    })
+    })}
+
   return (
     <div className="group-addmem">
+    <h2></h2>
       <table cellSpacing="0">
         <thead>
           <tr>
@@ -68,9 +86,9 @@ const GroupAddMem = ({ members, id }) => {
                 <button
                   className="inline-button inline-button-small inline-button-green"
                   disabled={loading}
-                  onClick={() => handleClick(member.id, id)}
+                  onClick={() => handleClick(member.id, +id)}
                 >
-                  Add To Group
+                  <ion-icon name="enter-outline"></ion-icon>
                 </button>
               </td>
             </tr>

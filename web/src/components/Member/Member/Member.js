@@ -77,6 +77,12 @@ const Member = ({ member }) => {
           </tr>
         </tbody>
       </table>
+      <Link
+            to={routes.editMember({id: member.id})}
+            className="inline-button inline-button-small inline-button-blue"
+          >
+            <ion-icon style={{ paddingRight: '6px'}} name="create-sharp"></ion-icon>Update Member
+          </Link>
     </div>
   )
 }

@@ -5,7 +5,7 @@ import { useState, useMemo } from 'react'
 
 import { Pagination, useMantineTheme } from '@mantine/core'
 import { showNotification } from '@mantine/notifications'
-import { useMediaQuery } from "@mantine/hooks";
+import { useMediaQuery } from '@mantine/hooks'
 
 import './Members.scss'
 
@@ -19,6 +19,7 @@ const UPDATE_MEMBER = gql`
 `
 const Members = ({ groupId, members, isGroup = false }) => {
   const [activePage, setActivePage] = useState(1)
+  const [isEdit, setIsEdit] = useState(false)
 
   const totalMembers = members.length
   const totalPage = Math.ceil(totalMembers / 6)
@@ -30,12 +31,33 @@ const Members = ({ groupId, members, isGroup = false }) => {
   const [updateMember] = useMutation(UPDATE_MEMBER, {
     onCompleted: () => {
       showNotification({
-        color: 'teal',
+        color: 'red',
         title: 'Member Has Been Removed From Group!',
         message: 'You can still add back that member to this Group',
-        icon: <ion-icon name="checkmark-outline"></ion-icon>,
+        icon: (
+          <ion-icon
+            style={{ color: 'white' }}
+            name="checkmark-outline"
+          ></ion-icon>
+        ),
         autoClose: 4000,
-        radius: 'lg',
+        radius: 'md',
+        styles: (theme) => ({
+          root: {
+            borderColor: theme.colors.red[4],
+
+            '&::before': { backgroundColor: theme.white },
+          },
+
+          title: { color: theme.colors.red[5] },
+          closeButton: {
+            color: theme.colors.gray[7],
+            '&:hover': {
+              color: theme.white,
+              backgroundColor: theme.colors.gray[6],
+            },
+          },
+        }),
       })
     },
     refetchQueries: [{ query: MembersQuery, variables: { id: groupId } }],
@@ -64,11 +86,10 @@ const Members = ({ groupId, members, isGroup = false }) => {
     parts.splice(3, 0, 'resize=width:100')
     return parts.join('/')
   }
-  const theme = useMantineTheme();
+  const theme = useMantineTheme()
 
-  const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm}px)`);
+  const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm}px)`)
 
-console.log('Members render')
   return (
     <div className="members-table">
       {!isGroup ? (
@@ -79,11 +100,17 @@ console.log('Members render')
           >
             <ion-icon name="person-add-outline"></ion-icon>New Member
           </Link>
+          <button
+            onClick={() => setIsEdit(!isEdit)}
+            className="inline-button inline-button-small inline-button-blue"
+          >
+            <ion-icon name="create-outline"></ion-icon>Update Member
+          </button>
         </div>
       ) : (
         ''
       )}
-      <table cellSpacing="0">
+      <table cellSpacing="0" cellPadding="0">
         <thead>
           <tr>
             <th></th>
@@ -93,6 +120,7 @@ console.log('Members render')
             <th>Phone Number</th>
             <th>Address</th>
             <th>Group</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -129,6 +157,18 @@ console.log('Members render')
                   {member.group != null ? member.group.name : 'No Group Yet'}
                 </td>
               )}
+              <td>
+                {isEdit && (
+                  <Link to={routes.editMember({ id: member.id })}>
+                    <ion-icon
+                      style={{
+                        color: '#15AABF',
+                      }}
+                      name="pencil-outline"
+                    ></ion-icon>
+                  </Link>
+                )}
+              </td>
             </tr>
           ))}
         </tbody>
@@ -141,8 +181,12 @@ console.log('Members render')
           total={totalPage}
           radius="lg"
           withEdges
-          size={isMobile ? "xs" : "md"}
-          styles={{size: 100}}
+          size={isMobile ? 'xs' : 'md'}
+          styles={{
+            item: {
+              fontWeight: '300',
+            },
+          }}
         />
       </div>
     </div>

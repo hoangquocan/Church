@@ -9,6 +9,7 @@ const MembersPage = () => {
       <MetaTags title="Members" description="Members page" />
       <MembersCell />
       <MemberBirthDate />
+      {/* <MembersCell /> */}
     </>
   )
 }

@@ -5,9 +5,9 @@ function MenuItem({ title, to, ionicon }) {
   return (
     <div className="menu-item">
       <NavLink to={to} activeClassName="active-link">
-        <div className="menu-icon">
+        {/* <div className="menu-icon"> */}
           <ion-icon name={ionicon}></ion-icon>
-        </div>
+        {/* </div> */}
         {title}
       </NavLink>
     </div>

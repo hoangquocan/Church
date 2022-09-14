@@ -3,35 +3,61 @@ export const schema = gql`
     id: Int!
     group: Group!
     groupId: Int!
-    time: DateTime!
+    question: Question!
+    questionId: Int!
+    time: String!
     totalActivity: Int!
-    presentTrue: Int!
-    presentFalse: Int!
+    totalCompleted: Int!
+    percentCompleted: Float!
+    totalPresent: Int!
+    totalAbsent: Int!
     percentPresent: Float!
     comment: String!
+    answerOne: String!
+    answerTwo: String!
+    answerThree: String!
+    createdAt: DateTime!
+  }
+  type ReportsPortal {
+    totalMembers: Int!
+    totalMonthMembers: Int!
+    totalGroups: Int!
+    totalMonthGroups: Int!
+    totalActivities: Int!
+    totalMonthActivities: Int!
   }
 
   type Query {
+    reportsByMonth(timeReport: String): [Report!]! @requireAuth
+    reportsPortal(fromMonth: DateTime!, toMonth: DateTime!): ReportsPortal
+      @requireAuth
+    reportByGroup(groupId: Int!): [Report!] @requireAuth
     reports: [Report!]! @requireAuth
     report(id: Int!): Report @requireAuth
   }
-
   input CreateReportInput {
     groupId: Int!
-    time: DateTime!
+    time: String!
     totalActivity: Int!
-    presentTrue: Int!
-    presentFalse: Int!
+    totalCompleted: Int!
+    percentCompleted: Float!
+    totalPresent: Int!
+    totalAbsent: Int!
     percentPresent: Float!
     comment: String!
+    answerOne: String!
+    answerTwo: String!
+    answerThree: String!
   }
 
   input UpdateReportInput {
     groupId: Int
-    time: DateTime
+    time: String
     totalActivity: Int
-    presentTrue: Int
-    presentFalse: Int
+    totalCompleted: Int
+    percentCompleted: Float
+    totalPresent: Int
+    totalAbsent: Int
     percentPresent: Float
     comment: String
   }

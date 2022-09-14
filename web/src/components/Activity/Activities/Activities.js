@@ -2,12 +2,12 @@ import { Link, routes } from '@redwoodjs/router'
 import { useMutation } from '@redwoodjs/web'
 import { useState, useMemo } from 'react'
 
-import { Pagination } from '@mantine/core'
+import { Pagination, useMantineTheme } from '@mantine/core'
 import { openConfirmModal } from '@mantine/modals'
 import { showNotification } from '@mantine/notifications'
+import { useMediaQuery } from '@mantine/hooks'
 
 import { QUERY } from '../ActivitiesCell'
-
 import './Activities.scss'
 
 const DELETE_ACTIVITY_MUTATION = gql`
@@ -34,15 +34,15 @@ const Activities = ({ activities }) => {
       showNotification({
         color: 'red',
         title: 'Activity Has Been Deleted!',
-        icon: <ion-icon name="checkmark"></ion-icon>,
+        icon: <ion-icon style={{ color: 'white' }} name="checkmark"></ion-icon>,
         autoClose: 4000,
-        radius: 'md',
+        radius: 'lg',
         styles: (theme) => ({
           root: {
             // backgroundColor: theme.colors.blue[6],
             borderColor: theme.colors.red[4],
 
-            // '&::before': { backgroundColor: theme.white },
+            '&::before': { backgroundColor: theme.white },
           },
 
           title: { color: theme.colors.red[5] },
@@ -76,92 +76,100 @@ const Activities = ({ activities }) => {
       onConfirm: () => deleteActivity({ variables: { id } }),
     })
   }
+
+  const theme = useMantineTheme()
+  const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm}px)`)
+
   return (
     <div className="activities-wrapper">
-      <header className="activities-header">
-        <Link
-          to={routes.newActivity()}
-          className="inline-button inline-button-small inline-button-green"
-        >
-          <ion-icon name="add-circle-outline"></ion-icon>New Activity
-        </Link>
-        <nav>
-          <button
-            onClick={() => setIsShow(!isShow)}
-            className="inline-button inline-button-small inline-button-blue"
-            title="Show Activity"
+      <div className="activities-info">
+        <header className="activities-header">
+          <Link
+            to={routes.newActivity()}
+            className="inline-button inline-button-small inline-button-green"
           >
-            <ion-icon name="information-circle-outline"></ion-icon>Show Info
-          </button>
-          <button
-            onClick={() => setIsDelete(!isDelete)}
-            className="inline-button inline-button-small inline-button-red"
-            title="Delete Activity"
-          >
-            <ion-icon name="trash-outline"></ion-icon>Delete
-          </button>
-        </nav>
-      </header>
-      <table>
-        <thead>
-          <tr>
-            <th>STT</th>
-            <th>Activity Name</th>
-            <th>Date Participate</th>
-            <th>Group Participate</th>
-            <th>Created At</th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {resultActivities[activePage - 1].map((activity) => (
-            <tr key={activity.id}>
-              <td></td>
-              <td>{activity.name}</td>
-              <td>
-                {new Date(activity.date).toLocaleString({ timeZone: 'UTC' })}
-              </td>
-              <td>{activity.group.name}</td>
-              <td>{timeTag(activity.createdAt)}</td>
-              <td><img src={activity.urlAttendance} /></td>
-              <td>
-                <nav className="activity-table-action">
-                  {isShow && (
-                    <Link
-                      to={routes.activity({ id: activity.id })}
-                      className="rw-button rw-button-small rw-button-blue"
-                      title={'Show Activity ' + activity.name}
-                    >
-                      <ion-icon
-                        style={{
-                          color: '#15AABF',
-                        }}
-                        name="information-circle-outline"
-                      ></ion-icon>{' '}
-                    </Link>
-                  )}
-                  {isDelete && activity.attendance.length == 0 && (
-                    <a
-                      href="#"
-                      onClick={() => handleClick(activity.id, activity.name)}
-                      className="rw-button rw-button-small rw-button-red"
-                      title={'Delete Activity ' + activity.name}
-                    >
-                      <ion-icon
-                        style={{
-                          color: '#FA5252',
-                        }}
-                        name="trash-outline"
-                      ></ion-icon>
-                    </a>
-                  )}
-                </nav>
-              </td>
+            <ion-icon name="add-circle-outline"></ion-icon>New Activity
+          </Link>
+          <nav>
+            <button
+              onClick={() => setIsShow(!isShow)}
+              className="inline-button inline-button-small inline-button-blue"
+              title="Show Activity"
+            >
+              <ion-icon name="information-circle-outline"></ion-icon>Show Info
+            </button>
+            <button
+              onClick={() => setIsDelete(!isDelete)}
+              className="inline-button inline-button-small inline-button-red"
+              title="Delete Activity"
+            >
+              <ion-icon name="trash-outline"></ion-icon>Delete
+            </button>
+          </nav>
+        </header>
+        <table>
+          <thead>
+            <tr>
+              <th>Stt</th>
+              <th>Name</th>
+              <th>Date Participate</th>
+              <th>Group Participate</th>
+              <th>Created At</th>
+              <th>Picture</th>
+              <th></th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {resultActivities[activePage - 1].map((activity) => (
+              <tr key={activity.id}>
+                <td></td>
+                <td>{activity.name}</td>
+                <td>
+                  {new Date(activity.date).toLocaleString({ timeZone: 'UTC' })}
+                </td>
+                <td>{activity.group.name}</td>
+                <td>{timeTag(activity.createdAt)}</td>
+                <td>
+                  <img src={activity.urlAttendance} />
+                </td>
+                <td>
+                  <nav className="activity-table-action">
+                    {isShow && (
+                      <Link
+                        to={routes.activity({ id: activity.id })}
+                        className="rw-button rw-button-small rw-button-blue"
+                        title={'Show Activity ' + activity.name}
+                      >
+                        <ion-icon
+                          style={{
+                            color: '#15AABF',
+                          }}
+                          name="information-circle-outline"
+                        ></ion-icon>{' '}
+                      </Link>
+                    )}
+                    {isDelete && activity.attendance.length == 0 && (
+                      <a
+                        href="#"
+                        onClick={() => handleClick(activity.id, activity.name)}
+                        className="rw-button rw-button-small rw-button-red"
+                        title={'Delete Activity ' + activity.name}
+                      >
+                        <ion-icon
+                          style={{
+                            color: '#FA5252',
+                          }}
+                          name="trash-outline"
+                        ></ion-icon>
+                      </a>
+                    )}
+                  </nav>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       <div className="activities-pagination">
         <Pagination
           position="center"
@@ -170,6 +178,12 @@ const Activities = ({ activities }) => {
           total={totalPage}
           radius="lg"
           withEdges
+          size={isMobile ? 'xs' : 'md'}
+          styles={{
+            item: {
+              fontWeight: '300',
+            },
+          }}
         />
       </div>
     </div>

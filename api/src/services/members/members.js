@@ -1,22 +1,22 @@
 import { db } from 'src/lib/db'
 
-const MEMBERS_PER_PAGE = 5
+// const MEMBERS_PER_PAGE = 5
 
-export const memberPage = ({ page = 1}) => {
-  const offset = (page - 1) * MEMBERS_PER_PAGE
+// export const memberPage = ({ page = 1}) => {
+//   const offset = (page - 1) * MEMBERS_PER_PAGE
 
-  return {
-    members: db.member.findMany({
-      take: MEMBERS_PER_PAGE,
-      skip: offset,
-      orderBy: { createdAt: 'desc'}
-    }),
-    count: db.member.count()
-  }
-}
+//   return {
+//     members: db.member.findMany({
+//       take: MEMBERS_PER_PAGE,
+//       skip: offset,
+//       orderBy: { createdAt: 'desc'}
+//     }),
+//     count: db.member.count()
+//   }
+// }
 export const members = () => {
   return db.member.findMany({
-    orderBy: { name: 'asc'}
+    orderBy: { name: 'asc' },
   })
 }
 
@@ -54,6 +54,25 @@ export const Member = {
 
 export const membersNoGroup = () => {
   return db.member.findMany({
-    where: { groupId: null}
+    where: { groupId: null },
+  })
+}
+
+export const memberSearchName = ({ nameSearch }) => {
+  // const valueSearch = event.target.value
+  const resultValueSearch = nameSearch
+    .trim()
+    .split(' ')
+    .map((char) => `+${char}*`)
+    .join(' ')
+    console.log(resultValueSearch)
+  return db.member.findMany({
+    where: {
+      name: {
+        search: resultValueSearch,
+      },
+    },
+    orderBy: { name: 'asc' },
+    take: 6,
   })
 }

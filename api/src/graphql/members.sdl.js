@@ -20,6 +20,7 @@ export const schema = gql`
     count: Int!
   }
   type Query {
+    memberSearchName(nameSearch: String): [Member!]! @requireAuth
     memberPage(page: Int): MemberPage @requireAuth
     membersNoGroup: [Member!]! @requireAuth
     members: [Member!]! @requireAuth

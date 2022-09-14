@@ -1,8 +1,13 @@
 import { useQuery } from '@redwoodjs/web'
-// import { useRef } from 'react'
+import { Link, routes } from '@redwoodjs/router'
+
+import { Loader } from '@mantine/core'
+import { HoverCard, Avatar, Text, Group, Stack } from '@mantine/core'
 // import Autoplay from 'embla-carousel-autoplay'
 import { Carousel } from '@mantine/carousel'
+
 import './MemberBirthDate.scss'
+
 const QUERY = gql`
   query MemberBirthDateQuery {
     members {
@@ -22,8 +27,9 @@ const QUERY = gql`
 `
 const MemberBirthDate = () => {
   const { loading, error, data } = useQuery(QUERY)
-  if (loading) return <h1 className="text-center">Loading...</h1>
+  if (loading) return <div style={{ textAlign: 'center', marginTop: '50px'}}><Loader variant="oval" size="md" color='blue'/></div>
   if (error) return `Error! ${error.message}`
+
   const members = data.members
   const currentMonth = new Date().getMonth() + 1
 
@@ -39,35 +45,80 @@ const MemberBirthDate = () => {
 
   const images = result.map((member) => (
     <Carousel.Slide key={member.id}>
-      {member.urlAvatar ? (
-        <img src={thumbnail(member.urlAvatar)} alt="Avatar" />
-      ) : (
-        <ion-icon name="person-outline"></ion-icon>
-      )}
+      <Group position="center">
+        <HoverCard
+          zIndex={9999}
+          position="bottom"
+          width={280}
+          shadow="lg"
+          withArrow
+          openDelay={100}
+          closeDelay={100}
+        >
+          <HoverCard.Target>
+            {member.urlAvatar ? (
+              <img src={thumbnail(member.urlAvatar)} alt="Avatar" />
+            ) : (
+              <ion-icon title="" name="person-outline"></ion-icon>
+            )}
+          </HoverCard.Target>
+          <HoverCard.Dropdown>
+            <Group>
+              <Avatar src={thumbnail(member.urlAvatar)} radius="xl" size="xl" />
+              <Stack spacing={1}>
+                <Text size="sm" weight={700} sx={{ lineHeight: 1 }}>
+                  {member.name}
+                </Text>
+                <Link to={routes.member({ id: member.id })}>
+                  <span>{member.phoneNumber}</span>
+                </Link>
+              </Stack>
+            </Group>
+
+            <Text size="sm" mt={5}>
+              {new Date(member.birthDate).toLocaleDateString('sv')}
+            </Text>
+
+            {/* <Group mt="md" spacing="xl">
+              <Text size="sm">
+                <b>0</b> Following
+              </Text>
+              <Text size="sm">
+                <b>1,174</b> Followers
+              </Text>
+            </Group> */}
+          </HoverCard.Dropdown>
+        </HoverCard>
+      </Group>
     </Carousel.Slide>
   ))
 
   return (
     <div className="member-birthdate">
-      <h6 style={{color: '#fff'}}>BirthDays Of The Month</h6>
+      <h2 style={{ fontFamily: 'Qwigley', fontWeight: '400' }}>BirthDays Of The Month</h2>
 
-      {(images.length > 0 )? (
+      {images.length > 0 ? (
         <Carousel
           styles={{
             root: {
               margin: '0 auto',
               width: '50%',
-              height: 220,
               '@media (max-width: 1366px)': { width: '80%' },
               '@media (max-width: 1024px)': { width: '100%' },
-              // '@media (max-width: 768px)': { height: 175 },
-              '@media (max-width: 480px)': { height: 140 },
+              '@media (max-width: 480px)': { height: 240 },
             },
-            control: { backgroundColor: '#E3FAFC', color: '#000' },
-            indicator: { backgroundColor: '#fff' },
+            control: {
+              backgroundColor: '#fff',
+              color: '#000',
+              marginTop: -120,
+              '@media (max-width: 480px)': { marginTop: -90 },
+            },
+            indicator: { marginBottom: 100,
+              '@media (min-width: 480px)': { marginBottom: 135 },
+             },
           }}
           withIndicators
-          height={220}
+          height={360}
           slideSize="22%"
           slideGap="md"
           align="center"
@@ -76,7 +127,11 @@ const MemberBirthDate = () => {
         >
           {images}
         </Carousel>
-      ) : <h5 className='text-center'>Don't Have Any Member Has BirthDay On This Month</h5>}
+      ) : (
+        <h3 className="text-center">
+          Don't Have Any Member Has BirthDay On This Month
+        </h3>
+      )}
     </div>
   )
 }

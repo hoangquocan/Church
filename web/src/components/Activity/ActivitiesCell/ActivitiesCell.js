@@ -1,4 +1,5 @@
 import { Link, routes } from '@redwoodjs/router'
+import { Loader } from '@mantine/core'
 import Activities from '../Activities/Activities'
 
 export const QUERY = gql`
@@ -20,13 +21,16 @@ export const QUERY = gql`
   }
 `
 
-export const Loading = () => <div>Loading...</div>
-
+export const Loading = () => (
+  <div style={{ textAlign:'center', marginTop: '25%'}}>
+    <Loader variant="oval" size="md" color="blue" />
+  </div>
+)
 export const Empty = () => {
   return (
     <div className="text-center">
-      <h3>No Activity Yet</h3>
-      <Link to={routes.newActivity()} style={{ color: 'var(--color-link)' }}>
+      <h2>No Activity Yet</h2>
+      <Link to={routes.newActivity()} style={{ color: 'var(--color-link)', fontSize: '1.2rem', fontFamily: 'Dancing Script, cursive' }}>
         {'Create one?'}
       </Link>
     </div>

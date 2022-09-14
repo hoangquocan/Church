@@ -34,18 +34,10 @@ export const deleteGroup = ({ id }) => {
 export const Group = {
   members: (_obj, { root }) =>
     db.group.findUnique({ where: { id: root.id } }).members(),
+  leader: (_obj, { root }) =>
+    db.group.findUnique({ where: { id: root.id } }).leader(),
+  reports: (_obj, { root }) =>
+    db.group.findUnique({ where: { id: root.id } }).reports(),
   activities: (_obj, { root }) =>
     db.group.findUnique({ where: { id: root.id } }).activities(),
-}
-
-// export const groupMembers = ({ id }) => {
-//   return db.group.findUnique({ where: { id }, select: { members: true } })
-// }
-
-export const groupCount = () => {
-  return db.group.findMany({
-    include: {
-      _count: { select: {members: true}}
-    }
-  })
 }

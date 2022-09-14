@@ -5,17 +5,6 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  overflow-y: auto;
-  &::-webkit-scrollbar {
-    background-color: transparent;
-    width: 0px;
-  }
-  @media (max-width: 1024px) {
-    margin-bottom: 80px;
-  }
-  @media (max-width: 480px) {
-    margin-bottom: 50px;
-  }
 
   .activities-header {
     height: 40px;
@@ -36,24 +25,14 @@
 
   table {
     width: 100%;
-    // position: relative;
-    // top: 45px;
     counter-reset: rowNumber 1;
     border-collapse: separate;
     border-spacing: 0;
     box-shadow: 0 4px 2px -2px gray;
-    flex: 1;
   }
-  tbody {
-    tr {
-      line-height: normal;
-      @media (max-width: 775px) {
-        line-height: normal;
-      }
-    }
     img {
-      width: 70px;
-      height: 65px;
+      width: 180px;
+      height: 100px;
       padding-top: 5px;
       @media (max-height: 920px) {
         height: 48px;
@@ -63,13 +42,13 @@
         height: 56px;
       }
     }
-  }
-  table tr:first-child th:first-child {
-    border-top-left-radius: 18px;
-  }
-  table tr:first-child th:last-child {
-    border-top-right-radius: 18px;
-  }
+
+  // table tr:first-child th:first-child {
+  //   border-top-left-radius: 18px;
+  // }
+  // table tr:first-child th:last-child {
+  //   border-top-right-radius: 18px;
+  // }
   table tr:not(:first-child) {
     counter-increment: rowNumber;
   }
@@ -79,7 +58,7 @@
   }
   th,
   td {
-    padding-left: 10px;
+    padding-left: 6px;
     border: 1px solid #dee2e6;
     @media (max-width: 480px) {
       padding-left: 2px;
@@ -87,8 +66,16 @@
   }
   th {
     height: 40px;
+    // font-family: 'Dancing Script', cursive;
+    font-weight: 300;
+    font-size: 0.9rem;
     text-align: left;
     background-color: var(--bg-active);
+    // color: #fff;
+    // background-color: #343A40;
+    @media (min-width: 480px) {
+      font-size: 1.4rem;
+    }
   }
 
   tr {
@@ -108,6 +95,11 @@
     }
   }
 
+  tr td:first-child,th:first-child {
+    @media (max-width: 480px) {
+      display:none;
+    }
+  }
   nav {
     display: flex;
     justify-content: space-evenly;
@@ -126,21 +118,13 @@
   }
 
   .activities-pagination {
-    height: 40px;
+    // height: 40px;
     width: 100%;
-    margin-bottom: 10px;
+    // margin-bottom: 10px;
     margin-top: 14px;
     button {
+      font-family: 'Dancing Script', cursive;
       border: 0.5px solid #ced4da;
     }
-    // @media (max-width: 1024px) {
-    //   // bottom: -74px;
-    // }
-    // @media (max-width: 480px) {
-    //   // margin-bottom: 100px;
-    // }
-    // //     @media (max-height: 900px) {
-    // // bottom: -74px;
-    // //     }
   }
 }

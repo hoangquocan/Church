@@ -19,23 +19,23 @@ describe('groups', () => {
     expect(result).toEqual(scenario.group.one)
   })
 
-  scenario('creates a group', async () => {
+  scenario('creates a group', async (scenario) => {
     const result = await createGroup({
-      input: { name: 'String5672796', leader: 'String' },
+      input: { name: 'String782346', userId: scenario.group.two.userId },
     })
 
-    expect(result.name).toEqual('String5672796')
-    expect(result.leader).toEqual('String')
+    expect(result.name).toEqual('String782346')
+    expect(result.userId).toEqual(scenario.group.two.userId)
   })
 
   scenario('updates a group', async (scenario) => {
     const original = await group({ id: scenario.group.one.id })
     const result = await updateGroup({
       id: original.id,
-      input: { name: 'String33173092' },
+      input: { name: 'String40108682' },
     })
 
-    expect(result.name).toEqual('String33173092')
+    expect(result.name).toEqual('String40108682')
   })
 
   scenario('deletes a group', async (scenario) => {

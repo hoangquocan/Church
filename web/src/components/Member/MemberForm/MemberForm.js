@@ -28,7 +28,6 @@ const MemberForm = (props) => {
     setUrlAvatar(null)
     setNameAvatar(null)
   }
-  console.log(props.member.name)
   return (
     <div className="member-form">
       <Form
@@ -41,7 +40,7 @@ const MemberForm = (props) => {
         <Input type="text" name="name" />
         <FieldError name="name" className="error"></FieldError>
 
-        <Label name="birthDate">Birth Date</Label>
+        <Label name="birthDate">Date Of Birth</Label>
         <DatePicker
           name="birthDate"
           control={control}
@@ -67,7 +66,7 @@ const MemberForm = (props) => {
         <div className="member-form-imgpicker">
           <input
             type="button"
-            onClick={() => setIsChoose(isChoose == false ? true : false)}
+            onClick={() => setIsChoose(!isChoose)}
             value={nameAvatar}
           />
           <ion-icon name="image-outline"></ion-icon>

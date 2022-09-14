@@ -1,0 +1,51 @@
+.reports-portal {
+  text-align: center;
+  width: 100%;
+  // margin-top: 4px;
+  background-color: #f3ebeb;
+  .mantine-nsdj {
+    margin: 0px;
+  }
+  p {
+    font-size: 1.2rem;
+    @media (max-width: 480px) {
+      font-size: 1rem;
+    }
+  }
+  span {
+    font-size: 2rem;
+    @media (max-width: 480px) {
+      font-size: 1.6rem;
+    }
+  }
+  .total-members {
+    background-color: cyan;
+    height: 100px;
+    padding: 6px;
+    border-radius: 10px;
+  }
+  .total-groups {
+    border-radius: 10px;
+    padding: 6px;
+    height: 100px;
+    background-color: #ffec99;
+  }
+  .total-month-activities {
+    border-radius: 10px;
+    padding: 6px;
+    height: 100px;
+    background-color: #f783ac;
+  }
+  .total-month-members {
+    border-radius: 10px;
+    padding: 6px;
+    height: 100px;
+    background-color: #eebefa;
+  }
+  .total-month-groups {
+    border-radius: 10px;
+    padding: 6px;
+    height: 100px;
+    background-color: #ffc078;
+  }
+}

@@ -29,21 +29,25 @@ describe('reports', () => {
     const result = await createReport({
       input: {
         groupId: scenario.report.two.groupId,
-        time: '2022-08-26T11:12:00Z',
-        totalActivity: 7182492,
-        presentTrue: 8201804,
-        presentFalse: 5986390,
-        percentPresent: 8831891.114245769,
+        time: '2022-08-30T02:23:47Z',
+        totalActivity: 317194,
+        totalCompleted: 1926431,
+        percentCompleted: 5661231.800782682,
+        totalPresent: 9609650,
+        totalAbsent: 4633005,
+        percentPresent: 7514899.926741186,
         comment: 'String',
       },
     })
 
     expect(result.groupId).toEqual(scenario.report.two.groupId)
-    expect(result.time).toEqual('2022-08-26T11:12:00Z')
-    expect(result.totalActivity).toEqual(7182492)
-    expect(result.presentTrue).toEqual(8201804)
-    expect(result.presentFalse).toEqual(5986390)
-    expect(result.percentPresent).toEqual(8831891.114245769)
+    expect(result.time).toEqual('2022-08-30T02:23:47Z')
+    expect(result.totalActivity).toEqual(317194)
+    expect(result.totalCompleted).toEqual(1926431)
+    expect(result.percentCompleted).toEqual(5661231.800782682)
+    expect(result.totalPresent).toEqual(9609650)
+    expect(result.totalAbsent).toEqual(4633005)
+    expect(result.percentPresent).toEqual(7514899.926741186)
     expect(result.comment).toEqual('String')
   })
 
@@ -51,10 +55,10 @@ describe('reports', () => {
     const original = await report({ id: scenario.report.one.id })
     const result = await updateReport({
       id: original.id,
-      input: { time: '2022-08-27T11:12:00Z' },
+      input: { time: '2022-08-31T02:23:47Z' },
     })
 
-    expect(result.time).toEqual('2022-08-27T11:12:00Z')
+    expect(result.time).toEqual('2022-08-31T02:23:47Z')
   })
 
   scenario('deletes a report', async (scenario) => {

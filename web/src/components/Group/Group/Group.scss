@@ -2,10 +2,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-family: 'Dancing Script', cursive;
+  font-weight: 400;
 }
-// .group-info {
-//   margin-top: var(--mg-10);
-// }
+.group-info {
+  margin-bottom: 10px;
+}
 .group-button {
  ion-icon{
   padding-right: 6px;
