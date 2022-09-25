@@ -1,18 +1,8 @@
-.manager-createquestion {
-  width: var(--form-width);
-  margin: 20px auto;
-  font-weight: 200;
-  @media (max-width: 768px) {
-    width: var(--form-width-tablet);
-  }
-  @media (max-width: 480px) {
-    width: var(--form-width-mobile);
-    // margin: 10px auto;
-    // font-size: 1rem;
-  }
+.member-form {
   h3 {
     margin: 10px auto;
     padding-left: 2px;
+    color: #fff;
   }
   label {
     margin-left: 2px;
@@ -24,23 +14,20 @@
     align-items: center;
     justify-content: space-between;
     margin: 10px 2px;
-    // background: #fff;
     .react-datepicker-wrapper {
-      // position: fixed;
       right: 60px;
       width: 160px;
-      }
     }
-    input {
-    padding-right: 0px;
-    height: 2.6rem;
+  }
+  input {
+    padding-left: 40px;
+    height: 2.4rem;
     border-radius: 5px;
     background-color: #fff;
+    font-size: 16px;
     border: 1px solid rgb(143, 142, 142);
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 6px, rgba(0, 0, 0, 0.3) 0px 3px 6px;
     appearance: none;
-
-    // background: transparent;
     background-image: linear-gradient(45deg, transparent 50%, #495057 50%),
       linear-gradient(135deg, #343a40 50%, transparent 50%),
       linear-gradient(to right, #ccc, #ccc);
@@ -55,8 +42,8 @@
     &:hover {
       cursor: pointer;
     }
-    @media (max-width: 768px) {
-      height: 2.1rem;
-    }
+    // @media (max-width: 768px) {
+    //   height: 2.1rem;
+    // }
   }
 }

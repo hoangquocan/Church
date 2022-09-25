@@ -37,6 +37,7 @@ const EditMember = ({ member }) => {
         // icon: <ion-icon name="checkmark-outline"></ion-icon>,
         autoClose: 3000,
         radius: 'md',
+        containerWidth: '800px',
         styles: (theme) => ({
           root: {
             borderColor: theme.colors.teal[7],
@@ -66,8 +67,12 @@ const EditMember = ({ member }) => {
     },
   })
   const handleSubmit = (values) => {
-    const inputWithUrl = Object.assign(values, { urlAvatar }, {birthDate: value})
-    updateMember({variables: { id: member.id, input:  inputWithUrl  }})
+    const inputWithUrl = Object.assign(
+      values,
+      { urlAvatar },
+      { birthDate: value }
+    )
+    updateMember({ variables: { id: member.id, input: inputWithUrl } })
   }
 
   const onFileUpload = (response) => {
@@ -79,54 +84,64 @@ const EditMember = ({ member }) => {
     setNameAvatar(null)
   }
   return (
-    <div className="edit-member">
-    <h2 className="text-center">Update Member "{member.name}"</h2>
-      <form onSubmit={form.onSubmit(handleSubmit)}>
-        <TextInput label="Name" {...form.getInputProps('name')} />
+    <>
+      <h2 className="text-center">Update Member "{member.name}"</h2>
+      <div className="member-form">
+        <form onSubmit={form.onSubmit(handleSubmit)}>
+          <TextInput label="Name" {...form.getInputProps('name')} />
 
-        <DatePicker
-          allowFreeInput
-          value={value}
-          label="Date Of Birth"
-          onChange={setValue}
-        />
-
-        <TextInput label="Phone Number" {...form.getInputProps('phoneNumber')} />
-
-        <TextInput label="Email" {...form.getInputProps('email')} />
-
-        <TextInput label="Address" {...form.getInputProps('address')} />
-
-        <label>Avatar</label>
-        <div className="member-form-imgpicker">
-          <input
-            type="button"
-            onClick={() => setIsChoose(!isChoose)}
-            value={nameAvatar}
+          <DatePicker
+            allowFreeInput
+            value={value}
+            label="Date Of Birth"
+            onChange={setValue}
           />
-          <ion-icon name="image-outline"></ion-icon>
-        </div>
-        {isChoose && (
-          <PickerInline
-            apikey={process.env.REDWOOD_ENV_FILESTACK_API_KEY}
-            onSuccess={onFileUpload}
-          >
-            <div
-              style={{ display: urlAvatar ? 'none' : 'block', height: '300px' }}
-            ></div>
-          </PickerInline>
-        )}
-        {urlAvatar && (
-          <div className="members-img">
-            <img src={urlAvatar} />
-            <input type="button" onClick={handleImg} value="Replace Avatar" />
+
+          <TextInput
+            label="Phone Number"
+            {...form.getInputProps('phoneNumber')}
+          />
+
+          <TextInput label="Email" {...form.getInputProps('email')} />
+
+          <TextInput label="Address" {...form.getInputProps('address')} />
+
+          <label>Avatar</label>
+          <div className="member-form-imgpicker">
+            <input
+              type="button"
+              onClick={() => setIsChoose(!isChoose)}
+              value={nameAvatar}
+            />
+            <ion-icon name="image-outline"></ion-icon>
           </div>
-        )}
-        <div className="form-btn-mantine">
-          <Button type="submit">Save <ion-icon name="checkmark-circle-outline"></ion-icon></Button>
-        </div>
-      </form>
-    </div>
+          {isChoose && (
+            <PickerInline
+              apikey={process.env.REDWOOD_ENV_FILESTACK_API_KEY}
+              onSuccess={onFileUpload}
+            >
+              <div
+                style={{
+                  display: urlAvatar ? 'none' : 'block',
+                  height: '300px',
+                }}
+              ></div>
+            </PickerInline>
+          )}
+          {urlAvatar && (
+            <div className="members-img">
+              <img src={urlAvatar} />
+              <input type="button" onClick={handleImg} value="Replace Avatar" />
+            </div>
+          )}
+          <div className="form-btn">
+            <Button type="submit">
+              Save <ion-icon name="checkmark-circle-outline"></ion-icon>
+            </Button>
+          </div>
+        </form>
+      </div>
+    </>
   )
 }
 

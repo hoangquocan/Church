@@ -1,7 +1,12 @@
 .reportchart-wrapper {
-  .recharts-layer{
-
-    .recharts-cartesian-axis-ticks {padding: 20px;
-    margin-top: 10px;}
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 10px 0;
+  .recharts-layer {
+    // background-color: #fff;
+    .recharts-cartesian-axis-ticks {
+      padding: 20px;
+      margin-top: 10px;
+    }
   }
 }

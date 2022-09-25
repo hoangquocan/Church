@@ -4,6 +4,7 @@ import { PasswordInput, TextInput, Button, Divider } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { showNotification } from '@mantine/notifications'
 import './Login.scss'
+import { useEffect, useRef } from 'react'
 const CREATE_USER = gql`
   mutation CreateUserMutation($input: CreateUserInput!) {
     createUser(input: $input) {
@@ -23,6 +24,9 @@ const QUERY_USER = gql`
   query UsersExistQuery {
     usersExist {
       email
+      group {
+        id
+      }
     }
   }
 `
@@ -33,6 +37,18 @@ const Login = ({ handleLogin }) => {
   const [createUserRole] = useMutation(CREATE_USERROLE)
   const { loading, error, data } = useQuery(QUERY_USER)
 
+  const usernameRef = useRef()
+  const passwordRef = useRef()
+
+  // useEffect(() => {
+  //   document.addEventListener('click', handleClickOutside, true)
+  //   return () => document.removeEventListener('click', handleClickOutside, true)
+  // }, [])
+  // const handleClickOutside = (e) => {
+  //   // if (!usernameRef.current.contains(e.target)) {
+  //   //   usernameRef.current.classList.remove('focus')
+  //   // }
+  // }
   let userExist = []
   if (data) {
     userExist = data.usersExist.map((user) => user.email)
@@ -51,6 +67,8 @@ const Login = ({ handleLogin }) => {
     const loginres = await logIn()
     const { user } = loginres
     const email = user.email
+    localStorage.setItem('email', email)
+
     if (!userExist.includes(email)) {
       await createUser({
         variables: { input: { email: email, avatar: user.photoURL } },
@@ -58,12 +76,14 @@ const Login = ({ handleLogin }) => {
       await createUserRole({
         variables: { input: { name: 'user' }, email },
       })
+    } else if (userExist.includes(email)) {
+      const user = data.usersExist.find((user) => user.email == email).group?.id
+      localStorage.setItem('groupId', user)
     }
 
     showNotification({
       color: 'blue',
       title: 'Welcome! Log In Success',
-      // icon: <ion-icon name="checkmark-outline"></ion-icon>,
       autoClose: 1800,
       radius: 'md',
       styles: (theme) => ({
@@ -88,10 +108,17 @@ const Login = ({ handleLogin }) => {
   const handleSubmit = async (values) => {
     await logIn({ email: values.email, password: values.password })
       .then((userCredential) => {
+        localStorage.setItem('email', values.email)
+
+        const groupId = data.usersExist.find(
+          (user) => user.email == values.email
+        ).group?.id
+        console.log(groupId)
+        localStorage.setItem('groupId', groupId)
+
         showNotification({
           color: 'blue',
           title: 'Welcome! Log In Success',
-          // icon: <ion-icon name="checkmark-outline"></ion-icon>,
           autoClose: 1800,
           radius: 'md',
           styles: (theme) => ({
@@ -139,18 +166,36 @@ const Login = ({ handleLogin }) => {
         })
       })
   }
+
+  const handleEmail = () => {
+    usernameRef.current.classList.toggle('focus')
+  }
+  const handlePassword = () => {
+    passwordRef.current.classList.toggle('focus')
+  }
+
   return (
     <div className="modal-login">
       <form onSubmit={form.onSubmit(handleSubmit)}>
-        <TextInput label="Email" {...form.getInputProps('email')} />
-        <PasswordInput label="Password" {...form.getInputProps('password')} />
-        <div className='form-btn'><Button type="submit">Sign In</Button></div>
+        <div className="inputLogin" onClick={handleEmail}>
+          <TextInput variant="unstyled" {...form.getInputProps('email')} />
+          <label ref={usernameRef}>Email</label>
+        </div>
+        <div className="inputLogin" onClick={handlePassword}>
+          <PasswordInput
+            variant="unstyled"
+            {...form.getInputProps('password')}
+          />
+          <label ref={passwordRef}>Password</label>
+        </div>
+        <div className="btn-cyan">
+          <button type="submit">Sign In</button>
+        </div>
       </form>
-      <Divider my="md" label="OR" labelPosition="center" />
+      <Divider my="md" label="OR" labelPosition="center" color="#fff" mt={30} mb={30}/>
       <button onClick={onClick} type="button" className="login-with-google-btn">
         Sign in with Google
       </button>
-      {/* <Divider size="sm" mt="20px" ml="-40px" /> */}
     </div>
   )
 }

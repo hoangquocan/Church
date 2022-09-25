@@ -3,8 +3,8 @@ import { db } from 'src/lib/db'
 export const users = () => {
   return db.user.findMany({
     where: {
-      NOT: { email: { equals: 'hoangquocan91@gmail.com'}}
-    }
+      NOT: { email: { equals: 'hoangquocan91@gmail.com' } },
+    },
   })
 }
 
@@ -42,4 +42,15 @@ export const User = {
     db.user.findUnique({ where: { id: root.id } }).userRoles(),
   group: (_obj, { root }) =>
     db.user.findUnique({ where: { id: root.id } }).group(),
+}
+
+export const usersHasRole = () => {
+  return db.user.findMany({
+    where: {
+      userRoles: {
+        some: { name: { contains: 'manager' } },
+        some: { name: { contains: 'leader' } },
+      },
+    },
+  })
 }

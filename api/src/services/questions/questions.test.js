@@ -28,14 +28,14 @@ describe('questions', () => {
   scenario('creates a question', async () => {
     const result = await createQuestion({
       input: {
-        time: '2022-09-14T13:38:02Z',
+        time: '2022-09-17T03:38:33Z',
         questionOne: 'String',
         questionTwo: 'String',
         questionThree: 'String',
       },
     })
 
-    expect(result.time).toEqual('2022-09-14T13:38:02Z')
+    expect(result.time).toEqual('2022-09-17T03:38:33Z')
     expect(result.questionOne).toEqual('String')
     expect(result.questionTwo).toEqual('String')
     expect(result.questionThree).toEqual('String')
@@ -45,10 +45,10 @@ describe('questions', () => {
     const original = await question({ id: scenario.question.one.id })
     const result = await updateQuestion({
       id: original.id,
-      input: { time: '2022-09-15T13:38:02Z' },
+      input: { time: '2022-09-18T03:38:33Z' },
     })
 
-    expect(result.time).toEqual('2022-09-15T13:38:02Z')
+    expect(result.time).toEqual('2022-09-18T03:38:33Z')
   })
 
   scenario('deletes a question', async (scenario) => {

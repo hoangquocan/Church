@@ -4,6 +4,13 @@ export const questions = () => {
   return db.question.findMany()
 }
 
+export const questionsView = () => {
+  return db.question.findMany({
+    orderBy: { time: 'desc' },
+    take: 5,
+  })
+}
+
 export const question = ({ id }) => {
   return db.question.findUnique({
     where: { id },
@@ -11,7 +18,6 @@ export const question = ({ id }) => {
 }
 
 export const questionByMonth = ({ month }) => {
-  // console.log(new Date(month))
   return db.question.findUnique({
     where: {
       time: month,

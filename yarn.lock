@@ -8917,6 +8917,7 @@ __metadata:
     filestack-js: ^3.25.0
     firebase-admin: ^11.0.1
     jsonwebtoken: ^8.5.1
+    nodemailer: ^6.7.8
   languageName: unknown
   linkType: soft
 
@@ -19952,6 +19953,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nodemailer@npm:^6.7.8":
+  version: 6.7.8
+  resolution: "nodemailer@npm:6.7.8"
+  checksum: e5f691a7fd38b9694b80a7817fdeffceb2fa3e3ea3a746698abb6829d1c66f3a75238292f11ce3ca9e0cc34363c051a42a37c5190f1deb0dc72d223bc510d28c
+  languageName: node
+  linkType: hard
+
 "nodemon@npm:2.0.19":
   version: 2.0.19
   resolution: "nodemon@npm:2.0.19"
@@ -22269,6 +22277,13 @@ __metadata:
   bin:
     rc: ./cli.js
   checksum: 24a07653150f0d9ac7168e52943cc3cb4b7a22c0e43c7dff3219977c2fdca5a2760a304a029c20811a0e79d351f57d46c9bde216193a0f73978496afc2b85b15
+  languageName: node
+  linkType: hard
+
+"react-csv@npm:^2.2.2":
+  version: 2.2.2
+  resolution: "react-csv@npm:2.2.2"
+  checksum: 287e7ba2085a32a0e65d7a19b9e063e43f06f75ab6ebc18bb52b518007a1d6ec5f5ce33fc7c4e290e3ea41cfb251657b6e62aadadc8d7ffcef7e53d43bf3eb69
   languageName: node
   linkType: hard
 
@@ -26604,6 +26619,7 @@ __metadata:
     normalize.css: ^8.0.1
     prop-types: 15.8.1
     react: 17.0.2
+    react-csv: ^2.2.2
     react-datepicker: ^4.8.0
     react-dom: 17.0.2
     recharts: ^2.1.13

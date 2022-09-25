@@ -33,13 +33,13 @@ const NewGroup = () => {
           color: 'white',
           title: 'Group Has Been Created!',
           message: 'You can add member to this Group',
-          icon: <ion-icon name="checkmark-outline"></ion-icon>,
+          icon: <ion-icon name="checkemark-outline"></ion-icon>,
           autoClose: 4000,
           radius: 'lg',
           styles: (theme) => ({
             root: {
               borderColor: theme.colors.blue[4],
-              '&::before': { backgroundColor: theme.white },
+              '&::before': { backgroundColor: theme.blue },
             },
             closeButton: {
               color: theme.gray,

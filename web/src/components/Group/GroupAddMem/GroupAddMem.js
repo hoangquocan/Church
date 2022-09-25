@@ -20,8 +20,8 @@ const GroupAddMem = ({ members, id }) => {
         color: 'teal',
         title: 'Member Has Been Added!',
         message: 'You can add another member to this Group',
-        icon: <ion-icon name="checkmark-outline"></ion-icon>,
-        autoClose: 4000,
+        // icon: <ion-icon name="checkmark-outline"></ion-icon>,
+        autoClose: 3000,
         radius: 'md',
         styles: (theme) => ({
           root: {
@@ -54,7 +54,6 @@ const GroupAddMem = ({ members, id }) => {
 
   return (
     <div className="group-addmem">
-    <h2></h2>
       <table cellSpacing="0">
         <thead>
           <tr>

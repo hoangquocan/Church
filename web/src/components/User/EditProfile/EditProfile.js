@@ -7,7 +7,6 @@ import {
   Text,
   Stack,
   Button,
-  Container,
 } from '@mantine/core'
 import { showNotification } from '@mantine/notifications'
 import { useMutation } from '@redwoodjs/web'
@@ -93,7 +92,7 @@ const EditProfile = ({ user, handleModal }) => {
       </Group>
       <Divider mb="20px" mt="8px" />
       <Group>
-        <Text size="md" mt="-18px" weight="500">
+        <Text size="md" mt="-12px" weight="500">
           UserName
         </Text>
         <TextInput
@@ -120,7 +119,7 @@ const EditProfile = ({ user, handleModal }) => {
       </Group>
       <Divider mb="20px" mt="10px" />
       <Group>
-        <Text size="md" mt="-70px" weight="500">
+        <Text size="md" mt="-68px" weight="500">
           Bio
         </Text>
         <Textarea
@@ -132,8 +131,16 @@ const EditProfile = ({ user, handleModal }) => {
           styles={(theme) => ({
             root: {
               width: '238px',
+
               '@media (min-width: 480px)': {
                 width: '290px',
+              },
+            },
+            input: {
+              backgroundColor: '#f2f2f2',
+              border: '1px solid transparent',
+              '&:focus': {
+                borderColor: '#CED4DA',
               },
             },
           })}

@@ -56,12 +56,46 @@ export const activityInGroupByDate = ({ groupId, fromDate, toDate }) => {
   })
 }
 
-export const activitiesHome = () => {
+export const activitiesHome = ({ groupId }) => {
   return db.activity.findMany({
     where: {
-      NOT: [{ attendance: {none :{} }}],
+      NOT: [{ attendance: { none: {} } }],
     },
-    orderBy: { date: 'desc'},
-    take: 8,
+    orderBy: { date: 'desc' },
+    take: 4,
+  })
+}
+
+export const upcomingActivities = ({ groupId, time }) => {
+  return db.activity.findMany({
+    where: {
+      AND: [{ groupId }, { attendance: { none: {} } }, { date: { gte: time } }],
+    },
+    orderBy: { date: 'asc' },
+    take: 3,
+  })
+}
+
+export const recentActivity = ({ groupId }) => {
+  return db.activity.findMany({
+    where: {
+      AND: [{ groupId }, { urlAttendance: { not: null } }],
+    },
+    orderBy: { date: 'desc' },
+    take: 3,
+  })
+}
+
+export const viewAttendanced = ({ groupId, fromDate, toDate }) => {
+  return db.activity.findMany({
+    where: {
+      AND: [
+        { groupId },
+        { date: { gte: fromDate } },
+        { date: { lte: toDate } },
+      ],
+      NOT: [{ attendance: { none: {} } }],
+    },
+    orderBy: { date: 'desc' },
   })
 }

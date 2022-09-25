@@ -1,19 +1,37 @@
-import { createContext } from 'react'
-import { QUERY } from 'src/components/Group/GroupsCell'
+import { createContext, useRef } from 'react'
+import { QUERY as GROUPS_QUERY } from 'src/components/Group/GroupsCell'
+import { useAuth } from '@redwoodjs/auth'
 import { useQuery } from '@redwoodjs/web'
 import { Loader } from '@mantine/core'
 
-const GroupsContext = createContext()
+const RefContext = createContext()
 
 const ContextProvider = ({ children }) => {
-  // const { loading, error, data } = useQuery(QUERY)
-  // if (loading) return <div style={{ textAlign: 'center'}}><Loader variant="oval" size="md" color='dark'/></div>
+  const { isAuthenticated } = useAuth()
+  const containerRef = useRef()
+  const sidebarRef = useRef()
+  const { loading, error, data } = useQuery(GROUPS_QUERY, {
+    skip: !isAuthenticated,
+  })
+  // if (loading)
+  //   return (
+  //     <div style={{ textAlign: 'center' }}>
+  //       <Loader variant="oval" size="md" color="blue" />
+  //     </div>
+  //   )
   // if (error) return `Error! ${error.message}`
-  // const groups = data.groups
+  let groups = []
+  if (data) {
+    groups = data.groups
+  }
 
-  return (
-    <GroupsContext.Provider value={groups}>{children}</GroupsContext.Provider>
-  )
+  const value = {
+    containerRef,
+    sidebarRef,
+    groups,
+  }
+  // console.log(groups)
+  return <RefContext.Provider value={value}>{children}</RefContext.Provider>
 }
 
-export { GroupsContext, ContextProvider }
+export { RefContext, ContextProvider }

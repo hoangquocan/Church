@@ -1,54 +1,101 @@
-import { Link, routes, navigate } from '@redwoodjs/router'
 import { useAuth } from '@redwoodjs/auth'
-import { useState } from 'react'
-import { Button, Divider, Modal, useMantineTheme } from '@mantine/core'
+import { useState, useContext, useRef } from 'react'
+import { Divider, Modal, useMantineTheme } from '@mantine/core'
 import { useToggle } from '@mantine/hooks'
 
+import { RefContext } from 'src/components/Context/Context/Context'
 import SearchBar from '../SearchBar/SearchBar'
 import Login from '../Login/Login'
 import SignUp from '../SignUp/SignUp'
 import MenuUser from '../MenuUser'
-import logo from 'src/Assets/images/Logo.png'
 import './Header.scss'
 
 const Header = () => {
   const [opened, setOpened] = useState(false)
+  const [openedSearch, setOpenedSearch] = useState(false)
   const [type, toggleType] = useToggle(['login', 'signup'])
-  // const handleSearch = () => {
-  //   const x = document.getElementById('search-bar')
-  //   const y = document.getElementById('header-logo')
-  //   if (x.style.display === 'none') {
-  //     x.style.display = 'block'
-  //     y.style.display = 'none'
-  //   } else {
-  //     x.style.display = 'none'
-  //     y.style.display = 'block'
-  //   }
-  // }
-  const { isAuthenticated, currentUser, userMetadata } = useAuth()
+  const { isAuthenticated } = useAuth()
   const theme = useMantineTheme()
+
+  const context = useContext(RefContext)
+  const toggleRef = useRef()
+  const headerRef = useRef()
+  const searchRef = useRef()
+
+  const onToggleClick = () => {
+    context.sidebarRef.current.classList.toggle('active')
+    context.containerRef.current.classList.toggle('active')
+    headerRef.current.classList.toggle('active')
+  }
+
   const handleLogin = () => {
     setOpened(false)
   }
+  const handleIconSearch = () => {
+    setOpenedSearch(true)
+    searchRef.current.classList.toggle('active')
+  }
+  const handleCloseSearch = () => {
+    setOpenedSearch(false)
+    searchRef.current.classList.toggle('active')
+  }
   return (
-    <header className="header-wrapper">
-      <div id="header-logo">
-        <Link to={routes.home()}>
-          <img src={logo} alt="VGM" />
-          <span style={{ fontFamily: 'Lobster Two' }}>
-            ChurchSystem<span>v0.0.1</span>
-          </span>
-        </Link>
+    <div className="header-wrapper" ref={headerRef}>
+      <div className="sidebar-toggle" ref={toggleRef} onClick={onToggleClick}>
+        <ion-icon name="menu-outline"></ion-icon>
       </div>
-      <div id="search-bar">
+
+      <div className="search-bar">
         <SearchBar />
       </div>
-      {/* <div className='search'>
-        <input type="search"/>
-        <button className="search-btn" onClick={handleSearch}>
-        <ion-icon name="search-outline"></ion-icon>
-      </button>
+      {/* <div className='search-toggle' ref={searchRef}>
+      <ion-icon name="search-outline" onClick={() => handleIconSearch()}></ion-icon>
       </div> */}
+      <Modal
+        opened={openedSearch}
+        onClose={() => handleCloseSearch()}
+        // fullScreen
+        overlayOpacity={0}
+        zIndex={3}
+        overlayBlur={0}
+        transition="fade"
+        transitionDuration={500}
+        transitionTimingFunction="ease"
+        styles={() => ({
+          root: {
+            backgroundImage: 'linear-gradient(to right, #ffafbd  , #ffc3a0)',
+            // top: '50px',
+            '@media(max-width: 480px)': {
+              // top: "0px",
+              //
+            },
+          },
+          modal: {
+            backgroundColor: 'transparent',
+            border: 'none',
+            boxShadow: 'none',
+            marginBottom: '50px',
+            minHeight: '800px',
+            top: '40px',
+            '@media(max-width: 480px)': {
+              padding: '8px',
+              top: '10px',
+              paddingRight: '14px',
+            },
+          },
+          close: {
+            marginBottom: '-78px',
+            // marginLeft: '-10px',
+            WebkitAppearance: 'none',
+            color: '#000',
+            borderRadius: '50%',
+            background: '#fff',
+            // display: 'none',
+          },
+        })}
+      >
+        <SearchBar />
+      </Modal>
       <Modal
         title={
           type == 'login'
@@ -57,19 +104,28 @@ const Header = () => {
         }
         opened={opened}
         onClose={() => setOpened(false)}
-        overlayColor={theme.colors.gray[4]}
-        overlayOpacity={0.55}
-        overlayBlur={3}
+        overlayOpacity={0}
+        overlayBlur={0}
         // overflow="inside"
         transition="fade"
         transitionDuration={600}
         transitionTimingFunction="ease"
         closeButtonLabel="Close authentication modal"
         styles={(theme) => ({
+          root: {
+            backgroundImage: 'linear-gradient(to right, #ffafbd  , #ffc3a0)',
+          },
+          modal: {
+            // backgroundColor: '#ee9ca7',
+            backgroundColor: 'rgba(0, 0, 0, .7)',
+            borderRadius: '10px',
+            boxShadow: '0 15px 25px rgba(0, 0, 0, .4)',
+          },
           title: {
             fontSize: '1.4rem',
             margin: '0 auto',
             fontWeight: 500,
+            color: '#fff',
           },
           header: {
             fontSize: '1.4rem',
@@ -78,10 +134,10 @@ const Header = () => {
           },
         })}
       >
-        <Divider size="sm" mb="16px" ml="-22px" mr="-22px" />
+        <Divider size="sm" mb="16px" ml="-20px" mr="-20px" color="#dd5e89" />
         {type === 'login' && <Login handleLogin={handleLogin} />}
         {type === 'signup' && <SignUp handleLogin={handleLogin} />}
-        <Divider size="sm" mt={20} ml="-22px" mr="-22px" />
+        <Divider size="sm" mt={30} ml="-20px" mr="-20px" color="#dd5e89" />
         {type === 'login' ? (
           <div className="login-signup">
             <p>Don't have an account? </p>{' '}
@@ -90,24 +146,28 @@ const Header = () => {
         ) : (
           <div className="login-signup">
             <p>Already have an account? </p>{' '}
-            <button onClick={() => toggleType()}>Log in</button>
+            <button onClick={() => toggleType()}>Sign in</button>
           </div>
         )}
       </Modal>
       <div className="header-login">
         {isAuthenticated ? (
-          <MenuUser />
+          <>
+            <div className="search-toggle" ref={searchRef}>
+              <ion-icon
+                name="search-outline"
+                onClick={() => handleIconSearch()}
+              ></ion-icon>
+            </div>
+            <MenuUser />
+          </>
         ) : (
-          <Button
-            onClick={() => setOpened(true)}
-            variant="gradient"
-            gradient={{ from: 'orange', to: 'red' }}
-          >
+          <button className="btn-cyan" onClick={() => setOpened(true)}>
             Log In
-          </Button>
+          </button>
         )}
       </div>
-    </header>
+    </div>
   )
 }
 

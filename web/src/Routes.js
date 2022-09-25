@@ -14,17 +14,19 @@ import StandardLayout from './layouts/StandardLayout/StandardLayout'
 const Routes = () => {
   return (
     <Router>
-
       <Set wrap={StandardLayout}>
         <Private unauthenticated="home" roles={'admin'}>
-          <Route path="/admin" page={AdminPage} name="admin" />
+          <Route path="/admin/set-role-user" page={AdminSetRoleUserPage} name="setRoleUser" />
+          <Route path="/admin/manage-users" page={AdminManageUsersPage} name="manageUsers" />
+          <Route path="/admin" page={AdminAdminPage} name="admin" />
         </Private>
 
         <Private unauthenticated="home" roles={['admin', 'manager']}>
           <Route path="/groups/new" page={GroupNewGroupPage} name="newGroup" />
           <Route path="/activities/new" page={ActivityNewActivityPage} name="newActivity" />
           <Route path="/manager/create-question" page={ManagerCreateQuestionPage} name="createQuestion" />
-          {/* <Route path="/report" page={ReportReportPage} name="report" /> */}
+          <Route path="/manager/questions" page={ManagerQuestionsPage} name="questions" />
+          <Route path="/manager/export-survey" page={ManagerExportSurveyPage} name="exportSurvey" />
         </Private>
 
         <Private unauthenticated="home" roles={['admin', 'manager', 'leader']}>
@@ -36,12 +38,14 @@ const Routes = () => {
           <Route path="/update-member/{id:Int}" page={MemberEditMemberPage} name="editMember" />
           <Route path="/attendance" page={AttendanceAttendancePage} name="attendance" />
           <Route path="/attendance/activity/{id:Int}" page={AttendanceActivityNotAttenPage} name="attendanceActivity" />
+          <Route path="/attendanced" page={AttendanceAttendancedPage} name="attendanced" />
           <Route path="/groups" page={GroupGroupsPage} name="groups" />
           <Route path="/groups/{id:Int}" page={GroupGroupPage} name="group" />
           <Route path="/groups/{id:Int,name:String}/add-member" page={GroupGroupAddMemPage} name="groupAddMem" />
           <Route path="/reports" page={ReportReportsPage} name="reports" />
           <Route path="/report-create" page={ReportReportCreatePage} name="reportCreate" />
           <Route path="/report-info" page={ReportReportInfoPage} name="reportInfo" />
+          <Route path="/reports/viewreport" page={ReportReportPage} name="report" />
         </Private>
 
         <Route path="/" page={HomePage} name="home" />

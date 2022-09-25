@@ -3,7 +3,6 @@ import { Grid } from '@mantine/core'
 import './ReportPortal.scss'
 
 const ReportPortal = ({ reportsPortal }) => {
-  // console.log(reportsPortal)
   return (
     <div className="reports-portal">
       <Grid grow >

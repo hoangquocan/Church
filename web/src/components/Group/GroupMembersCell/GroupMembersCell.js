@@ -29,7 +29,7 @@ export const Failure = ({ error }) => {
 
 export const Loading = () => (
   <div style={{ textAlign: 'center', marginTop: '50px' }}>
-    <Loader variant="oval" size="md" color="dark" />
+    <Loader variant="oval" size="md" color="blue" />
   </div>
 )
 

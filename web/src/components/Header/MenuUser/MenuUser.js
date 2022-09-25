@@ -60,34 +60,48 @@ const MenuUser = () => {
   return (
     <div className="header-menu-user">
       <Indicator label={count} inline size={19}>
-        <ion-icon name="notifications-outline"></ion-icon>
+        <ion-icon
+          style={{ color: '#06beb6' }}
+          name="notifications-outline"
+        ></ion-icon>
       </Indicator>
 
       <Menu
         classNames={classes}
-        shadow="rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px"
+        shadow="rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.83) 0px 3px 6px"
         trigger="hover"
         closeDelay={400}
         position="bottom-end"
+        styles={(theme) => ({
+          divider: {
+            borderColor: theme.colors.gray[5],
+          },
+        })}
       >
         <Menu.Target>
           <Avatar
             src={user ? user.avatar : ''}
-            radius="xl"
-            size="md"
-            color="blue"
+            radius="50%"
+            size="lg"
+            color="cyan"
             ml="md"
+            styles={(theme) => ({
+              root: {
+                '@media (max-width: 480px)': {
+                  minWidth: '40px',
+                  width: '40px',
+                  height: '40px',
+                },
+              },
+            })}
           />
         </Menu.Target>
         <Menu.Dropdown>
-          <Menu.Item>
-            <Link
-              to={routes.userProfile({ email: email })}
-              title=" View Profile"
-            >
+          <Link to={routes.userProfile({ email: email })} title=" View Profile">
+            <Menu.Item>
               <ion-icon name="person-circle-outline"></ion-icon>View Profile
-            </Link>
-          </Menu.Item>
+            </Menu.Item>
+          </Link>
           <Menu.Item>
             <ion-icon name="settings-outline"></ion-icon>Setting
           </Menu.Item>
@@ -95,7 +109,7 @@ const MenuUser = () => {
             <ion-icon name="help-circle-outline"></ion-icon>Feedback And Help
           </Menu.Item>
           <Menu.Divider />
-          <Menu.Item onClick={onClick}>
+          <Menu.Item onClick={onClick} className="btn-logout">
             <ion-icon name="log-out-outline"></ion-icon>Log Out
           </Menu.Item>
         </Menu.Dropdown>

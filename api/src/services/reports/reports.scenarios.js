@@ -2,29 +2,63 @@ export const standard = defineScenario({
   report: {
     one: {
       data: {
-        time: '2022-08-30T02:23:48Z',
-        totalActivity: 8129664,
-        totalCompleted: 2704494,
-        percentCompleted: 5365231.208728722,
-        totalPresent: 4297116,
-        totalAbsent: 4412490,
-        percentPresent: 79045.68299908598,
+        time: 'String',
+        totalActivity: 7343677,
+        totalCompleted: 7395289,
+        percentCompleted: 4543929.802438642,
+        totalPresent: 4838266,
+        totalAbsent: 4842356,
+        percentPresent: 8538830.237233732,
         comment: 'String',
-        group: { create: { name: 'String7242624', leader: 'String' } },
+        answerOne: 'String',
+        answerTwo: 'String',
+        answerThree: 'String',
+        group: {
+          create: {
+            name: 'String9996873',
+            leader: { create: { email: 'String4629381' } },
+          },
+        },
+
+        question: {
+          create: {
+            time: '2022-09-16T15:32:31Z',
+            questionOne: 'String',
+            questionTwo: 'String',
+            questionThree: 'String',
+          },
+        },
       },
     },
 
     two: {
       data: {
-        time: '2022-08-30T02:23:48Z',
-        totalActivity: 405541,
-        totalCompleted: 9155849,
-        percentCompleted: 9845348.368599078,
-        totalPresent: 3813634,
-        totalAbsent: 8712256,
-        percentPresent: 2137138.6375071453,
+        time: 'String',
+        totalActivity: 202628,
+        totalCompleted: 5512867,
+        percentCompleted: 4125591.979397454,
+        totalPresent: 5394182,
+        totalAbsent: 6106793,
+        percentPresent: 3554632.059609857,
         comment: 'String',
-        group: { create: { name: 'String2730656', leader: 'String' } },
+        answerOne: 'String',
+        answerTwo: 'String',
+        answerThree: 'String',
+        group: {
+          create: {
+            name: 'String4064399',
+            leader: { create: { email: 'String1591965' } },
+          },
+        },
+
+        question: {
+          create: {
+            time: '2022-09-16T15:32:31Z',
+            questionOne: 'String',
+            questionTwo: 'String',
+            questionThree: 'String',
+          },
+        },
       },
     },
   },

@@ -34,19 +34,17 @@ const Activities = ({ activities }) => {
       showNotification({
         color: 'red',
         title: 'Activity Has Been Deleted!',
-        icon: <ion-icon style={{ color: 'white' }} name="checkmark"></ion-icon>,
-        autoClose: 4000,
-        radius: 'lg',
+        // icon: <ion-icon style={{ color: 'white' }} name="checkmark"></ion-icon>,
+        autoClose: 3000,
+        radius: 'md',
         styles: (theme) => ({
           root: {
-            // backgroundColor: theme.colors.blue[6],
             borderColor: theme.colors.red[4],
 
-            '&::before': { backgroundColor: theme.white },
+            '&::before': { backgroundColor: theme.red },
           },
 
           title: { color: theme.colors.red[5] },
-          // description: { color: theme.white },
           closeButton: {
             color: theme.white,
             '&:hover': { backgroundColor: theme.colors.gray[6] },
@@ -73,6 +71,7 @@ const Activities = ({ activities }) => {
       title: 'Please Confirm Your Action!',
       children: <p>Are you sure want to delete Activity {name}?</p>,
       labels: { confirm: 'Yes', cancel: 'Cancel' },
+      confirmProps: { color: 'red' },
       onConfirm: () => deleteActivity({ variables: { id } }),
     })
   }
@@ -84,12 +83,12 @@ const Activities = ({ activities }) => {
     <div className="activities-wrapper">
       <div className="activities-info">
         <header className="activities-header">
-          <Link
+          {/* <Link
             to={routes.newActivity()}
             className="inline-button inline-button-small inline-button-green"
           >
             <ion-icon name="add-circle-outline"></ion-icon>New Activity
-          </Link>
+          </Link> */}
           <nav>
             <button
               onClick={() => setIsShow(!isShow)}

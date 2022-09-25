@@ -16,12 +16,14 @@ const SelectField = ({ data, value, onChange, label, ...props }) => {
         maxDropdownHeight={260}
         data={data}
         transition="pop-top-left"
-        transitionDuration={80}
+        transitionDuration={500}
         transitionTimingFunction="ease"
+        // fs="md"
         styles={(theme) => ({
           wrapper: {
             backgroundColor: 'white',
             borderRadius: 18,
+
           },
           label: {
               fontSize: '1.1rem',
@@ -46,7 +48,7 @@ const SelectField = ({ data, value, onChange, label, ...props }) => {
           },
           dropdown: {
             boxShadow:
-              'rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px',
+              'rgba(0, 0, 0, 0.6) 0px 3px 6px, rgba(0, 0, 0, 0.6) 0px 3px 6px',
           },
         })}
       />

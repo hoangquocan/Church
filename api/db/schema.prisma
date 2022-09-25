@@ -108,3 +108,4 @@ model Question {
   reports       Report[]
   createdAt     DateTime @default(now())
 }
+

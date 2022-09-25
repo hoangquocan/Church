@@ -55,11 +55,12 @@ const SearchBar = () => {
     const valueSearch = event.target.value
     setNameSearch(valueSearch)
   }
-  
+
   return (
-    <span>
+    <div className='tippy-searchbar'>
       <HeadlessTippy
         interactive
+        placement="bottom"
         visible={showResult && searchResult.length > 0}
         render={(attrs) => (
           <div className="search-result" tabIndex="-1" {...attrs}>
@@ -90,7 +91,7 @@ const SearchBar = () => {
           </button>
         </div>
       </HeadlessTippy>
-    </span>
+    </div>
   )
 }
 

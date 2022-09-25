@@ -8,7 +8,7 @@ import { useState } from 'react'
 import { useMutation } from '@redwoodjs/web'
 
 import './CreateQuestion.scss'
-import 'src/pages/Report/ReportsPage/ReportsPage.scss'
+import 'src/components/Member/MemberForm/MemberForm.scss'
 
 const CREATE_QUESTION_MUTATION = gql`
   mutation CreateQuestionMutation($input: CreateQuestionInput!) {
@@ -88,7 +88,6 @@ const CreateQuestion = () => {
           return 'Please write less than 191 words'
         }
       },
-      // value.length < 10 ? 'Please write for Question One' : null,
       questionTwo: (value) => {
         if (value.length < 10) {
           return 'Please write for Question One'
@@ -109,7 +108,7 @@ const CreateQuestion = () => {
     openConfirmModal({
       title: ' Do you want to Save these Questions?',
       children: (
-        <p>Please delete it before create new questions on the same Month!!!</p>
+        <p>If you want create new one on the same Month, please delete before or you can update it!!!</p>
       ),
       labels: { confirm: 'Yes', cancel: 'Cancel' },
       onConfirm: () =>
@@ -121,11 +120,9 @@ const CreateQuestion = () => {
     setMonthSelect()
   }
 
-  // console.log(monthSelect)
   return (
-    <div className="manager-createquestion">
+    <div className="member-form">
       <form onSubmit={form.onSubmit(handleSubmit)}>
-        {/* <div className='datepicker-createquestion'> */}
         <h3>Select Month To Create </h3>
         <DatePicker
           selected={monthSelect}
@@ -133,7 +130,6 @@ const CreateQuestion = () => {
           dateFormat="MM/yyyy"
           showMonthYearPicker
         />
-        {/* </div> */}
         <Textarea
           label="Question One"
           autosize
@@ -153,9 +149,9 @@ const CreateQuestion = () => {
           minRows={3}
           {...form.getInputProps('questionThree')}
         />
-        <div className="form-btn-mantine">
+        <div className="form-btn">
           <Button variant="unstyled" type="submit">
-            Submit<ion-icon name="checkmark-outline"></ion-icon>
+            Save<ion-icon name="checkmark-outline"></ion-icon>
           </Button>
         </div>
       </form>

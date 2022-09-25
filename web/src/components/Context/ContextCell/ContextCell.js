@@ -1,4 +1,8 @@
 import { ContextProvider } from "../Context/Context"
+import { useAuth } from "@redwoodjs/auth"
+
+const {isAuthenticated} = useAuth()
+
 export const QUERY = gql`
   query FindContextQuery {
     groups: groups {
@@ -18,5 +22,6 @@ export const Failure = ({ error }) => (
 )
 
 export const Success = ({ groups }) => {
+  console.log(groups)
   return <ContextProvider groups={groups}/>
 }

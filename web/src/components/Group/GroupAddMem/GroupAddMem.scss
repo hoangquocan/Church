@@ -1,18 +1,16 @@
 .group-addmem {
-  position: relative;
-  background-color: #fff;
   width: 100%;
-  margin: 0 auto;
-  min-height: 480px;
+  margin: 10px auto;
+  // min-height: 480px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  @media (max-width: 640px) {
-    min-height: 580px;
-  }
-  @media (max-width: 480px) {
-    min-height: 370px;
-  }
+  // @media (max-width: 640px) {
+  //   min-height: 580px;
+  // }
+  // @media (max-width: 480px) {
+  //   min-height: 370px;
+  // }
   .members-link {
     width: 150px;
     height: 36px;
@@ -33,8 +31,8 @@
     }
   }
   table {
-    position: absolute;
-    top: 40px;
+    // position: absolute;
+    // top: 40px;
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;

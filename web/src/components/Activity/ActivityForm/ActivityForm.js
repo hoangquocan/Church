@@ -11,6 +11,7 @@ import SelectField from 'src/components/Form/SelectField/SelectField'
 import DatePicker from 'src/components/Form/DatePicker/DatePicker'
 
 import './ActivityForm.scss'
+import 'src/components/Member/MemberForm/MemberForm.scss'
 
 const CREATE_ACTIVITY = gql`
   mutation CreateActivityMutation($input: CreateActivityInput!) {
@@ -70,11 +71,12 @@ const ActivityForm = ({ groups }) => {
   }))
 
   return (
-    <div className="activity-form">
-      <h2 className="text-center" style={{ marginBottom: '6px' }}>
-        Add New Activity
-      </h2>
-      <Form onSubmit={handleSubmit(onSubmit)} config={{ mode: 'onBlur' }}>
+    <div className="member-form">
+      <Form
+        onSubmit={handleSubmit(onSubmit)}
+        config={{ mode: 'onBlur' }}
+        style={{ paddingTop: '120px' }}
+      >
         <Label name="name">Name</Label>
         <Input type="text" name="name" />
         <FieldError name="name" className="error" />

@@ -1,0 +1,46 @@
+.users-wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  padding: 40px 30px 20px;
+  margin-bottom: 20px;
+  @media (max-width: 1266px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 480px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .user-item {
+    position: relative;
+    display: flex;
+    background: #25262b;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 0 10px 10px;
+    margin-bottom: 20px;
+    color: #fff;
+    border-radius: 10px;
+    border: 1px solid #343a40;
+    line-height: 2;
+    ion-icon {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 20px;
+      border-radius: 50%;
+      padding: 4px;
+      display: none;
+      &:hover {
+        background: #5C5F66;
+      }
+      &.hovered {
+        display: block;
+      }
+    }
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

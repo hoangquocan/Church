@@ -64,7 +64,7 @@ const MemberBirthDate = () => {
           </HoverCard.Target>
           <HoverCard.Dropdown>
             <Group>
-              <Avatar src={thumbnail(member.urlAvatar)} radius="xl" size="xl" />
+              <Avatar src={thumbnail(member.urlAvatar)} radius="50%" size="xl" />
               <Stack spacing={1}>
                 <Text size="sm" weight={700} sx={{ lineHeight: 1 }}>
                   {member.name}

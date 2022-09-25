@@ -14,11 +14,14 @@ export const schema = gql`
   # }
 
   type Query {
+    recentActivity(groupId: Int): [Activity!]! @requireAuth
+    upcomingActivities(groupId: Int, time: DateTime): [Activity!]! @requireAuth
     activitiesHome: [Activity!]! @requireAuth
     activityInGroupByDate(groupId: Int, fromDate: DateTime, toDate: DateTime ) : [Activity] @requireAuth
     activityNotAtten: [Activity!]! @requireAuth
     activities: [Activity!]! @requireAuth
     activity(id: Int!): Activity @requireAuth
+    viewAttendanced(groupId: Int, fromDate: DateTime, toDate: DateTime): [Activity!]! @requireAuth
   }
 
   input CreateActivityInput {

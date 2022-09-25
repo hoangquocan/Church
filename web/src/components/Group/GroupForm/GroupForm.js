@@ -1,13 +1,12 @@
 import { useQuery, useMutation } from '@redwoodjs/web'
 import { useState } from 'react'
-import { Label } from '@redwoodjs/forms'
 import { useForm } from '@mantine/form'
 import { navigate, routes } from '@redwoodjs/router'
 import { showNotification, updateNotification } from '@mantine/notifications'
+import { TextInput, Button } from '@mantine/core'
 
 import SelectField from 'src/components/Form/SelectField/SelectField'
-import './GroupForm.scss'
-import { TextInput, Button } from '@mantine/core'
+import 'src/components/Member/MemberForm/MemberForm.scss'
 
 const QUERY_LEADERS = gql`
   query QueryLeaders {
@@ -51,13 +50,13 @@ const GroupForm = () => {
           color: 'white',
           title: 'Group Has Been Created!',
           message: 'You can add member to this Group',
-          icon: <ion-icon name="checkmark-outline"></ion-icon>,
-          autoClose: 4000,
-          radius: 'lg',
+          // icon: <ion-icon name="checkmark-outline"></ion-icon>,
+          autoClose: 3000,
+          radius: 'md',
           styles: (theme) => ({
             root: {
               borderColor: theme.colors.blue[7],
-              '&::before': { backgroundColor: theme.white },
+              '&::before': { backgroundColor: theme.blue },
             },
             closeButton: {
               color: theme.gray,
@@ -99,16 +98,17 @@ const GroupForm = () => {
   })
 
   const handleSubmit = (values) => {
-    createGroup({ variables: {input: values}})
-    console.log(values)
-    console.log(leader)
+    createGroup({ variables: { input: values } })
   }
 
   return (
-    <div className="group-form">
-      <form onSubmit={form.onSubmit(handleSubmit)}>
+    <div className="member-form">
+      <form
+        style={{ paddingTop: '140px' }}
+        onSubmit={form.onSubmit(handleSubmit)}
+      >
         <label>Group Name</label>
-        <TextInput autoFocus {...form.getInputProps('name')}/>
+        <TextInput autoFocus {...form.getInputProps('name')} />
 
         <label>Select Leader</label>
         <SelectField
@@ -118,7 +118,7 @@ const GroupForm = () => {
           {...form.getInputProps('userId')}
         />
 
-        <div className="form-btn-mantine">
+        <div className="form-btn">
           <Button type="submit" disabled={loading}>
             Save <ion-icon name="checkmark-circle-outline"></ion-icon>
           </Button>

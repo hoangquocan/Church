@@ -1,17 +1,14 @@
 .attendance-page {
   height: 100%;
-  width: 100%;
+  width: auto;
+  margin: 0 20px 20px;
   background-color: #fff;
   position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-
+  border-radius: 10px;
+  padding: 10px 20px;
 
   table {
-    position: absolute;
     width: 100%;
-    top: 40px;
     counter-reset: rowNumber 1;
     border-collapse: separate;
     border-spacing: 0;

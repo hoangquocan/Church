@@ -1,11 +1,14 @@
 import { useMutation, useQuery } from '@redwoodjs/web'
-import { useState, useEffect, useMemo } from 'react'
-import { Button, Select } from '@mantine/core'
+import { useState, useMemo } from 'react'
+import { Button } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { showNotification } from '@mantine/notifications'
 import { openConfirmModal } from '@mantine/modals'
+
 import SelectField from 'src/components/Form/SelectField/SelectField'
 import './SetRoles.scss'
+
+import 'src/components/Attendance/Attendance/Attendance.scss'
 const ADMIN_CREATE_USERROLE = gql`
   mutation AdminCreateUserRole($input: CreateUserRoleInput!, $email: String) {
     createUserRole(input: $input, email: $email) {
@@ -33,8 +36,7 @@ const SetRoles = () => {
       showNotification({
         color: 'blue',
         title: 'Done! User has been updated Role',
-        icon: <ion-icon name="checkmark-outline"></ion-icon>,
-        autoClose: 2000,
+        autoClose: 3000,
         radius: 'md',
         styles: (theme) => ({
           root: {
@@ -146,7 +148,7 @@ const SetRoles = () => {
 
   return (
     <div className="admin-setroles">
-      <h3>Set Role For User</h3>
+      <h2 className='text-center'>Set Role For User</h2>
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <SelectField
           label="Select User"
@@ -162,7 +164,7 @@ const SetRoles = () => {
           data={rolesSelect}
           {...form.getInputProps('name')}
         />
-        <div className="form-btn-mantine">
+        <div className="form-btn">
           <Button type="submit" disabled={loading}>
             Save <ion-icon name="checkmark-circle-outline"></ion-icon>
           </Button>

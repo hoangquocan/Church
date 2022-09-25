@@ -7,6 +7,7 @@ import { openConfirmModal } from '@mantine/modals'
 import { Form, CheckboxField, Label, FieldError } from '@redwoodjs/forms'
 
 import Button from 'src/components/Form/Button'
+// import 'src/components/Member/MemberForm/MemberForm.scss'
 import './Attendance.scss'
 
 const CREATE_ATTENDANCE = gql`
@@ -28,7 +29,7 @@ const UPDATE_ACTIVITY = gql`
     }
   }
 `
-const Attendance = ({ activity }) => {
+const Attendance = ({ activity, handleModal }) => {
   const [urlAttendance, setUrlAttendance] = useState('')
   const [isChoose, setIsChoose] = useState(false)
   const [nameAttendance, setNameAttendance] = useState('')
@@ -44,7 +45,6 @@ const Attendance = ({ activity }) => {
       showNotification({
         color: 'blue',
         title: 'Thank You! Your Result Has Been Saved',
-        // icon: <ion-icon name="checkmark-outline"></ion-icon>,
         autoClose: 3000,
         radius: 'md',
         styles: (theme) => ({
@@ -89,31 +89,31 @@ const Attendance = ({ activity }) => {
   }, [checkedState])
 
   const onSubmit = (result) => {
-    if (urlAttendance == '') {
-      return showNotification({
-        color: 'red',
-        title: 'Notification',
-        message: 'Please Take One Picture Describing The Activity!',
-        rd: 'md',
-        autoClose: false,
-        styles: (theme) => ({
-          root: {
-            borderColor: theme.colors.red[4],
+    // if (urlAttendance == '') {
+    //   return showNotification({
+    //     color: 'red',
+    //     title: 'Notification',
+    //     message: 'Please Take One Picture Describing The Activity!',
+    //     rd: 'md',
+    //     autoClose: false,
+    //     styles: (theme) => ({
+    //       root: {
+    //         borderColor: theme.colors.red[4],
 
-            '&::before': { backgroundColor: theme.red },
-          },
+    //         '&::before': { backgroundColor: theme.red },
+    //       },
 
-          title: { color: theme.colors.red[5] },
-          closeButton: {
-            color: theme.colors.gray[7],
-            '&:hover': {
-              color: theme.white,
-              backgroundColor: theme.colors.gray[6],
-            },
-          },
-        }),
-      })
-    }
+    //       title: { color: theme.colors.red[5] },
+    //       closeButton: {
+    //         color: theme.colors.gray[7],
+    //         '&:hover': {
+    //           color: theme.white,
+    //           backgroundColor: theme.colors.gray[6],
+    //         },
+    //       },
+    //     }),
+    //   })
+    // }
     if (urlAttendance !== '') {
       updateActivity({
         variables: { id: activity.id, input: { urlAttendance } },
@@ -121,15 +121,11 @@ const Attendance = ({ activity }) => {
     }
     openConfirmModal({
       title: 'Please Confirm Your Action!',
-      children: <p>Are you sure create this activity?</p>,
+      children: <p>Are you sure save attendance?</p>,
       labels: { confirm: 'Yes', cancel: 'Cancel' },
       onConfirm: () =>
       createAttendance({ variables: { input: result } }),
     })
-    // if (confirm('Are you sure?')) {
-    //   // console.log(result)
-    //   createAttendance({ variables: { input: result } })
-    // }
   }
   const onFileUpload = (response) => {
     setUrlAttendance(response.filesUploaded[0].url)
@@ -160,9 +156,9 @@ const Attendance = ({ activity }) => {
             {activity.group.members.map((member, index) => (
               <tr key={member.id}>
                 <td>{member.name}</td>
-                <td className="attendance-box">
+                <td className='attendance-checkbox'>
                   <span>Present</span>
-                  <CheckboxField
+                  <input type="checkbox"
                     name="present"
                     checked={checkedState[index]}
                     value={checkedState[index]}
@@ -206,11 +202,11 @@ const Attendance = ({ activity }) => {
             <input type="button" onClick={handleImg} value="Replace Picture" />
           </div>
         )}
-        <div className="form-btn">
-          <Button disabled={loading} btn_size="large">
+        {/* <div className="form-btn-secondary"> */}
+          <button className='btn-purple' disabled={loading}>
             Submit
-          </Button>
-        </div>
+          </button>
+        {/* </div> */}
       </Form>
     </div>
   )

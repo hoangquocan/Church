@@ -11,6 +11,7 @@ import { Loader } from '@mantine/core'
 import { showNotification } from '@mantine/notifications'
 
 import './ReportCreate.scss'
+import 'src/components/Member/MemberForm/MemberForm.scss'
 
 const QUERY_REPORT = gql`
   query ReportByGroupQuery($groupId: Int!) {
@@ -24,6 +25,7 @@ const ReportCreate = () => {
   const [groupView, setGroupView] = useState({})
   const { handleSubmit, control } = useForm()
   const didMount = useRef(false)
+  const groupId = localStorage.getItem('groupId')
 
   useEffect(() => {
     if (!didMount.current) {
@@ -73,12 +75,11 @@ const ReportCreate = () => {
     )
 
     const timeView = toDateView.getFullYear() + '-' + toDateView.getMonth()
-
     if (reportExist.includes(timeView)) {
       showNotification({
         color: 'red',
         title: 'Notification',
-        message: 'This Month\'s Team Report Has Been Created!',
+        message: "This Month's Team Report Has Been Created!",
         rd: 'md',
         autoClose: false,
         styles: (theme) => ({
@@ -105,7 +106,33 @@ const ReportCreate = () => {
       showNotification({
         color: 'red',
         title: 'Notification!',
-        message: 'Please check the time select! (Within the same month and full 30 days)',
+        message:
+          'Please check the time select! (Within the same month and full 30 days)',
+        rd: 'md',
+        autoClose: false,
+        styles: (theme) => ({
+          root: {
+            borderColor: theme.colors.red[4],
+
+            '&::before': { backgroundColor: theme.red },
+          },
+
+          title: { color: theme.colors.red[5] },
+          closeButton: {
+            color: theme.colors.gray[7],
+            '&:hover': {
+              color: theme.white,
+              backgroundColor: theme.colors.gray[6],
+            },
+          },
+        }),
+      })
+    } else if (+groupId !== value) {
+      showNotification({
+        color: 'red',
+        title: 'Notification!',
+        message:
+          'Sorry you are not leader of this Group',
         rd: 'md',
         autoClose: false,
         styles: (theme) => ({
@@ -131,35 +158,40 @@ const ReportCreate = () => {
   }
 
   return (
-    <div className="report-form">
-      <h2 className="text-center">Create New Report</h2>
-      <Form onSubmit={handleSubmit(onSubmit)} config={{ mode: 'onBlur' }}>
-        <Label name="groupId">Group To View</Label>
-        <SelectField value={value} onChange={setValue} data={dataSelect} />
-        <FieldError name="groupId" />
+      <div className="member-form">
+        <Form
+          onSubmit={handleSubmit(onSubmit)}
+          config={{ mode: 'onBlur' }}
+          style={{ paddingTop: '40px' }}
+        >
+          <Label name="groupId">Group To View</Label>
+          <SelectField value={value} onChange={setValue} data={dataSelect} />
+          <FieldError name="groupId" />
 
-        <Label name="fromDate">From Date</Label>
-        <DatePicker
-          name="fromDate"
-          control={control}
-          showTimeSelect
-          dateFormat="yyyy/MM/dd hh:mm aa"
-        />
+          <div className="fromDate">
+            <Label name="fromDate">From Date</Label>
+            <DatePicker
+              name="fromDate"
+              control={control}
+              showTimeSelect
+              dateFormat="yyyy/MM/dd hh:mm aa"
+            />
+          </div>
 
-        <div className="toDate">
-          <Label name="toDate">To Date</Label>
-          <DatePicker
-            name="toDate"
-            control={control}
-            showTimeSelect
-            dateFormat="yyyy/MM/dd hh:mm aa"
-          />
-        </div>
-        <div className="form-btn">
-          <Button btn_size="md">Submit</Button>
-        </div>
-      </Form>
-    </div>
+          <div className="toDate">
+            <Label name="toDate">To Date</Label>
+            <DatePicker
+              name="toDate"
+              control={control}
+              showTimeSelect
+              dateFormat="yyyy/MM/dd hh:mm aa"
+            />
+          </div>
+          <div className="form-btn">
+            <Button btn_size="md">Submit</Button>
+          </div>
+        </Form>
+      </div>
   )
 }
 

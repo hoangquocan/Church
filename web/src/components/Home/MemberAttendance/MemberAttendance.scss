@@ -1,0 +1,55 @@
+.memberAttendance-wrapper {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  text-align: center;
+  box-shadow: 1px 5px 15px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  padding: 20px;
+  background: #373A40;
+  background: linear-gradient( to right, #1A1B1E,#909296);
+  color: #fff;
+  font-weight: 500;
+  .mantine-Group-root {
+    padding: 10px;
+    border-radius: 10px;
+    &:hover {
+      background: #495057;
+    }
+  }
+  .member-maxPresent {
+    margin-bottom: 20px;
+    max-width: 400px;
+    span:first-child,
+    ion-icon {
+      font-size: 36px;
+      color: blue;
+    }
+    span {
+      color: blue;
+      font-size: 20px;
+    }
+  }
+  .member-minPresent {
+    max-width: 400px;
+    line-height: normal;
+    .mantine-Group-root {
+      &:hover {
+        background: #ff6b6b;
+      }
+    }
+    span:first-child,
+    ion-icon {
+      font-size: 36px;
+      color: red;
+    }
+    span {
+      color: red;
+      font-size: 20px;
+    }
+  }
+  ion-icon {
+    margin-left: 20px;
+    position: relative;
+    transform: translateY(12%);
+  }
+}

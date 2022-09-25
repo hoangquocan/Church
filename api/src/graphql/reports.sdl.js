@@ -18,6 +18,7 @@ export const schema = gql`
     answerThree: String!
     createdAt: DateTime!
   }
+
   type ReportsPortal {
     totalMembers: Int!
     totalMonthMembers: Int!
@@ -28,6 +29,7 @@ export const schema = gql`
   }
 
   type Query {
+    reportViewByGroup(groupId: Int, time: String): [Report] @requireAuth
     reportsByMonth(timeReport: String): [Report!]! @requireAuth
     reportsPortal(fromMonth: DateTime!, toMonth: DateTime!): ReportsPortal
       @requireAuth
@@ -35,8 +37,10 @@ export const schema = gql`
     reports: [Report!]! @requireAuth
     report(id: Int!): Report @requireAuth
   }
+
   input CreateReportInput {
     groupId: Int!
+    questionId: Int!
     time: String!
     totalActivity: Int!
     totalCompleted: Int!
@@ -52,6 +56,7 @@ export const schema = gql`
 
   input UpdateReportInput {
     groupId: Int
+    questionId: Int
     time: String
     totalActivity: Int
     totalCompleted: Int
@@ -60,6 +65,9 @@ export const schema = gql`
     totalAbsent: Int
     percentPresent: Float
     comment: String
+    answerOne: String
+    answerTwo: String
+    answerThree: String
   }
 
   type Mutation {

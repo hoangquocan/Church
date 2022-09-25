@@ -26,26 +26,26 @@ const ReportsPage = () => {
   return (
     <div className="reports-wrapper">
       <MetaTags title="Reports" description="Reports page" />
-      <nav className='reports-navheader'>
-        {hasRole(['admin', 'manager']) && (
+      {hasRole('leader') && (
+        <nav className="reports-navheader">
           <Link
             className="inline-button inline-button-small inline-button-blue"
-            to={routes.createQuestion()}
+            to={routes.report()}
           >
-            <ion-icon name="document-text-outline"></ion-icon>Question Survey
+            <ion-icon name="document-text-outline"></ion-icon>View Report
           </Link>
-        )}
-        <Link
-          className="inline-button inline-button-small inline-button-green"
-          to={routes.reportCreate()}
-        >
-          <ion-icon name="open-outline"></ion-icon>Create Report
-        </Link>
-      </nav>
+          <Link
+            className="inline-button inline-button-small inline-button-green"
+            to={routes.reportCreate()}
+          >
+            <ion-icon name="open-outline"></ion-icon>Create Report
+          </Link>
+        </nav>
+      )}
       <ReportsPortalCell fromMonth={fromMonth} toMonth={toMonth} />
       <Divider size="sm" mt={20} ml={-30} mr={-30} />
       <div className="reports-select-month">
-        <h4>Select Month To View Result</h4>
+        <h3>View Chart Result</h3>
         <DatePicker
           selected={monthSelect}
           onChange={(date) => setMonthSelect(date)}
@@ -57,14 +57,12 @@ const ReportsPage = () => {
       <Divider
         my="xs"
         label={
-          <h4 style={{ textAlign: 'center' }}>
-            Report By {monthSelect.getMonth() + 1}/{monthSelect.getFullYear()}
+          <h4 style={{ textAlign: 'center', color: '#46e6fc' }}>
+            Chart By {monthSelect.getMonth() + 1}/{monthSelect.getFullYear()}
           </h4>
         }
         labelPosition="center"
       />
-
-      {/* <h5 style={{textAlign: 'center'}}>Report By {monthSelect.getMonth()+1}/{monthSelect.getFullYear()}</h5> */}
     </div>
   )
 }

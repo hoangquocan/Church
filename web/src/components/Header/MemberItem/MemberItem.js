@@ -13,7 +13,7 @@ const MemberItem = ({ data }) => {
           <Text size="sm" weight={700} sx={{ lineHeight: 1 }}>
             {data.name}
           </Text>
-            <span>{data.email}</span>
+            <p>{data.email}</p>
         </Stack>
       </Group>
     </div>

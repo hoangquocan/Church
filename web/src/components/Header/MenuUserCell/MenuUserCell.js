@@ -12,7 +12,6 @@ export const QUERY = gql`
 export const beforeQuery = () => {
   const {userMetadata} = useAuth()
   const email = userMetadata.email
-  // console.log(email)
   return {variables: {email}, skip: !email}
 }
 export const Loading = () => <div>Loading...</div>

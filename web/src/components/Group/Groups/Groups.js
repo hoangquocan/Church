@@ -41,7 +41,7 @@ const Groups = ({ groups }) => {
             name="checkmark-outline"
           ></ion-icon>
         ),
-        autoClose: 4000,
+        autoClose: 3000,
         radius: 'md',
         styles: (theme) => ({
           root: {
@@ -70,6 +70,7 @@ const Groups = ({ groups }) => {
       title: 'Please Confirm Your Action!',
       children: <p>Are you sure want to delete Group {name}?</p>,
       labels: { confirm: 'Yes', cancel: 'Cancel' },
+      confirmProps: { color: 'red' },
       onConfirm: () => deleteGroup({ variables: { id } }),
     })
   }
@@ -88,12 +89,12 @@ const Groups = ({ groups }) => {
     <div className="groups-wrapper">
       <div className="groups-info">
         <div className="groups-header">
-          <Link
+          {/* <Link
             to={routes.newGroup()}
             className="inline-button inline-button- small inline-button-green"
           >
             <ion-icon name="add-circle-sharp"></ion-icon>New Group
-          </Link>
+          </Link> */}
           <nav>
             <button
               onClick={() => setIsShow(!isShow)}

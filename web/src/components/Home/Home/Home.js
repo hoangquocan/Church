@@ -2,6 +2,11 @@ import { useQuery } from '@redwoodjs/web'
 import { Link, routes } from '@redwoodjs/router'
 import { Divider, Loader } from '@mantine/core'
 // import { useEffect, useMemo, useState } from 'react'
+import { useAuth } from '@redwoodjs/auth'
+
+import RecentActivityCell from '../RecentActivityCell'
+import UpcomingActivitiesCell from '../UpcomingActivitiesCell'
+import MembersViewAttenCell from '../MembersViewAttenCell'
 import './Home.scss'
 
 const QUERY = gql`
@@ -18,6 +23,11 @@ const QUERY = gql`
   }
 `
 const Home = () => {
+  const { hasRole } = useAuth()
+  const groupId = +localStorage.getItem('groupId')
+  // const now = new Date()
+  const time = new Date(new Date().setDate(new Date().getDate() - 1))
+
   const { loading, error, data } = useQuery(QUERY)
   if (loading)
     return (
@@ -28,7 +38,7 @@ const Home = () => {
   if (error)
     return (
       <div style={{ textAlign: 'center', marginTop: '20%' }}>
-        <h4>Please Log In To View !</h4>
+        <h4 className="text-center">Please Log In To View !</h4>
       </div>
     )
   // const activities = data.activities
@@ -48,21 +58,18 @@ const Home = () => {
   } else {
     return <h2 className="text-center">No Activity Yet</h2>
   }
+  console.log(time)
   return (
     <div className="home-wrapper">
-      <h5>Current Activities</h5>
-      <Divider></Divider>
-      <div className="home-activities">
-        {activitiesRender.map((activity) => (
-          <div key={activity.id} className="activity-random">
-            <Link to={routes.activity({ id: activity.id })}>
-              <img src={activity.urlAttendance} />
-            </Link>
-            <span>{activity.name}</span>
-            <p>{activity.group.name}</p>
+      {hasRole(['leader']) && (
+        <div className="home-leader">
+          <UpcomingActivitiesCell groupId={groupId} time={time} />
+          <div className="home-leader-view">
+            <RecentActivityCell groupId={groupId} />
+            <MembersViewAttenCell groupId={groupId}/>
           </div>
-        ))}
-      </div>
+        </div>
+      )}
     </div>
   )
 }

@@ -2,8 +2,8 @@ import { PasswordInput, TextInput, Button } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { showNotification } from '@mantine/notifications'
 import { useMutation, useQuery } from '@redwoodjs/web'
-import { Redirect, routes } from '@redwoodjs/router'
 import { useAuth } from '@redwoodjs/auth'
+import { useRef } from 'react'
 
 import '../Login/Login.scss'
 const CREATE_USER = gql`
@@ -29,12 +29,11 @@ const QUERY_USER = gql`
   }
 `
 const SignUp = ({ handleLogin }) => {
+  const emailRef = useRef()
+  const passwordRef = useRef()
+  const confirmPasswordRef = useRef()
   const [createUser] = useMutation(CREATE_USER)
-  const [createUserRole] = useMutation(CREATE_USERROLE, {
-    onCompleted: () => {
-      ;<Redirect to={routes.home()} />
-    },
-  })
+  const [createUserRole] = useMutation(CREATE_USERROLE)
   const { loading, error, data } = useQuery(QUERY_USER)
 
   let userExist = []
@@ -118,18 +117,40 @@ const SignUp = ({ handleLogin }) => {
         })
       })
   }
+  const handleEmail = () => {
+    console.log(emailRef.current)
+    emailRef.current.classList.add('focus')
+  }
+  const handlePassword = () => {
+    passwordRef.current.classList.add('focus')
+  }
+  const handleCfPassword = () => {
+    confirmPasswordRef.current.classList.add('focus')
+  }
 
   return (
-    <div className="signup-wrapper">
+    <div className="modal-login">
       <form onSubmit={form.onSubmit(handleSubmit)}>
-        <TextInput label="Email" {...form.getInputProps('email')} />
-        <PasswordInput label="Password" {...form.getInputProps('password')} />
-        <PasswordInput
-          label="Confirm Password"
-          {...form.getInputProps('confirmPassword')}
-        />
-        <div className="form-btn">
-          <Button type="submit">Sign Up</Button>
+        <div className="inputLogin" onClick={handleEmail}>
+          <TextInput variant="unstyled" {...form.getInputProps('email')} />
+          <label ref={emailRef}>Email</label>
+        </div>
+        <div className="inputLogin" onClick={handlePassword}>
+          <PasswordInput
+            variant="unstyled"
+            {...form.getInputProps('password')}
+          />
+          <label ref={passwordRef}>Password</label>
+        </div>
+        <div className="inputLogin" onClick={handleCfPassword}>
+          <PasswordInput
+            variant="unstyled"
+            {...form.getInputProps('confirmPassword')}
+          />
+          <label ref={confirmPasswordRef}>Comfirm Password</label>
+        </div>
+        <div className="btn-cyan">
+          <button type="submit">Sign Up</button>
         </div>
       </form>
     </div>

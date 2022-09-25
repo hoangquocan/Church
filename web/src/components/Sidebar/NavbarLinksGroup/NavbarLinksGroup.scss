@@ -1,0 +1,30 @@
+.actived {
+  background-color: var(--mantine-color-dark-8);
+  color: #45f3ff;
+  &:before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: -48px;
+    width: 48px;
+    height: 48px;
+    background-color: transparent;
+    border-radius: 50%;
+    box-shadow: 35px 35px 0 10px var(--mantine-color-dark-8);
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: -48px;
+    width: 48px;
+    height: 48px;
+    background-color: transparent;
+    border-radius: 50%;
+    box-shadow: 35px -35px 0 10px var(--mantine-color-dark-8);
+  }
+  .mantine-Group-root {
+    color: #45f3ff;
+  }
+}
+

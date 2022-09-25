@@ -45,16 +45,19 @@ const NewMember = () => {
             // icon: <ion-icon name="checkmark-outline"></ion-icon>,
             autoClose: 3000,
             radius: 'md',
-        styles: (theme) => ({
-          root: {
-            borderColor: theme.colors.blue[5],
-            '&::before': { backgroundColor: theme.blue },
-          },
-          closeButton: {
-            color: theme.gray,
-            '&:hover': { color: theme.white, backgroundColor: theme.colors.gray[6] },
-          },
-        }),
+            styles: (theme) => ({
+              root: {
+                borderColor: theme.colors.blue[5],
+                '&::before': { backgroundColor: theme.blue },
+              },
+              closeButton: {
+                color: theme.gray,
+                '&:hover': {
+                  color: theme.white,
+                  backgroundColor: theme.colors.gray[6],
+                },
+              },
+            }),
           })
         }, 1000)
         setTimeout(() => {
@@ -68,13 +71,7 @@ const NewMember = () => {
     createMember({ variables: { input: { ...input, ...data } } })
   }
 
-  return (
-    <>
-      <h2 className="text-center">Add New Member</h2>
-
-      <MemberForm onSave={onSave} loading={loading} error={error} />
-    </>
-  )
+  return <MemberForm onSave={onSave} loading={loading} error={error} />
 }
 
 export default NewMember

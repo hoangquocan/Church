@@ -1,0 +1,33 @@
+.attendanced-activity {
+  color: #fff;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  margin-top: 30px;
+  gap: 20px;
+  line-height: 1.5;
+  @media(max-width: 480px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  table{
+    background: rgba(0, 0, 0 ,.3);
+    padding: 10px;
+    border-radius: 10px;
+    tr{
+      td:last-child{
+        text-align: center;
+      }
+    }
+    tr:first-child {
+      color: #A61E4D;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+  }
+  .Present {
+    color: #1971c2;
+  }
+  .Absent {
+    color: #e03131;
+  }
+}

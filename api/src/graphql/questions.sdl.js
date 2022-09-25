@@ -11,6 +11,7 @@ export const schema = gql`
 
   type Query {
     questions: [Question!]! @requireAuth
+    questionsView: [Question!]! @requireAuth
     question(id: Int!): Question @requireAuth
     questionByMonth(month: DateTime!): Question @requireAuth
   }

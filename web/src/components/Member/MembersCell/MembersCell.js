@@ -23,30 +23,26 @@ export const QUERY = gql`
 export const Loading = () => {
   return (
     <>
-      <Group position="apart">
-        <Skeleton height={22} mt={16} width="20%" radius="xl" />
-        <Skeleton height={22} mt={16} width="20%" radius="xl" mr={24}/>
-      </Group>
         <Skeleton height={30} width="94%" mt={16} radius="xl" mr={20}/>
       <Group>
         <Skeleton height={40} width={40} circle mt={16} radius="xl" />
-        <Skeleton height={40} width="80%" mt={16} radius="xl" />
+        <Skeleton height={40} width="88%" mt={16} radius="xl" />
       </Group>
       <Group>
         <Skeleton height={40} width={40} circle mt={16} radius="xl" />
-        <Skeleton height={40} width="80%" mt={16} radius="xl" />
+        <Skeleton height={40} width="88%" mt={16} radius="xl" />
       </Group>
       <Group>
         <Skeleton height={40} width={40} circle mt={16} radius="xl" />
-        <Skeleton height={40} width="80%" mt={16} radius="xl" />
+        <Skeleton height={40} width="88%" mt={16} radius="xl" />
       </Group>
       <Group>
         <Skeleton height={40} width={40} circle mt={16} radius="xl" />
-        <Skeleton height={40} width="80%" mt={16} radius="xl" />
+        <Skeleton height={40} width="88%" mt={16} radius="xl" />
       </Group>
       <Group>
         <Skeleton height={40} width={40} circle mt={16} radius="xl" />
-        <Skeleton height={40} width="80%" mt={16} radius="xl" />
+        <Skeleton height={40} width="88%" mt={16} radius="xl" />
       </Group>
     </>
   )

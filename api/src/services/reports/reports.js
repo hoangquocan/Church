@@ -32,8 +32,9 @@ export const deleteReport = ({ id }) => {
 export const Report = {
   group: (_obj, { root }) =>
     db.report.findUnique({ where: { id: root.id } }).group(),
+  question: (_obj, { root }) =>
+    db.report.findUnique({ where: { id: root.id } }).question(),
 }
-
 export const reportByGroup = ({ groupId }) => {
   return db.report.findMany({
     where: { groupId },
@@ -76,6 +77,14 @@ export const reportsByMonth = ({ timeReport }) => {
   return db.report.findMany({
     where: {
       time: { equals: timeReport },
+    },
+  })
+}
+
+export const reportViewByGroup = ({ groupId, time }) => {
+  return db.report.findMany({
+    where: {
+      AND: [{ groupId }, { time: { equals: time } }],
     },
   })
 }

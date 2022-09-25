@@ -23,10 +23,10 @@ export const QUERY = gql`
 
 export const Loading = () => (
   <div style={{ textAlign:'center', marginTop: '25%'}}>
-    <Loader variant="oval" size="md" color="dark" />
+    <Loader variant="oval" size="md" color="blue" />
   </div>
 )
-export const Empty = () => <div>Empty</div>
+export const Empty = () => <h3 className='text-center'>Your group has not yet initiated an activity</h3>
 
 export const Failure = ({ error }) => (
   <div style={{ color: 'red' }}>Error: {error.message}</div>

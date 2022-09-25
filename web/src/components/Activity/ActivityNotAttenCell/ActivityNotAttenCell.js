@@ -11,6 +11,9 @@ export const QUERY = gql`
       group {
         id
         name
+        leader {
+          email
+        }
       }
       groupId
       createdAt
@@ -20,7 +23,7 @@ export const QUERY = gql`
 
 export const Loading = () => (
   <div style={{ textAlign: 'center', marginTop: '25%' }}>
-    <Loader variant="oval" size="md" color="dark" />
+    <Loader variant="oval" size="md" color="blue" />
   </div>
 )
 export const Empty = () => {

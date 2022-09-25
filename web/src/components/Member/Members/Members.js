@@ -59,27 +59,24 @@ const Members = ({ groupId, members, isGroup = false }) => {
           },
         }),
       })
+      if(membersRender[activePage-1].length < 2) {
+        setActivePage(prev => prev -1 )
+      }
     },
     refetchQueries: [{ query: MembersQuery, variables: { id: groupId } }],
   })
 
   const handleClick = (id, groupId) => {
-    if (confirm('Are you sure?')) {
-      updateMember({
+    openConfirmModal({
+      title: 'Please Confirm Your Action!',
+      children: <p>Are you sure want to delete Group {name}?</p>,
+      labels: { confirm: 'Delete', cancel: 'Cancel' },
+      confirmProps: { color: 'red' },
+      onConfirm: () => updateMember({
         variables: { id, input: { groupId } },
-      })
-    }
+      }),
+    })
   }
-  // const totalMembers = members.length
-  // const totalPage = Math.ceil(totalMembers / 5)
-  // const resultMembers = useMemo(() => {
-  //   const membersRender = []
-  //   for (let i = 0; i < totalMembers; i += 5) {
-  //     const membersPage = members.slice(i, i + 5)
-  //     membersRender.push(membersPage)
-  //   }
-  //   return membersRender
-  // }, [members])
 
   const thumbnail = (url) => {
     const parts = url.split('/')
@@ -92,24 +89,7 @@ const Members = ({ groupId, members, isGroup = false }) => {
 
   return (
     <div className="members-table">
-      {!isGroup ? (
-        <div className="members-link">
-          <Link
-            to={routes.newMember()}
-            className="inline-button inline-button-small inline-button-green"
-          >
-            <ion-icon name="person-add-outline"></ion-icon>New Member
-          </Link>
-          <button
-            onClick={() => setIsEdit(!isEdit)}
-            className="inline-button inline-button-small inline-button-blue"
-          >
-            <ion-icon name="create-outline"></ion-icon>Update Member
-          </button>
-        </div>
-      ) : (
-        ''
-      )}
+
       <table cellSpacing="0" cellPadding="0">
         <thead>
           <tr>
@@ -124,7 +104,7 @@ const Members = ({ groupId, members, isGroup = false }) => {
           </tr>
         </thead>
         <tbody>
-          {membersRender[activePage - 1].map((member) => (
+          {(membersRender[activePage - 1] ).map((member) => (
             <tr key={member.id}>
               <td>
                 <Link
@@ -173,6 +153,18 @@ const Members = ({ groupId, members, isGroup = false }) => {
           ))}
         </tbody>
       </table>
+      {!isGroup ? (
+        <div className="members-link">
+          <button
+            onClick={() => setIsEdit(!isEdit)}
+            className="inline-button inline-button-small inline-button-blue"
+          >
+            <ion-icon name="create-outline"></ion-icon>Update Member
+          </button>
+        </div>
+      ) : (
+        ''
+      )}
       <div className="members-pagination">
         <Pagination
           position="center"
