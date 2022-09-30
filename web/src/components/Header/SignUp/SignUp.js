@@ -149,9 +149,9 @@ const SignUp = ({ handleLogin }) => {
           />
           <label ref={confirmPasswordRef}>Comfirm Password</label>
         </div>
-        <div className="btn-cyan">
-          <button type="submit">Sign Up</button>
-        </div>
+        {/* <div className="btn-cyan"> */}
+          <button className="btn-purple" type="submit">Sign Up</button>
+        {/* </div> */}
       </form>
     </div>
   )

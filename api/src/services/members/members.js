@@ -1,19 +1,19 @@
 import { db } from 'src/lib/db'
 
-// const MEMBERS_PER_PAGE = 5
+const MEMBERS_PER_LOAD = 8
 
-// export const memberPage = ({ page = 1}) => {
-//   const offset = (page - 1) * MEMBERS_PER_PAGE
-
-//   return {
-//     members: db.member.findMany({
-//       take: MEMBERS_PER_PAGE,
-//       skip: offset,
-//       orderBy: { createdAt: 'desc'}
-//     }),
-//     count: db.member.count()
-//   }
-// }
+export const membersLoad = ({ load = 1}) => {
+  const offset = (load - 1) * MEMBERS_PER_LOAD
+console.log(load)
+  return {
+    members: db.member.findMany({
+      take: MEMBERS_PER_LOAD,
+      skip: offset,
+      orderBy: { name: 'asc'}
+    }),
+    count: db.member.count()
+  }
+}
 export const members = () => {
   return db.member.findMany({
     orderBy: { name: 'asc' },

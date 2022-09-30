@@ -11,21 +11,26 @@ import { memo } from 'react'
 import './ReportChart.scss'
 
 const ReportChart = ({ reportsByMonth }) => {
+  const getName = (name) => {
+    const arr = name.split(' ')
+    const arr2 = arr.shift()
+    const result = arr2.concat(arr.map((i) => i[0]).join(''))
+    return result
+  }
+
   const data = reportsByMonth.map((report) => ({
-    name: report.group.name
-      .split('')
-      .filter((i) => i.match(/([A-Z]|-)/))
-      .join(''),
+    name: getName(report.group.name),
     PercentCompleted: report.percentCompleted,
     PercentPresent: report.percentPresent,
   }))
 
   return (
     <div className="reportchart-wrapper">
-      <ResponsiveContainer width="94%" height={300}>
+      <ResponsiveContainer width="94%" height={300} fontSize="10px">
         <LineChart
           data={data}
           margin={{ top: 5, right: 10, bottom: 5, left: 0 }}
+
         >
           <Line type="monotone" dataKey="PercentCompleted" stroke="#8884d8" />
           <Line type="monotone" dataKey="PercentPresent" stroke="#8884d8" />

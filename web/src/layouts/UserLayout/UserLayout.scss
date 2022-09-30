@@ -1,0 +1,28 @@
+.userlayout-wrapper {
+  position: relative;
+  min-height: 100vh;
+  width: 100vw;
+  .userlayout-container {
+
+    .header-wrapper {
+      width: 100%;
+      left: 0;
+      .sidebar-toggle{
+        color: var(--layout-bg-color);
+      }
+    }
+    .userlayout-content {
+      position: relative;
+      overflow: hidden;
+      // padding-top: 80px;
+      width: 100%;
+      min-height: 100vh;
+      @media(max-width: 480px) {
+        // padding-top: 50px;
+        ion-icon{
+          top: 0px;
+        }
+      }
+    }
+  }
+}

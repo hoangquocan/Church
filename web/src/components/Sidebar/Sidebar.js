@@ -45,6 +45,7 @@ const Sidebar = () => {
   return (
     <>
       <div className="sidebar-wrapper" ref={context.sidebarRef}>
+     <div className='sidebar-inner'>
        <div className="logo">
         <Link to={routes.home()}>
           <img src={logo} alt="VGM" />
@@ -53,9 +54,10 @@ const Sidebar = () => {
           </span>
         </Link>
       </div>
-      <NavbarNested />
-      {hasRole(['admin']) && adminLink}
-      {hasRole(['admin', 'manager']) && managerLink}
+        {hasRole(['admin']) && adminLink}
+        {hasRole(['admin', 'manager']) && managerLink}
+        <NavbarNested />
+     </div>
       </div>
 
     </>

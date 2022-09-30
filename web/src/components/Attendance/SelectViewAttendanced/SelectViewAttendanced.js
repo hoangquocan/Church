@@ -20,8 +20,6 @@ const SelectViewAttendanced = () => {
   const handleView = (values) => {
     setView(true)
   }
-  // console.log((new Date(value[0])))
-  // console.log(value)
   return (
     <div className="viewAttendanced-wrapper">
        <div className='viewAttendanced-select'>

@@ -15,13 +15,13 @@ export const schema = gql`
   type GroupMember {
     group: [Group!]
   }
-  type MemberPage {
+  type MembersLoad {
     members: [Member!]!
     count: Int!
   }
   type Query {
     memberSearchName(nameSearch: String): [Member!]! @requireAuth
-    memberPage(page: Int): MemberPage @requireAuth
+    membersLoad(load: Int): MembersLoad @requireAuth
     membersNoGroup: [Member!]! @requireAuth
     members: [Member!]! @requireAuth
     member(id: Int!): Member @requireAuth

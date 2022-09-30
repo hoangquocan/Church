@@ -1,27 +1,38 @@
 .actived {
-  background-color: var(--mantine-color-dark-8);
+  background: var(--layout-bg-color);
   color: #45f3ff;
+  border-color: #45f3ff;
+  z-index: 9;
+  position: relative;
   &:before {
     content: '';
     position: absolute;
-    right: 0;
-    top: -48px;
-    width: 48px;
-    height: 48px;
+    right: -2px;
+    top: -51px;
+    // z-index: 9;
+    width: 50px;
+    height: 50px;
     background-color: transparent;
-    border-radius: 50%;
-    box-shadow: 35px 35px 0 10px var(--mantine-color-dark-8);
+    border-bottom: 1px solid #00eeff;
+    border-right: 1px solid #45f3ff;
+    // border-radius: 0 0 25px  0;
+    box-shadow: 35px 35px 0 10px var(--layout-bg-color);
+    pointer-events: none;
   }
   &:after {
     content: '';
     position: absolute;
-    right: 0;
-    bottom: -48px;
-    width: 48px;
-    height: 48px;
+    right: -2px;
+    // z-index: 9;
+    bottom: -51px;
+    width: 50px;
+    height: 50px;
+    border-top: 1px solid #00eeff;
+    border-right: 1px solid #45f3ff;
     background-color: transparent;
-    border-radius: 50%;
-    box-shadow: 35px -35px 0 10px var(--mantine-color-dark-8);
+    // border-radius: 0px 25px 0 0;
+    box-shadow: 35px -35px 0 10px var(--layout-bg-color);
+    pointer-events: none;
   }
   .mantine-Group-root {
     color: #45f3ff;

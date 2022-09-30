@@ -29,11 +29,11 @@ const SearchBar = () => {
     variables: { nameSearch: nameSearch },
   })
   // if (loading)
-  //   return (
+  //   {return (
   //     <div style={{ textAlign: 'center' }}>
   //       <Loader variant="oval" size="md" color="dark" />
   //     </div>
-  //   )
+  //   )}
   // if (error) return `Error! ${error.message}`
 
   let searchResult = []

@@ -92,7 +92,7 @@ const MemberBirthDate = () => {
       </Group>
     </Carousel.Slide>
   ))
-
+console.log('render ne')
   return (
     <div className="member-birthdate">
       <h2 style={{ fontFamily: 'Qwigley', fontWeight: '400' }}>BirthDays Of The Month</h2>

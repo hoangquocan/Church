@@ -1,10 +1,10 @@
 import { Avatar, Group, Text, Menu, Modal, Divider } from '@mantine/core'
 import { useState, useRef, useEffect } from 'react'
-
+import { IconEdit, IconMail } from '@tabler/icons'
 // import { useMutation } from '@redwoodjs/web'
 
-import './ManagerUsers.scss'
 import EditUserRole from '../EditUserRole/EditUserRole'
+import './ManagerUsers.scss'
 
 const ManagerUsers = ({ users }) => {
   const [opened, setOpened] = useState(false)
@@ -54,7 +54,7 @@ const ManagerUsers = ({ users }) => {
               },
             })}
           />
-          <Text align="center" size="lg" weight={700} lh={4}>
+          <Text align="center" size="lg" weight={700}>
             {user.name || 'No update yet'}
           </Text>
           <Text align="center" size="md" color="dimmed">
@@ -103,11 +103,15 @@ const ManagerUsers = ({ users }) => {
                   setOpened(true)
                 }}
                 color="white"
+                icon={<IconEdit size={16} />}
               >
                 Update Role
               </Menu.Item>
               <Divider />
-              <Menu.Item color="gray">Send Email</Menu.Item>
+              <a target='_blank' href="https://mail.google.com/mail/u/0/#inbox">
+              <Menu.Item color="white" icon={<IconMail size={16} />}>
+                Send Email
+              </Menu.Item></a>
             </Menu.Dropdown>
           </Menu>
         </div>

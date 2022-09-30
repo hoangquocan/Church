@@ -2,18 +2,18 @@
   margin-top: 30px;
   margin-bottom: 30px;
   text-align: center;
-  box-shadow: 1px 5px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 1px 10px 15px rgba(0, 0, 0, 0.9);
   border-radius: 10px;
   padding: 20px;
   background: #373A40;
-  background: linear-gradient( to right, #1A1B1E,#909296);
+  background: linear-gradient( to right, #101113,#373A40);
   color: #fff;
   font-weight: 500;
   .mantine-Group-root {
     padding: 10px;
     border-radius: 10px;
     &:hover {
-      background: #495057;
+      background: #5C5F66;
     }
   }
   .member-maxPresent {

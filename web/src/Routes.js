@@ -10,10 +10,16 @@
 import { Router, Route, Set, Private } from '@redwoodjs/router'
 
 import StandardLayout from './layouts/StandardLayout/StandardLayout'
+import UserLayout from './layouts/UserLayout/UserLayout'
 
 const Routes = () => {
   return (
     <Router>
+<Set wrap={UserLayout}>
+<Route path="/feedback" page={FeedbackAndHelpFeedbackPage} name="feedback" />
+      <Route path="/contact" page={ContactPage} name="contact" />
+
+</Set>
       <Set wrap={StandardLayout}>
         <Private unauthenticated="home" roles={'admin'}>
           <Route path="/admin/set-role-user" page={AdminSetRoleUserPage} name="setRoleUser" />
@@ -51,6 +57,7 @@ const Routes = () => {
         <Route path="/" page={HomePage} name="home" />
         <Route path="/{email:String}" page={UserProfilePage} name="userProfile" />
       </Set>
+
       <Route notfound page={NotFoundPage} />
     </Router>
   )

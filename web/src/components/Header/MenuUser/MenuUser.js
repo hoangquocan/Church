@@ -4,6 +4,7 @@ import { Link, routes, navigate } from '@redwoodjs/router'
 import { useEffect, useState } from 'react'
 // import { Loader } from '@mantine/core'
 import { Avatar, Menu, Indicator, createStyles } from '@mantine/core'
+import { showNotification } from '@mantine/notifications'
 
 import './MenuUser.scss'
 
@@ -59,7 +60,7 @@ const MenuUser = () => {
 
   return (
     <div className="header-menu-user">
-      <Indicator label={count} inline size={19}>
+      <Indicator label={""} inline size={19}>
         <ion-icon
           style={{ color: '#06beb6' }}
           name="notifications-outline"
@@ -74,7 +75,7 @@ const MenuUser = () => {
         position="bottom-end"
         styles={(theme) => ({
           divider: {
-            borderColor: theme.colors.gray[5],
+            borderColor: theme.colors.gray[7],
           },
         })}
       >
@@ -102,12 +103,34 @@ const MenuUser = () => {
               <ion-icon name="person-circle-outline"></ion-icon>View Profile
             </Menu.Item>
           </Link>
-          <Menu.Item>
+          <Menu.Item onClick={ () => showNotification({
+        color: 'teal',
+        title: 'Sorry! We are updating this feature',
+        autoClose: 4000,
+        radius: 'md',
+        styles: (theme) => ({
+          root: {
+            borderColor: theme.colors.teal[7],
+
+            '&::before': { backgroundColor: theme.teal },
+          },
+
+          closeButton: {
+            color: theme.colors.gray[7],
+            '&:hover': {
+              color: theme.white,
+              backgroundColor: theme.colors.gray[6],
+            },
+          },
+        }),
+      })}>
             <ion-icon name="settings-outline"></ion-icon>Setting
           </Menu.Item>
-          <Menu.Item>
-            <ion-icon name="help-circle-outline"></ion-icon>Feedback And Help
-          </Menu.Item>
+          <Link to={routes.feedback()}>
+            <Menu.Item>
+              <ion-icon name="help-circle-outline"></ion-icon>Feedback And Help
+            </Menu.Item>
+          </Link>
           <Menu.Divider />
           <Menu.Item onClick={onClick} className="btn-logout">
             <ion-icon name="log-out-outline"></ion-icon>Log Out

@@ -1,11 +1,17 @@
 .attendance-page {
   height: 100%;
   width: auto;
-  margin: 0 20px 20px;
-  background-color: #fff;
+  margin: 20px 160px;
+  background-color: transparent;
   position: relative;
   border-radius: 10px;
-  padding: 10px 20px;
+  padding: 20px 20px;
+  @media (max-width: 1024px) {
+    margin: 20px 50px;
+  }
+  @media (max-width: 480px) {
+    margin: 20px 10px;
+  }
 
   table {
     width: 100%;
@@ -14,7 +20,7 @@
     border-spacing: 0;
     flex: 1;
     box-shadow: 0 3px 2px -2px gray;
-
+    background: transparent;
     @media (max-width: 480px) {
       top: 6px;
     }
@@ -27,12 +33,12 @@
       }
     }
   }
-  // table tr:first-child th:first-child {
-  //   border-top-left-radius: 18px;
-  // }
-  // table tr:first-child th:last-child {
-  //   border-top-right-radius: 18px;
-  // }
+  table tr:first-child th:first-child {
+    border-top-left-radius: 10px;
+  }
+  table tr:first-child th:last-child {
+    border-top-right-radius: 10px;
+  }
   table tr:not(:first-child) {
     counter-increment: rowNumber;
   }
@@ -46,7 +52,7 @@
   th,
   td {
     padding: 8px;
-    border: 1px solid #dee2e6;
+    border-bottom: 1px solid #dee2e6;
   }
   th {
     font-family: var(--font-dancing-script);
@@ -77,22 +83,22 @@
     }
   }
 
-  nav {
-    display: flex;
-    justify-content: space-evenly;
-  }
-  nav:last-child {
-    ion-icon {
-      border-radius: 50%;
-      background-color: transparent;
-      width: 20px;
-      height: 20px;
-      padding-right: 2px;
-      &:hover {
-        cursor: pointer;
-      }
-    }
-  }
+  // nav {
+  //   display: flex;
+  //   justify-content: space-evenly;
+  // }
+  // nav:last-child {
+  //   ion-icon {
+  //     border-radius: 50%;
+  //     background-color: transparent;
+  //     width: 20px;
+  //     height: 20px;
+  //     padding-right: 2px;
+  //     &:hover {
+  //       cursor: pointer;
+  //     }
+  //   }
+  // }
 
 
   // .activities-pagination {

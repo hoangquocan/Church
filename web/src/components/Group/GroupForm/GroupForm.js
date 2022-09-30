@@ -7,6 +7,7 @@ import { TextInput, Button } from '@mantine/core'
 
 import SelectField from 'src/components/Form/SelectField/SelectField'
 import 'src/components/Member/MemberForm/MemberForm.scss'
+import ConvertEnglish from 'src/components/Function/ConvertEnglish/ConvertEnglish'
 
 const QUERY_LEADERS = gql`
   query QueryLeaders {
@@ -96,8 +97,12 @@ const GroupForm = () => {
           : 'Please Choose One Leader',
     },
   })
-
+const regex = /(\S*)(\S{1})/
   const handleSubmit = (values) => {
+    // const arr = values.name.split(' ')
+    // const arr2 = arr.shift()
+    // const result = arr2.concat(arr.map((i) =>  i[0]).join(""))
+    // console.log(result)
     createGroup({ variables: { input: values } })
   }
 

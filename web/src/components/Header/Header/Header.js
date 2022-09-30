@@ -85,12 +85,10 @@ const Header = () => {
           },
           close: {
             marginBottom: '-78px',
-            // marginLeft: '-10px',
             WebkitAppearance: 'none',
             color: '#000',
             borderRadius: '50%',
             background: '#fff',
-            // display: 'none',
           },
         })}
       >

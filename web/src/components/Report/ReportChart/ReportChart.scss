@@ -1,11 +1,13 @@
 .reportchart-wrapper {
   background-color: #fff;
   border-radius: 10px;
-  padding: 10px 0;
+  padding: 30px 10px;
+  font-size: 14px;
+  margin-bottom: 20px;
   .recharts-layer {
     // background-color: #fff;
     .recharts-cartesian-axis-ticks {
-      padding: 20px;
+      padding: 10px;
       margin-top: 10px;
     }
   }

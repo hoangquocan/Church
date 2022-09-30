@@ -3,10 +3,11 @@ import { TextInput, Checkbox, Button, Group, Box } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { PickerInline } from 'filestack-react'
 import { useState } from 'react'
-import { navigate, routes } from '@redwoodjs/router'
+import { navigate, routes, redirect } from '@redwoodjs/router'
 import { useMutation } from '@redwoodjs/web'
 import { showNotification } from '@mantine/notifications'
 
+import {QUERY} from '../MembersLoad'
 import './EditMember.scss'
 import '../../Member/MemberForm/MemberForm.scss'
 
@@ -23,7 +24,7 @@ const UPDATE_MEMBER = gql`
     }
   }
 `
-const EditMember = ({ member }) => {
+const EditMember = ({ member, handleModal }) => {
   const [value, setValue] = useState(new Date(member.birthDate))
   const [urlAvatar, setUrlAvatar] = useState(member.urlAvatar)
   const [isChoose, setIsChoose] = useState(false)
@@ -53,9 +54,12 @@ const EditMember = ({ member }) => {
             },
           },
         }),
-      })
-      navigate(routes.members())
+      }),
+      handleModal()
+      navigate(routes.member({id:member.id}))
     },
+    // refetchQueries: [{ query: QUERY }],
+    // awaitRefetchQueries: true,
   })
 
   const form = useForm({
@@ -84,8 +88,6 @@ const EditMember = ({ member }) => {
     setNameAvatar(null)
   }
   return (
-    <>
-      <h2 className="text-center">Update Member "{member.name}"</h2>
       <div className="member-form">
         <form onSubmit={form.onSubmit(handleSubmit)}>
           <TextInput label="Name" {...form.getInputProps('name')} />
@@ -141,7 +143,6 @@ const EditMember = ({ member }) => {
           </div>
         </form>
       </div>
-    </>
   )
 }
 

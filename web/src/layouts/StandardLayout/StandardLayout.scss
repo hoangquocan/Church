@@ -1,9 +1,15 @@
 .layout-wrapper {
   position: relative;
-  min-height: 100%;
+  min-height: 100vh;
   width: 100vw;
   // overflow-x: hidden;
   background: #141517;
+  // background-image: radial-gradient(
+  //   white 0%,
+  //   white 30%,
+  //   transparent 80%,
+  //   transparent
+  // );
   overflow-y: scroll;
 }
 
@@ -12,66 +18,124 @@
   left: var(--sidebar-width);
   width: calc(100% - var(--sidebar-width));
   min-height: 100vh;
-  background: #141517;
+  // background: #021027;
+
   transition: 0.5s;
-  // overflow-x: hidden;
   margin-bottom: var(--footer-height);
-  overflow-y: hidden;
+  overflow: hidden;
   @media (max-width: 1024px) {
     width: 100%;
     left: 0;
   }
-  // &::-webkit-scrollbar {
-  //   display: none;
-  // }
   &.active {
     left: 0;
     left: var(--sidebar-width);
+    @media (max-width: 480px) {
+      //  z-index: 8;
+    }
   }
+  .circle-container {
+    z-index: 100;
+    $particleNum: 200;
+    $particleColor: hsl(180, 100%, 80%);
+    position: absolute;
+    transform: translateY(-10vh);
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+
+    .circle {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      mix-blend-mode: screen;
+      background-image: radial-gradient(
+        hsl(180, 100%, 80%),
+        hsl(180, 100%, 80%) 10%,
+        hsla(180, 100%, 80%, 0) 56%
+      );
+
+      animation: fadein-frames 200ms infinite, scale-frames 2s infinite;
+
+      @keyframes fade-frames {
+        0% {
+          opacity: 1;
+        }
+
+        50% {
+          opacity: 0.7;
+        }
+
+        100% {
+          opacity: 1;
+        }
+      }
+
+      @keyframes scale-frames {
+        0% {
+          transform: scale3d(0.4, 0.4, 1);
+        }
+
+        50% {
+          transform: scale3d(2.2, 2.2, 1);
+        }
+
+        100% {
+          transform: scale3d(0.4, 0.4, 1);
+        }
+      }
+    }
+
+    $particleBaseSize: 8;
+    @for $i from 1 through $particleNum {
+      &:nth-child(#{$i}) {
+        $circleSize: random($particleBaseSize);
+        width: $circleSize + px;
+        height: $circleSize + px;
+
+        $startPositionY: random(10) + 100;
+        $framesName: 'move-frames-' + $i;
+        $moveDuration: 28000 + random(9000) + ms;
+
+        animation-name: #{$framesName};
+        animation-duration: $moveDuration;
+        animation-delay: random(37000) + ms;
+
+        @keyframes #{$framesName} {
+          from {
+            transform: translate3d(random(100) + vw, $startPositionY + vh, 0);
+          }
+
+          to {
+            transform: translate3d(
+              random(100) + vw,
+              -$startPositionY - random(30) + vh,
+              0
+            );
+          }
+        }
+
+        .circle {
+          animation-delay: random(3000) + ms;
+        }
+      }
+    }
+  }
+  // }
 }
 
 .layout-content {
-  background: #141517;
+  background: var(--layout-bg-color);
+  // opacity: 0.8;
   position: relative;
   overflow: hidden;
   padding-top: 100px;
   width: 100%;
-  // height: auto;
   min-height: 100vh;
   z-index: 2;
   @media (max-width: 480px) {
     padding: 56px 2px 0px 2px;
   }
 }
-@media (max-width: 1024px) {
-  // .layout-wrapper {
-  //   display: flex;
-  //   flex-direction: column;
-  // }
-  // .layout-container {
-  // display: flex;
-  // width: 100vw;
-  // height: 100%;
-  // flex-direction: column-reverse;
-  // position: relative;
-  // overflow: hidden;
-  // margin-bottom: 80px;
-}
-// .layout-sidebar {
-//   background: #fff;
-//   width: 100%;
-//   height: 80px;
-//   margin-top: -80px;
-//   position: fixed;
-//   bottom: 0;
-//   z-index: 99;
-//   box-shadow: 0px -2px 1px rgba(10, 10, 10, 0.671);
-// }
-//   .layout-content {
-//     overflow-y: scroll;
-//     overflow-x: hidden;
-//   }
-// }
 
 @media (max-width: 480px) {
   .layout-container {

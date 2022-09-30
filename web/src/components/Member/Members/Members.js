@@ -2,11 +2,12 @@ import { useMutation } from '@redwoodjs/web'
 import { QUERY as MembersQuery } from 'src/components/Group/GroupMembersCell'
 import { Link, routes } from '@redwoodjs/router'
 import { useState, useMemo } from 'react'
-
-import { Pagination, useMantineTheme } from '@mantine/core'
+import { Pagination, Text, useMantineTheme, Avatar } from '@mantine/core'
+import { openConfirmModal } from '@mantine/modals'
 import { showNotification } from '@mantine/notifications'
 import { useMediaQuery } from '@mantine/hooks'
 
+import '../MembersLoad/MembersLoad.scss'
 import './Members.scss'
 
 const UPDATE_MEMBER = gql`
@@ -17,9 +18,8 @@ const UPDATE_MEMBER = gql`
     }
   }
 `
-const Members = ({ groupId, members, isGroup = false }) => {
+const Members = ({ groupId, members }) => {
   const [activePage, setActivePage] = useState(1)
-  const [isEdit, setIsEdit] = useState(false)
 
   const totalMembers = members.length
   const totalPage = Math.ceil(totalMembers / 6)
@@ -34,12 +34,12 @@ const Members = ({ groupId, members, isGroup = false }) => {
         color: 'red',
         title: 'Member Has Been Removed From Group!',
         message: 'You can still add back that member to this Group',
-        icon: (
-          <ion-icon
-            style={{ color: 'white' }}
-            name="checkmark-outline"
-          ></ion-icon>
-        ),
+        // icon: (
+        //   <ion-icon
+        //     style={{ color: 'white' }}
+        //     name="checkmark-outline"
+        //   ></ion-icon>
+        // ),
         autoClose: 4000,
         radius: 'md',
         styles: (theme) => ({
@@ -59,9 +59,9 @@ const Members = ({ groupId, members, isGroup = false }) => {
           },
         }),
       })
-      if(membersRender[activePage-1].length < 2) {
-        setActivePage(prev => prev -1 )
-      }
+      // if (membersRender[activePage - 1].length < 2) {
+      //   setActivePage((prev) => prev - 1)
+      // }
     },
     refetchQueries: [{ query: MembersQuery, variables: { id: groupId } }],
   })
@@ -69,91 +69,71 @@ const Members = ({ groupId, members, isGroup = false }) => {
   const handleClick = (id, groupId) => {
     openConfirmModal({
       title: 'Please Confirm Your Action!',
-      children: <p>Are you sure want to delete Group {name}?</p>,
+      children: <p>Are you sure want to delete member of Group?</p>,
       labels: { confirm: 'Delete', cancel: 'Cancel' },
       confirmProps: { color: 'red' },
-      onConfirm: () => updateMember({
-        variables: { id, input: { groupId } },
-      }),
+      onConfirm: () =>
+        updateMember({
+          variables: { id, input: { groupId } },
+        }),
     })
   }
 
-  const thumbnail = (url) => {
-    const parts = url.split('/')
-    parts.splice(3, 0, 'resize=width:100')
-    return parts.join('/')
-  }
   const theme = useMantineTheme()
 
   const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm}px)`)
 
   return (
-    <div className="members-table">
-
-      <table cellSpacing="0" cellPadding="0">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Name</th>
-            <th>DOB</th>
-            <th>Email</th>
-            <th>Phone Number</th>
-            <th>Address</th>
-            <th>Group</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {(membersRender[activePage - 1] ).map((member) => (
-            <tr key={member.id}>
-              <td>
-                <Link
-                  to={routes.member({ id: member.id })}
-                  title="View Profile"
-                >
-                  {member.urlAvatar ? (
-                    <img src={thumbnail(member.urlAvatar)} alt="Avatar" />
-                  ) : (
-                    <ion-icon name="person-outline"></ion-icon>
-                  )}
-                </Link>
-              </td>
-              <td>{member.name}</td>
-              <td>{new Date(member.birthDate).toLocaleDateString('sv')}</td>
-              <td>{member.email}</td>
-              <td>{member.phoneNumber}</td>
-              <td>{member.address}</td>
-              {isGroup ? (
-                <td>
-                  <button
-                    className="inline-button inline-button-small inline-button-red"
-                    onClick={() => handleClick(member.id, null)}
-                  >
-                    <ion-icon name="trash-outline"></ion-icon> Delete
-                  </button>
-                </td>
-              ) : (
-                <td>
-                  {member.group != null ? member.group.name : 'No Group Yet'}
-                </td>
-              )}
-              <td>
-                {isEdit && (
-                  <Link to={routes.editMember({ id: member.id })}>
-                    <ion-icon
-                      style={{
-                        color: '#15AABF',
-                      }}
-                      name="pencil-outline"
-                    ></ion-icon>
-                  </Link>
-                )}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      {!isGroup ? (
+    <div className="members-wrapper">
+      {members.map((member) => (
+        <div key={member.id} className="members-item">
+          <Link to={routes.member({ id: member.id })} title="View Profile">
+            <Avatar
+              src={member.urlAvatar}
+              radius="50%"
+              size="80px"
+              // mt={-30}
+              color="cyan"
+              styles={() => ({
+                root: {
+                  border: '3px solid #1A1B1E',
+                  marginTop: '10px',
+                  '@media(max-width: 1024px)': {
+                    minWidth: '60px',
+                    width: '60px',
+                    height: '60px',
+                  },
+                },
+              })}
+            />
+          </Link>
+          <Text weight={600} size="24px">{member.name}</Text>
+          <Text>{new Date(member.birthDate).toLocaleDateString('sv')}</Text>
+          <Text>{member.email}</Text>
+          <Text>{member.phoneNumber}</Text>
+          <Text>{member.address}</Text>
+              <button
+              type='button'
+                className="inline-button inline-button-small inline-button-red"
+                onClick={() => handleClick(member.id, null)}
+              >
+                <ion-icon name="trash-outline"></ion-icon> Delete
+              </button>
+          {/* <Text>
+            {isEdit && (
+              <Link to={routes.editMember({ id: member.id })}>
+                <ion-icon
+                  style={{
+                    color: '#15AABF',
+                  }}
+                  name="pencil-outline"
+                ></ion-icon>
+              </Link>
+            )}
+          </Text> */}
+        </div>
+      ))}
+      {/* {!isGroup ? (
         <div className="members-link">
           <button
             onClick={() => setIsEdit(!isEdit)}
@@ -164,8 +144,8 @@ const Members = ({ groupId, members, isGroup = false }) => {
         </div>
       ) : (
         ''
-      )}
-      <div className="members-pagination">
+      )} */}
+      {/* <div className="members-pagination">
         <Pagination
           position="center"
           page={activePage}
@@ -180,7 +160,7 @@ const Members = ({ groupId, members, isGroup = false }) => {
             },
           }}
         />
-      </div>
+      </div> */}
     </div>
   )
 }

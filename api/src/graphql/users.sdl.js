@@ -7,6 +7,7 @@ export const schema = gql`
     bio: String
     userRoles: [UserRole]!
     group: Group
+    audits: [Audit]!
     createdAt: DateTime!
     updatedAt: DateTime!
   }
@@ -36,5 +37,6 @@ export const schema = gql`
     createUser(input: CreateUserInput!): User! @requireAuth
     updateUser(id: Int!, input: UpdateUserInput!): User! @requireAuth
     deleteUser(id: Int!): User! @requireAuth
+    emailUser(id: Int!): User! @requireAuth
   }
 `

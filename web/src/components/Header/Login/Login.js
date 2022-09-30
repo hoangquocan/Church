@@ -1,10 +1,11 @@
 import { useAuth } from '@redwoodjs/auth'
 import { useMutation, useQuery } from '@redwoodjs/web'
-import { PasswordInput, TextInput, Button, Divider } from '@mantine/core'
+import { PasswordInput, TextInput, Divider } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { showNotification } from '@mantine/notifications'
-import './Login.scss'
 import { useEffect, useRef } from 'react'
+
+import './Login.scss'
 const CREATE_USER = gql`
   mutation CreateUserMutation($input: CreateUserInput!) {
     createUser(input: $input) {
@@ -188,11 +189,18 @@ const Login = ({ handleLogin }) => {
           />
           <label ref={passwordRef}>Password</label>
         </div>
-        <div className="btn-cyan">
-          <button type="submit">Sign In</button>
-        </div>
+        <button className="btn-purple" type="submit">
+          Sign In
+        </button>
       </form>
-      <Divider my="md" label="OR" labelPosition="center" color="#fff" mt={30} mb={30}/>
+      <Divider
+        my="md"
+        label="OR"
+        labelPosition="center"
+        color="#fff"
+        mt={30}
+        mb={30}
+      />
       <button onClick={onClick} type="button" className="login-with-google-btn">
         Sign in with Google
       </button>

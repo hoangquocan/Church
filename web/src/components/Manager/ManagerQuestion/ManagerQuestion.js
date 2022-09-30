@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from 'react'
 import { useMutation } from '@redwoodjs/web'
 import { showNotification } from '@mantine/notifications'
 import { openConfirmModal } from '@mantine/modals'
+import { IconEdit, IconTrash } from '@tabler/icons'
 
 import { QUERY } from '../QuestionsViewCell'
 import UpdateQuestion from '../UpdateQuestion/UpdateQuestion'
@@ -129,7 +130,7 @@ const ManagerQuestion = ({ questionsView }) => {
         <div
           key={i}
           style={{
-            marginTop: '20px',
+            marginTop: '40px',
             backgroundColor: '#f2f2f2',
             color: '#000',
           }}
@@ -154,12 +155,13 @@ const ManagerQuestion = ({ questionsView }) => {
                 background: '#25262B',
               },
               item: {
-                '&:firstChild':{
-                margin: "4px 0",
-                ':hover': {
-                  color: "#000",
-                }}
-              }
+                '&:firstChild': {
+                  margin: '4px 0',
+                  ':hover': {
+                    color: '#000',
+                  },
+                },
+              },
             })}
           >
             <Menu.Target>
@@ -175,11 +177,16 @@ const ManagerQuestion = ({ questionsView }) => {
                   setOpened(true)
                 }}
                 color="gray"
+                icon={<IconEdit size={16} />}
               >
                 Update Questions
               </Menu.Item>
               <Menu.Divider />
-              <Menu.Item onClick={() => handleDelete(question.id)} color="red">
+              <Menu.Item
+                onClick={() => handleDelete(question.id)}
+                color="red"
+                icon={<IconTrash size={16} />}
+              >
                 Delete Questions
               </Menu.Item>
             </Menu.Dropdown>

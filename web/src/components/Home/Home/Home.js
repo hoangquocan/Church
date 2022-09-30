@@ -25,7 +25,6 @@ const QUERY = gql`
 const Home = () => {
   const { hasRole } = useAuth()
   const groupId = +localStorage.getItem('groupId')
-  // const now = new Date()
   const time = new Date(new Date().setDate(new Date().getDate() - 1))
 
   const { loading, error, data } = useQuery(QUERY)
@@ -52,13 +51,14 @@ const Home = () => {
   //     i--
   //   }
   // }
-  let activitiesRender = []
-  if (data) {
-    activitiesRender = data.activitiesHome
-  } else {
-    return <h2 className="text-center">No Activity Yet</h2>
-  }
-  console.log(time)
+  // let activitiesRender = []
+  // if (data) {
+  //   activitiesRender = data.activitiesHome
+  // } else {
+  //   return <h2 className="text-center">No Activity Yet</h2>
+  // }
+// const auth = client.firebaseAuth.getAuth().currentUser
+//   console.log(auth)
   return (
     <div className="home-wrapper">
       {hasRole(['leader']) && (

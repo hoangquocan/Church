@@ -1,7 +1,7 @@
 import { showNotification } from '@mantine/notifications'
 import { useAuth } from '@redwoodjs/auth'
 import { Link, navigate, routes } from '@redwoodjs/router'
-import { useEffect, useState } from 'react'
+
 import './ActivityNotAtten.scss'
 
 const ActivityNotAtten = ({ activities }) => {
