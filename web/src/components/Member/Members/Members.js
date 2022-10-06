@@ -107,11 +107,11 @@ const Members = ({ groupId, members }) => {
               })}
             />
           </Link>
-          <Text weight={600} size="24px">{member.name}</Text>
+          <Text weight={600} size="20px">{member.name}</Text>
           <Text>{new Date(member.birthDate).toLocaleDateString('sv')}</Text>
           <Text>{member.email}</Text>
           <Text>{member.phoneNumber}</Text>
-          <Text>{member.address}</Text>
+          <Text lineClamp={1}>{member.address}</Text>
               <button
               type='button'
                 className="inline-button inline-button-small inline-button-red"

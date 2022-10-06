@@ -97,8 +97,8 @@ const Header = () => {
       <Modal
         title={
           type == 'login'
-            ? 'Log in to ChurchSystem'
-            : 'Sign up for ChurchSystem'
+            ? 'Log in to System'
+            : 'Sign up for System'
         }
         opened={opened}
         onClose={() => setOpened(false)}

@@ -11,7 +11,7 @@ const ActivityNotAtten = ({ activities }) => {
 
   const activitiesToAttendance = activities.filter((activity) => {
     const compareDate = new Date(activity.date)
-    compareDate.setDate(compareDate.getDate() + 30)
+    compareDate.setDate(compareDate.getDate() + 1)
     return compareDate > nowDate
   })
 

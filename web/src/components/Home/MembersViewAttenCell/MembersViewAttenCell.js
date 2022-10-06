@@ -26,10 +26,10 @@ export const Loading = () => (
   </div>
 )
 
-export const Empty = () => <div>Empty</div>
+export const Empty = () => <div></div>
 
 export const Failure = ({ error }) => (
-  <div style={{ color: 'red' }}>Error: {error.message}</div>
+  <div style={{ color: 'red' }}></div>
 )
 
 export const Success = ({ group }) => {

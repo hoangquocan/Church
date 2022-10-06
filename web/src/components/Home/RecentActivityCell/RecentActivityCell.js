@@ -31,7 +31,7 @@ export const Loading = () => (
 export const Empty = () => <div></div>
 
 export const Failure = ({ error }) => (
-  <div style={{ color: 'red' }}>Error: {error.message}</div>
+  <div>Not assign one group yet</div>
 )
 
 export const Success = ({ recentActivity }) => {

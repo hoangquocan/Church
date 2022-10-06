@@ -113,104 +113,141 @@ const MembersLoad = () => {
     setOpened(false)
   }
   return (
-    <div className="members-wrapper">
-      {membersRender?.map((member, idx) => (
-        <div
-          key={member.id}
-          className="members-item"
-          onMouseEnter={() => handleMouseEnter(idx)}
-          onMouseLeave={() => handleMouseLeave(idx)}
-        >
-          <Link to={routes.member({ id: member.id })} title="View Profile">
-            <Avatar
-              src={member.urlAvatar}
-              radius="50%"
-              size="80px"
-              mt={-30}
-              color="cyan"
-              styles={() => ({
-                root: {
-                  border: '3px solid #1A1B1E',
-                  '@media(max-width: 768px)': {
-                    minWidth: '60px',
-                    width: '60px',
-                    height: '60px',
+    <>
+      <div className="members-wrapper">
+        {membersRender?.map((member, idx) => (
+          <div
+            key={member.id}
+            className="members-item"
+            onMouseEnter={() => handleMouseEnter(idx)}
+            onMouseLeave={() => handleMouseLeave(idx)}
+          >
+            <Link to={routes.member({ id: member.id })} title="View Profile">
+              <Avatar
+                src={member.urlAvatar}
+                radius="50%"
+                size="80px"
+                mt={-30}
+                color="cyan"
+                styles={() => ({
+                  root: {
+                    border: '3px solid #1A1B1E',
+                    '@media(max-width: 768px)': {
+                      minWidth: '60px',
+                      width: '60px',
+                      height: '60px',
+                    },
+                  },
+                })}
+              />{' '}
+            </Link>
+            <Text align="center" size="20px" weight={500}>
+              {member.name}
+            </Text>
+            <Text align="center" size="md">
+              {new Date(member.birthDate).toLocaleDateString('sv')}
+            </Text>
+            <Text align="center" size="md">
+              {member.phoneNumber}
+            </Text>
+            <Text align="center" size="md" italic>
+              {member.email}
+            </Text>
+            <Text lineClamp={1} align="center" size="md">
+              {member.address}
+            </Text>
+            <Text align="center" size="md">
+              {member.group?.name || 'No Group Yet'}
+            </Text>
+            <Menu
+              width={200}
+              height={90}
+              trigger="hover"
+              openDelay={300}
+              closeDelay={100}
+              position="bottom-end"
+              shadow="rgba(0, 0, 0, 0.7) 0px 3px 6px, rgba(0, 0, 0, 0.83) 0px 3px 6px"
+              styles={(theme) => ({
+                divider: {
+                  borderColor: theme.colors.gray[5],
+                },
+                dropdown: {
+                  background: '#25262B',
+                },
+                item: {
+                  margin: '4px 0',
+                  ':hover': {
+                    color: '#000',
                   },
                 },
               })}
-            />{' '}
-          </Link>
-          <Text align="center" size="20px" weight={500}>
-            {member.name}
-          </Text>
-          <Text align="center" size="md">
-            {new Date(member.birthDate).toLocaleDateString('sv')}
-          </Text>
-          <Text align="center" size="md">
-            {member.phoneNumber}
-          </Text>
-          <Text align="center" size="md" italic>
-            {member.email}
-          </Text>
-          <Text lineClamp={1} align="center" size="md">
-            {member.address}
-          </Text>
-          <Text align="center" size="md">
-            {member.group.name || 'No Group Yet'}
-          </Text>
-          <Menu
-            width={200}
-            height={90}
-            trigger="hover"
-            openDelay={300}
-            closeDelay={100}
-            position="bottom-end"
-            shadow="rgba(0, 0, 0, 0.7) 0px 3px 6px, rgba(0, 0, 0, 0.83) 0px 3px 6px"
-            styles={(theme) => ({
-              divider: {
-                borderColor: theme.colors.gray[5],
+            >
+              <Menu.Target>
+                <ion-icon
+                  ref={(el) => (iconRefs.current[idx] = el)}
+                  name="ellipsis-horizontal-outline"
+                ></ion-icon>
+              </Menu.Target>
+              <Menu.Dropdown>
+                <Menu.Item
+                  onClick={() => {
+                    setMember(member)
+                    setOpened(true)
+                  }}
+                  color="white"
+                  icon={<IconEdit size={16} />}
+                >
+                  Update Member
+                </Menu.Item>
+                <Divider />
+                <a
+                  target="_blank"
+                  href="https://mail.google.com/mail/u/0/#inbox"
+                >
+                  <Menu.Item color="white" icon={<IconMail size={16} />}>
+                    Send Email
+                  </Menu.Item>
+                </a>
+                <Divider />
+                <Menu.Item color="red" icon={<IconTrash size={16} />}>
+                  Delete Member
+                </Menu.Item>
+              </Menu.Dropdown>
+            </Menu>
+          </div>
+        ))}
+
+        <Modal
+          title="Update Member"
+          opened={opened}
+          onClose={() => setOpened(false)}
+          zIndex={3}
+          styles={(theme) => ({
+            modal: {
+              marginTop: '50px',
+              width: 'auto',
+              backgroundColor: '#2C2E33',
+              '@media(min-width: 1024px)': {
+                marginLeft: '300px',
               },
-              dropdown: {
-                background: '#25262B',
-              },
-              item: {
-                margin: '4px 0',
-                ':hover': {
-                  color: '#000',
-                },
-              },
-            })}
-          >
-            <Menu.Target>
-              <ion-icon
-                ref={(el) => (iconRefs.current[idx] = el)}
-                name="ellipsis-horizontal-outline"
-              ></ion-icon>
-            </Menu.Target>
-            <Menu.Dropdown>
-              <Menu.Item
-                onClick={() => {
-                  setMember(member)
-                  setOpened(true)
-                }}
-                color="gray"
-                icon={<IconEdit size={16} />}
-              >
-                Update Member
-              </Menu.Item>
-              <Divider />
-              <a target='_blank' href="https://mail.google.com/mail/u/0/#inbox">
-              <Menu.Item color="gray" icon={<IconMail size={16} />}>
-                Send Email
-              </Menu.Item></a>
-              <Divider />
-              <Menu.Item color="red" icon={<IconTrash size={16} />}>
-                Delete Member
-              </Menu.Item>
-            </Menu.Dropdown>
-          </Menu>
-        </div>
-      ))}
+            },
+            header: {
+              fontSize: '1.4rem',
+              marginBottom: 0,
+              paddingBottom: 10,
+              fontWeight: 500,
+            },
+            close: {
+              backgroundColor: '#f2f2f2',
+              marginRight: 10,
+              width: 32,
+              height: 32,
+            },
+          })}
+        >
+          <EditMember member={member} handleModal={handleModal} />
+        </Modal>
+      </div>
       <button
         style={{
           width: '200px',
@@ -223,37 +260,7 @@ const MembersLoad = () => {
       >
         Load More
       </button>
-      <Modal
-        title="Update Member"
-        opened={opened}
-        onClose={() => setOpened(false)}
-        zIndex={3}
-        styles={(theme) => ({
-          modal: {
-            marginTop: '50px',
-            width: 'auto',
-            backgroundColor: '#2C2E33',
-            '@media(min-width: 1024px)': {
-              marginLeft: '300px',
-            },
-          },
-          header: {
-            fontSize: '1.4rem',
-            marginBottom: 0,
-            paddingBottom: 10,
-            fontWeight: 500,
-          },
-          close: {
-            backgroundColor: '#f2f2f2',
-            marginRight: 10,
-            width: 32,
-            height: 32,
-          },
-        })}
-      >
-        <EditMember member={member} handleModal={handleModal} />
-      </Modal>
-    </div>
+    </>
   )
 }
 

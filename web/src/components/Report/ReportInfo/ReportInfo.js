@@ -61,7 +61,6 @@ const ReportInfo = ({ activities, infoQuery }) => {
     skip: !month,
     variables: { month },
   })
-
   let questions = []
   if (data) {
     questions = data.questionByMonth
@@ -129,7 +128,7 @@ const ReportInfo = ({ activities, infoQuery }) => {
         }),
     })
   }
-  const { id, questionOne, questionTwo, questionThree } = questions
+  const { id, questionOne, questionTwo, questionThree } = questions || ''
 
   return (
     <>
@@ -348,6 +347,7 @@ const ReportInfo = ({ activities, infoQuery }) => {
           <Textarea
             label={questionOne}
             autosize
+            mt={10}
             minRows={3}
             {...form.getInputProps('answerOne')}
             styles={() => ({
@@ -359,6 +359,7 @@ const ReportInfo = ({ activities, infoQuery }) => {
           <Textarea
             label={questionTwo}
             autosize
+            mt={10}
             minRows={3}
             {...form.getInputProps('answerTwo')}
             styles={() => ({
@@ -370,6 +371,7 @@ const ReportInfo = ({ activities, infoQuery }) => {
           <Textarea
             label={questionThree}
             autosize
+            mt={10}
             minRows={3}
             {...form.getInputProps('answerThree')}
             styles={() => ({
@@ -381,6 +383,7 @@ const ReportInfo = ({ activities, infoQuery }) => {
           <Textarea
             label="Write Your Comment About Last Month"
             autosize
+            mt={10}
             minRows={3}
             {...form.getInputProps('comment')}
             styles={() => ({

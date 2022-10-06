@@ -62,9 +62,9 @@ const ContactForm = () => {
               <li>
                 <ion-icon name="location-outline"></ion-icon>
                 <p>
-                  Tòa nhà Luxury - Lô T2-1.2, <br />
-                  Khu Công Nghệ Cao, P. Tân Phú, <br />
-                  Quận 9 , TP. Hồ Chí Minh
+                  109 Phan Đăng Lưu, <br />
+                  P.7, Quận Phú Nhuận <br />
+                  TP. Hồ Chí Minh
                 </p>
               </li>
               <li>
@@ -73,7 +73,7 @@ const ContactForm = () => {
               </li>
               <li>
                 <ion-icon name="call-sharp"></ion-icon>
-                <p>+84 999 999 999</p>
+                <p>+84 938 949 377</p>
               </li>
             </ul>
           </div>
