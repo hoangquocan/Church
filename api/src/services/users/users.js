@@ -1,6 +1,4 @@
 import { db } from 'src/lib/db'
-// import { Prisma } from '@prisma/client'
-// import { sendEmail } from 'src/lib/email'
 
 export const users = () => {
   return db.user.findMany({
@@ -47,36 +45,21 @@ export const User = {
 }
 
 export const usersHasRole = () => {
+  return db.$queryRaw`SELECT * FROM User WHERE EXISTS ( SELECT * FROM UserRole WHERE UserRole.userId = User.id AND (name = 'manager' OR name = 'leader'))`
+}
+
+export const leaderNoGroup = () => {
   return db.user.findMany({
     where: {
-      userRoles: {
-        some: { name: { contains: 'manager' } },
-        some: { name: { contains: 'leader' } },
-      },
+      AND: [
+        {
+          userRoles: {
+            some: { name: { contains: 'leader' } },
+          },
+        },
+        { group: { is: null } },
+      ],
     },
   })
 }
 
-// export const emailUser = async ({ id }) => {
-//   const user = await db.user.findUnique({
-//     where: { id },
-//   })
-
-//   await sendTestEmail(user.email)
-
-//   return user
-// }
-// // ...
-
-// function sendTestEmail(emailAddress) {
-//   const subject = 'Test Email'
-//   const text =
-//     'This is a manually triggered test email.\n\n' +
-//     'It was sent from a RedwoodJS application.'
-//   const html =
-//     'This is a manually triggered test email.<br><br>' +
-//     'It was sent from a RedwoodJS application.'
-//   return sendEmail({ to: emailAddress, subject, text, html })
-// }
-
-// ...

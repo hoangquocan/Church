@@ -1,0 +1,29 @@
+.member-form {
+  .mantine-MultiSelect-input {
+    border-radius: 10px;
+    background-color: #fff;
+    background-image: linear-gradient(45deg, transparent 50%, #495057 50%),
+    linear-gradient(135deg, #495057 50%, transparent 50%),
+    linear-gradient(to right, #868E96, #868E96);
+  background-position: calc(100% - 28px) calc(1em + 4px),
+    calc(100% - 20px) calc(1em + 4px), calc(100% - 3.2em) 0.6em;
+  background-size: 8px 8px, 8px 8px, 1px 2em;
+  background-repeat: no-repeat;
+  &:focus-within {
+    background-image: linear-gradient(45deg, #2c2e33 50%, transparent 50%),
+      linear-gradient(135deg, transparent 50%, #2c2e33 50%),
+      linear-gradient(to right, #495057, #495057);
+    background-position: calc(100% - 20px) calc(1em + 4px), calc(100% - 28px) calc(1em + 4px),
+      calc(100% - 3.2em) 0.6em;
+    border-radius: 10px;
+  }
+  input[type='search'] {
+    height: 0;
+    border: none;
+    width: 0;
+  }
+  }
+  .mantine-MultiSelect-rightSection {
+    display: none;
+  }
+}

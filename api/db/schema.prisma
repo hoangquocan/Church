@@ -33,7 +33,7 @@ model Member {
   id          Int          @id @default(autoincrement()) @db.UnsignedInt
   name        String
   birthDate   DateTime
-  phoneNumber String       @db.VarChar(20)
+  phoneNumber String       @unique @db.VarChar(20)
   email       String
   address     String
   urlAvatar   String?
@@ -46,15 +46,15 @@ model Member {
 }
 
 model Group {
-  id          Int        @id @default(autoincrement()) @db.UnsignedInt
-  name        String     @unique(sort: Asc)
-  // nameEnglish String
-  members     Member[]
-  leader      User       @relation(fields: [userId], references: [id])
-  userId      Int        @unique
-  reports     Report[]
-  activities  Activity[]
-  createdAt   DateTime   @default(now())
+  id             Int             @id @default(autoincrement()) @db.UnsignedInt
+  name           String          @unique(sort: Asc)
+  members        Member[]
+  leader         User?            @relation(fields: [userId], references: [id])
+  userId         Int?             @unique
+  reports        Report[]
+  reportQuarters ReportQuarter[]
+  activities     Activity[]
+  createdAt      DateTime        @default(now())
 }
 
 model Activity {
@@ -62,8 +62,8 @@ model Activity {
   name          String
   date          DateTime
   urlAttendance String?
-  group         Group        @relation(fields: [groupId], references: [id])
-  groupId       Int          @db.UnsignedInt()
+  group         Group?        @relation(fields: [groupId], references: [id])
+  groupId       Int?          @db.UnsignedInt()
   attendance    Attendance[]
   createdAt     DateTime     @default(now())
 
@@ -72,10 +72,10 @@ model Activity {
 
 model Attendance {
   id          Int      @id @default(autoincrement())
-  activity    Activity @relation(fields: [activityId], references: [id])
-  activityId  Int      @db.UnsignedInt
-  member      Member   @relation(fields: [memberId], references: [id])
-  memberId    Int      @db.UnsignedInt
+  activity    Activity? @relation(fields: [activityId], references: [id])
+  activityId  Int?      @db.UnsignedInt
+  member      Member?   @relation(fields: [memberId], references: [id])
+  memberId    Int?      @db.UnsignedInt
   present     Boolean  @db.Bit(1)
   submittedBy String?
   createdAt   DateTime @default(now())
@@ -99,6 +99,17 @@ model Report {
   answerTwo        String   @db.Text
   answerThree      String   @db.Text
   createdAt        DateTime @default(now())
+}
+
+model ReportQuarter {
+  id              Int      @id @default(autoincrement())
+  timeQuarter     String   @db.VarChar(20)
+  group           Group?    @relation(fields: [groupId], references: [id])
+  groupId         Int?      @db.UnsignedInt()
+  totalAttendance Int
+  totalPresent    Int
+  percentPrecent  Decimal
+  createdAt       DateTime @default(now())
 }
 
 model Question {

@@ -1,8 +1,7 @@
 import { AuthenticationError } from '@redwoodjs/graphql-server'
 import admin from 'firebase-admin'
 import { db } from './db'
-// import { Skeleton } from '@mantine/core';
-
+import { ForbiddenError } from '@redwoodjs/graphql-server'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const adminApp = admin.initializeApp({
@@ -27,7 +26,7 @@ const adminApp = admin.initializeApp({
  */
 export const getCurrentUser = async (
   user,
-  decoded,
+  decoded
   /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
   // { token, type },
   /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
@@ -35,8 +34,8 @@ export const getCurrentUser = async (
 ) => {
   const email = user.email
   const userRoles = await db.userRole.findMany({
-    where: {user: {email}},
-    select: {name: true}
+    where: { user: { email } },
+    select: { name: true },
   })
   const roles = userRoles.map((role) => {
     return role.name
@@ -63,12 +62,36 @@ export const isAuthenticated = () => {
  *
  * @see https://github.com/redwoodjs/redwood/tree/main/packages/auth for examples
  */
-export const requireAuth = () => {
-  if (!isAuthenticated()) {
 
-    throw new AuthenticationError("Please Log In!")
+ export const hasRole = (roles) => {
+  if (!isAuthenticated()) {
+    return false
   }
 
+  if (roles) {
+    if (Array.isArray(roles)) {
+      return context.currentUser.roles?.some((r) => roles.includes(r))
+    }
+
+    if (typeof roles === 'string') {
+      return context.currentUser.roles?.includes(roles)
+    }
+
+    // roles not found
+    return false
+  }
+
+  return true
+}
+
+export const requireAuth = ({ roles }) => {
+  if (!isAuthenticated()) {
+    throw new AuthenticationError('Please Log In!')
+  }
+  if (roles && !hasRole(roles)) {
+    throw new ForbiddenError(` Only ${roles} can use this feature`)
+
+  }
   // Custom RBAC implementation required for firebase
   // https://firebase.google.com/docs/auth/admin/custom-claims
 }

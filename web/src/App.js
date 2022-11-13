@@ -14,6 +14,7 @@ import Routes from 'src/Routes'
 import './index.scss'
 import './Variables.scss'
 import { ContextProvider } from './components/Context/Context/Context'
+import { getStorage } from 'firebase/storage'
 
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
@@ -36,7 +37,7 @@ export const firebaseClient = {
   firebaseAuth,
   firebaseApp, // optional
 }
-
+export const storage = getStorage(firebaseApp)
 const App = () => (
   <FatalErrorBoundary page={FatalErrorPage}>
     <RedwoodProvider titleTemplate="%PageTitle | %AppTitle">

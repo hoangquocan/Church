@@ -15,7 +15,6 @@ const admin = [
     links: [
       { label: 'Set UserRole', to: '/admin/set-role-user' },
       { label: 'Manage Users', to: '/admin/manage-users' },
-      { label: 'Admin Page', to: '/admin' },
     ],
   },
 ]
@@ -27,6 +26,7 @@ const manager = [
       { label: 'Create Questions', to: '/manager/create-question' },
       { label: 'View Questions', to: '/manager/questions' },
       { label: 'Export Survey', to: '/manager/export-survey' },
+      { label: 'Import File', to: '/manager/import-file' },
     ],
   },
 ]

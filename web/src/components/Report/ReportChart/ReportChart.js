@@ -11,10 +11,16 @@ import { memo } from 'react'
 import './ReportChart.scss'
 
 const ReportChart = ({ reportsByMonth }) => {
+  // const getName = (name) => {
+  //   const arr = name.findIndex(' ')
+  //   const arr2 = arr.shift()
+  //   const result = arr2.concat(arr.map((i) => i[0]).join(''))
+  //   return result
+  // }
   const getName = (name) => {
-    const arr = name.split(' ')
-    const arr2 = arr.shift()
-    const result = arr2.concat(arr.map((i) => i[0]).join(''))
+    const indxChar = name.indexOf('Nhóm')
+    const endInd = name.lastIndexOf(' ')
+    const result = name.substring(indxChar, endInd)
     return result
   }
 

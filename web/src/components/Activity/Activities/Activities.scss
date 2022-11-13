@@ -1,172 +1,72 @@
-
 .activities-wrapper {
   width: auto;
-  margin: 20px 60px;
-  background-color: #868E96;
+  margin: 20px 120px 40px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 10px 30px;
+  // padding: 10px 20px;
   border-radius: 10px;
-  .activities-header {
-    height: 40px;
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding-bottom: 10px;
-    margin: 10px 10px 0;
-
-    ion-icon {
-      padding-right: 2px;
-      font-size: 1.2rem;
-    }
-    @media (max-width: 480px) {
-      height: 38px;
-    }
+  @media (max-width: 1266px) {
+    margin: 10px 30px 30px;
+  }
+  @media (max-width: 480px) {
+    margin: 10px 10px 30px;
   }
 
-  .activities-inner{
+  .activities-inner {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+    gap: 30px;
     padding: 20px 0px;
     margin-bottom: 20px;
     width: 100%;
     @media (max-width: 1266px) {
       grid-template-columns: repeat(2, 1fr);
+      // padding: 30px 30px 20px;
     }
     @media (max-width: 480px) {
       grid-template-columns: repeat(1, 1fr);
-      padding: 30px 30px 20px;
     }
-    // @media (max-width: 480px) {
-    //   padding: 10px 2px;
-    // }
   }
 
   .activities-item {
     position: relative;
-    display:flex;
+    display: flex;
     background: #25262b;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
+    overflow: hidden;
     align-items: center;
-    // flex-wrap: wrap;
     gap: 10px;
-    padding: 2px 10px;
-    min-height: 320px;
+    padding: 6px 6px 20px;
+    min-height: 380px;
     margin-bottom: 20px;
     color: #fff;
     border-radius: 10px;
-    border: 1px solid #5C5F66;
+    border: 2px solid #5c5f66;
     line-height: 2;
-    box-shadow: 0 10px 10px rgba(0, 0, 0, .6);
-  }
-
-  // table {
-  //   width: 100%;
-  //   counter-reset: rowNumber 1;
-  //   border-collapse: separate;
-  //   border-spacing: 0;
-  //   box-shadow: 0 4px 2px -2px gray;
-  // }
-  //   img {
-  //     width: 180px;
-  //     height: 100px;
-  //     padding-top: 5px;
-  //     @media (max-height: 1024px) {
-  //       width: 120px;
-  //       height: 70px;
-  //     }
-  //     @media (max-width: 768px) {
-  //       width: 62px;
-  //       height: 56px;
-  //     }
-  //   }
-
-  // // table tr:first-child th:first-child {
-  // //   border-top-left-radius: 18px;
-  // // }
-  // // table tr:first-child th:last-child {
-  // //   border-top-right-radius: 18px;
-  // // }
-  // table tr:not(:first-child) {
-  //   counter-increment: rowNumber;
-  // }
-
-  // table tr td:first-child::before {
-  //   content: counter(rowNumber);
-  // }
-  // th,
-  // td {
-  //   padding-left: 6px;
-  //   border: 1px solid #dee2e6;
-  //   @media (max-width: 480px) {
-  //     padding-left: 2px;
-  //   }
-  // }
-  // th {
-  //   height: 40px;
-  //   // font-family: 'Dancing Script', cursive;
-  //   font-weight: 300;
-  //   font-size: 0.9rem;
-  //   text-align: left;
-  //   background-color: var(--bg-active);
-  //   // color: #fff;
-  //   // background-color: #343A40;
-  //   @media (min-width: 480px) {
-  //     font-size: 1.4rem;
-  //   }
-  // }
-
-  // tr {
-  //   &:nth-child(2n) {
-  //     background-color: #f2f2f2;
-  //   }
-  //   &:nth-child(2n + 1) {
-  //     background-color: #fff;
-  //   }
-  //   th,
-  //   td:nth-last-child(2) {
-  //     border-right: none;
-  //   }
-  //   th,
-  //   td:last-child {
-  //     border-left: none;
-  //   }
-  // }
-
-  // tr td:first-child,th:first-child {
-  //   @media (max-width: 480px) {
-  //     display:none;
-  //   }
-  // }
-  nav {
-    display: flex;
-    justify-content: space-evenly;
-  }
-  nav:last-child {
-    ion-icon {
-      border-radius: 50%;
-      background-color: transparent;
-      width: 20px;
-      height: 16px;
-      padding-right: 2px;
-      &:hover {
-        cursor: pointer;
-      }
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.6);
+    transition: ease-in-out 0.5s;
+    &:hover {
+      border-color: var(--color-primary);
+      cursor: pointer;
+      transform: scale(1.02);
     }
-  }
-
-  .activities-pagination {
-    // height: 40px;
-    width: 100%;
-    // margin-bottom: 10px;
-    margin-top: 14px;
-    button {
-      font-family: 'Dancing Script', cursive;
-      border: 0.5px solid #ced4da;
+    ion-icon {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 20px;
+      border-radius: 50%;
+      padding: 8px;
+      display: none;
+      background: #191a19;
+      &:hover {
+        background: #5c5f66;
+      }
+      &.hovered {
+        display: block;
+      }
     }
   }
 }

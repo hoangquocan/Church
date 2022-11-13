@@ -1,4 +1,3 @@
-import { MetaTags } from '@redwoodjs/web'
 import { Link, routes } from '@redwoodjs/router'
 import { useAuth } from '@redwoodjs/auth'
 import DatePicker from 'react-datepicker'
@@ -25,7 +24,6 @@ const ReportsPage = () => {
 
   return (
     <div className="reports-wrapper">
-      <MetaTags title="Reports" description="Reports page" />
       {hasRole('leader') && (
         <nav className="reports-navheader">
           <Link
@@ -43,19 +41,21 @@ const ReportsPage = () => {
         </nav>
       )}
       <ReportsPortalCell fromMonth={fromMonth} toMonth={toMonth} />
-      <Divider size="sm" mt={20} ml={-30} mr={-30} />
+      <Divider size="sm" mt={60} ml={-30} mr={-30} mb={20} />
       <div className="reports-select-month">
-        <h3>View Chart Result</h3>
+        <h3 style={{marginBottom: 0}} className='text-title'>View Chart Result</h3>
         <DatePicker
           selected={monthSelect}
           onChange={(date) => setMonthSelect(date)}
           dateFormat="MM/yyyy"
           showMonthYearPicker
+          popperPlacement='bottom'
         />
       </div>
       <ReportChartByMonthCell timeReport={timeReport} />
       <Divider
         my="xs"
+        mt={30}
         label={
           <h4 style={{ textAlign: 'center', color: '#46e6fc' }}>
             Chart By {monthSelect.getMonth() + 1}/{monthSelect.getFullYear()}

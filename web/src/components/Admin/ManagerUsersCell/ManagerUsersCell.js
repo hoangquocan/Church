@@ -1,4 +1,5 @@
 import ManagerUsers from '../ManagerUsers/ManagerUsers'
+import { Loader } from '@mantine/core'
 
 export const QUERY = gql`
   query UsersHasRoleQuery {
@@ -7,6 +8,10 @@ export const QUERY = gql`
       name
       email
       avatar
+      group {
+        name
+        id
+      }
       userRoles {
         id
         name
@@ -15,7 +20,11 @@ export const QUERY = gql`
   }
 `
 
-export const Loading = () => <div>Loading...</div>
+export const Loading = () => (
+  <div style={{ textAlign:'center', marginTop: '25%'}}>
+    <Loader variant="oval" size="md" color="blue" />
+  </div>
+)
 
 export const Empty = () => <div>Empty</div>
 

@@ -9,12 +9,12 @@ export const schema = gql`
     submittedBy: String
     createdAt: DateTime!
   }
-  type attendanceByDate {
-    # attendances: [Attendance]
-    _count: Int
-  }
+  # type attendanceByDate {
+  #   # attendances: [Attendance]
+  #   _count: Int
+  # }
   type Query {
-    attendanceByDate(groupId: Int, startDate: DateTime, endDate: DateTime): attendanceByDate @requireAuth
+    # attendanceByDate(groupId: Int, startDate: DateTime, endDate: DateTime): attendanceByDate @requireAuth
     attendances: [Attendance!]! @requireAuth
     attendance(id: Int!): Attendance @requireAuth
   }

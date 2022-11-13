@@ -1,21 +1,20 @@
 .group-wrapper {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  font-family: 'Dancing Script', cursive;
   font-weight: 400;
   padding: 10px 20px;
-  color: #fff;
-  font-size: 20px;
+  color: #000;
+  font-size: 18px;
   width: 100%;
+  background-color: #fff;
+  margin: 40px auto;
+  max-width: 1292px;
 }
 .group-info {
-  margin-bottom: 10px;
-}
-.group-button {
- ion-icon{
-  padding-right: 6px;
-  font-size: 1.2rem;
-  transform: translateY(-5%);
- }
+  line-height: 1.6;
+  margin: 10px auto;
+  span{
+    font-size: 28px;
+    margin-right: 16px;
+  }
 }

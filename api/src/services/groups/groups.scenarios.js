@@ -2,15 +2,15 @@ export const standard = defineScenario({
   group: {
     one: {
       data: {
-        name: 'String3481407',
-        leader: { create: { email: 'String837370' } },
+        name: 'String2336103',
+        leader: { create: { email: 'String9811987' } },
       },
     },
 
     two: {
       data: {
-        name: 'String8029236',
-        leader: { create: { email: 'String1160726' } },
+        name: 'String2795467',
+        leader: { create: { email: 'String1532025' } },
       },
     },
   },

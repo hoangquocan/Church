@@ -36,8 +36,8 @@ const ActivityForm = ({ groups }) => {
         radius: 'md',
         styles: (theme) => ({
           root: {
-            borderColor: theme.colors.blue[7],
-
+            borderColor: theme.colors.blue[9],
+            backgroundColor: theme.colors.blue[2],
             '&::before': { backgroundColor: theme.blue },
           },
 
@@ -77,12 +77,12 @@ const ActivityForm = ({ groups }) => {
         config={{ mode: 'onBlur' }}
         style={{ paddingTop: '120px' }}
       >
-        <Label name="name">Name</Label>
+        <Label name="name">Activity Name</Label>
         <Input type="text" name="name" />
         <FieldError name="name" className="error" />
 
         <Label name="date" className="label-group">
-          Date
+          Date Participate
         </Label>
         <DatePicker
           name="date"
@@ -92,7 +92,7 @@ const ActivityForm = ({ groups }) => {
         />
         <FieldError name="date" className="error" />
 
-        <Label name="groupId">Group Participate</Label>
+        <Label name="groupId">Group</Label>
         <SelectField onChange={setValue} data={dataSelect} />
         <FieldError name="groupId" />
 

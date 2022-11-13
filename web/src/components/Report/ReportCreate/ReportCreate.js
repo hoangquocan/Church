@@ -1,15 +1,15 @@
 import { Label, Form, FieldError } from '@redwoodjs/forms'
-import SelectField from 'src/components/Form/SelectField/SelectField'
-import DatePicker from '../../Form/DatePicker/DatePicker'
-import Button from 'src/components/Form/Button/Button'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useContext } from 'react'
 import { useQuery } from '@redwoodjs/web'
 import { useForm } from 'react-hook-form'
 import { navigate, routes } from '@redwoodjs/router'
-import { QUERY as QUERY_GROUPS } from 'src/components/Group/GroupsCell'
 import { Loader } from '@mantine/core'
 import { showNotification } from '@mantine/notifications'
 
+import { RefContext } from 'src/components/Context/Context'
+import SelectField from 'src/components/Form/SelectField/SelectField'
+import DatePicker from '../../Form/DatePicker/DatePicker'
+import Button from 'src/components/Form/Button/Button'
 import './ReportCreate.scss'
 import 'src/components/Member/MemberForm/MemberForm.scss'
 
@@ -23,6 +23,8 @@ const QUERY_REPORT = gql`
 const ReportCreate = () => {
   const [value, setValue] = useState('')
   const [groupView, setGroupView] = useState({})
+  const { groups } = useContext(RefContext)
+
   const { handleSubmit, control } = useForm()
   const didMount = useRef(false)
   const groupId = localStorage.getItem('groupId')
@@ -34,17 +36,17 @@ const ReportCreate = () => {
     navigate(routes.reportInfo({ time: JSON.stringify(groupView) }))
   }, [groupView])
 
-  const {
-    loading: loadingG,
-    error: errorG,
-    data: dataG,
-  } = useQuery(QUERY_GROUPS)
-  // if (loadingG) return 'Loading Groups...!'
-  // if (errorG) return `Error! ${errorG.message}`
-  let groups = []
-  if (dataG) {
-    groups = dataG.groups
-  }
+  // const {
+  //   loading: loadingG,
+  //   error: errorG,
+  //   data: dataG,
+  // } = useQuery(QUERY_GROUPS)
+  // // if (loadingG) return 'Loading Groups...!'
+  // // if (errorG) return `Error! ${errorG.message}`
+  // let groups = []
+  // if (dataG) {
+  //   groups = dataG.groups
+  // }
   const dataSelect = groups.map((group) => ({
     value: group.id,
     label: group.name,
@@ -53,12 +55,12 @@ const ReportCreate = () => {
     skip: !value,
     variables: { groupId: value },
   })
-  if (loading)
-    return (
-      <div style={{ textAlign: 'center' }}>
-        <Loader variant="oval" size="md" color="blue" />
-      </div>
-    )
+  // if (loading)
+  //   return (
+  //     <div style={{ textAlign: 'center' }}>
+  //       <Loader variant="oval" size="md" color="blue" />
+  //     </div>
+  //   )
   if (error) return `Error! ${error.message}`
   let reportExist = []
   if (data) {
@@ -85,7 +87,7 @@ const ReportCreate = () => {
         styles: (theme) => ({
           root: {
             borderColor: theme.colors.red[4],
-
+            backgroundColor: theme.colors.red[1],
             '&::before': { backgroundColor: theme.red },
           },
 
@@ -112,8 +114,8 @@ const ReportCreate = () => {
         autoClose: false,
         styles: (theme) => ({
           root: {
-            borderColor: theme.colors.red[4],
-
+            borderColor: theme.colors.red[7],
+            backgroundColor: theme.colors.red[1],
             '&::before': { backgroundColor: theme.red },
           },
 
@@ -138,7 +140,7 @@ const ReportCreate = () => {
         styles: (theme) => ({
           root: {
             borderColor: theme.colors.red[4],
-
+            backgroundColor: theme.colors.red[1],
             '&::before': { backgroundColor: theme.red },
           },
 

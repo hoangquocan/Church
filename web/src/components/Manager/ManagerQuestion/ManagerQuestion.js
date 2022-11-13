@@ -48,12 +48,12 @@ const ManagerQuestion = ({ questionsView }) => {
       showNotification({
         color: 'red',
         title: 'Questions have been deleted!',
-        autoClose: 3000,
+        autoClose: 4000,
         radius: 'md',
         styles: (theme) => ({
           root: {
-            borderColor: theme.colors.red[4],
-
+            borderColor: theme.colors.red[7],
+            backgroundColor: theme.colors.red[1],
             '&::before': { backgroundColor: theme.red },
           },
 
@@ -77,7 +77,7 @@ const ManagerQuestion = ({ questionsView }) => {
         styles: (theme) => ({
           root: {
             borderColor: theme.colors.red[4],
-
+            backgroundColor: theme.colors.red[1 ],
             '&::before': { backgroundColor: theme.red },
           },
 
@@ -125,12 +125,12 @@ const ManagerQuestion = ({ questionsView }) => {
   }
   return (
     <div style={{ color: '#fff' }} className="manager-questions">
-      <h2>Manager Question</h2>
+      {/* <h2>Manager Question</h2> */}
       {questionsView.map((question, i) => (
         <div
           key={i}
           style={{
-            marginTop: '40px',
+            marginTop: '30px',
             backgroundColor: '#f2f2f2',
             color: '#000',
           }}
@@ -192,7 +192,7 @@ const ManagerQuestion = ({ questionsView }) => {
             </Menu.Dropdown>
           </Menu>
           <h4>
-            {new Date(question.time).getMonth() +
+            T{new Date(question.time).getMonth() +
               1 +
               '/' +
               new Date(question.time).getFullYear()}
@@ -208,24 +208,24 @@ const ManagerQuestion = ({ questionsView }) => {
         title="Update Questions"
         opened={opened}
         onClose={() => setOpened(false)}
-        styles={(theme) => ({
+        styles={() => ({
           modal: {
             width: 800,
             '@media(max-width: 900px)': {
               width: 400,
             },
           },
-          header: {
-            fontSize: '1.4rem',
-            marginBottom: 0,
-            paddingBottom: 10,
-            fontWeight: 500,
-          },
+          title: {
+              margin: '0 auto',
+              fontSize: '28px',
+              fontWeight: 500,
+            },
           close: {
             backgroundColor: '#f2f2f2',
             marginRight: 10,
             width: 32,
             height: 32,
+            borderRadius: '50%',
           },
         })}
       >

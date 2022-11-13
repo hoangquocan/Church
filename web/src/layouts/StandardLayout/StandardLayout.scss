@@ -18,12 +18,10 @@
   left: var(--sidebar-width);
   width: calc(100% - var(--sidebar-width));
   min-height: 100vh;
-  // background: #021027;
-
   transition: 0.5s;
   margin-bottom: var(--footer-height);
   overflow: hidden;
-  @media (max-width: 1024px) {
+  @media (max-width: 1366px) {
     width: 100%;
     left: 0;
   }

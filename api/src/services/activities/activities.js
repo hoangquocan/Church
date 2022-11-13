@@ -1,5 +1,22 @@
 import { db } from 'src/lib/db'
 
+const ACTIVITIES_PER_PAGE = 12
+
+export const activitiesPage = ({ page = 1 }) => {
+  const offset = (page - 1) * ACTIVITIES_PER_PAGE
+  return {
+    activities: db.activity.findMany({
+      take: ACTIVITIES_PER_PAGE,
+      skip: offset,
+      orderBy: { date: 'desc' },
+    }),
+    count: db.activity.count(),
+  }
+}
+export const totalActivities = () => {
+  return db.activity.count()
+}
+
 export const activities = () => {
   return db.activity.findMany({
     orderBy: { date: 'desc' },
@@ -56,16 +73,6 @@ export const activityInGroupByDate = ({ groupId, fromDate, toDate }) => {
   })
 }
 
-export const activitiesHome = ({ groupId }) => {
-  return db.activity.findMany({
-    where: {
-      NOT: [{ attendance: { none: {} } }],
-    },
-    orderBy: { date: 'desc' },
-    take: 4,
-  })
-}
-
 export const upcomingActivities = ({ groupId, time }) => {
   return db.activity.findMany({
     where: {
@@ -76,6 +83,14 @@ export const upcomingActivities = ({ groupId, time }) => {
   })
 }
 
+export const activitiesOutOfDate = ({ time }) => {
+  return db.activity.findMany({
+    where: {
+      AND: [{ attendance: { none: {} } }, { date: { lt: time } }],
+    },
+    orderBy: { date: 'asc' },
+  })
+}
 export const recentActivity = ({ groupId }) => {
   return db.activity.findMany({
     where: {
@@ -98,4 +113,16 @@ export const viewAttendanced = ({ groupId, fromDate, toDate }) => {
     },
     orderBy: { date: 'desc' },
   })
+}
+
+export const createManyActivities = ({ input }) => {
+  return db.activity.createMany({
+    data: input,
+  })
+}
+
+export const activitiesQuarter = ({ month, year }) => {
+  return db.$queryRaw`SELECT * FROM Activity WHERE MONTH(date)>=${month} && MONTH(date)<=${
+    month + 2
+  } && YEAR(date)=${year}`
 }

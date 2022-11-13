@@ -5,7 +5,7 @@
   width: 100%;
   margin-top: 30px;
   gap: 30px;
-  line-height: 1.5;
+  line-height: 2;
   padding: 0 40px 40px;
   @media(max-width: 768px) {
     grid-template-columns: repeat(1, 1fr);
@@ -15,7 +15,7 @@
     padding: 0 10px 40px;
   }
   table{
-    background: rgba(0, 0, 0 ,.3);
+    background: rgba(0, 0, 0, 0.3);
     padding: 10px;
     border-radius: 10px;
     box-shadow: 0 5px 10px rgba(0, 0, 0 , .7);

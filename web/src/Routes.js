@@ -15,11 +15,10 @@ import UserLayout from './layouts/UserLayout/UserLayout'
 const Routes = () => {
   return (
     <Router>
-<Set wrap={UserLayout}>
-<Route path="/feedback" page={FeedbackAndHelpFeedbackPage} name="feedback" />
-      <Route path="/contact" page={ContactPage} name="contact" />
-
-</Set>
+      <Set wrap={UserLayout}>
+        <Route path="/feedback" page={FeedbackAndHelpFeedbackPage} name="feedback" />
+        <Route path="/contact" page={ContactPage} name="contact" />
+      </Set>
       <Set wrap={StandardLayout}>
         <Private unauthenticated="home" roles={'admin'}>
           <Route path="/admin/set-role-user" page={AdminSetRoleUserPage} name="setRoleUser" />
@@ -30,16 +29,18 @@ const Routes = () => {
         <Private unauthenticated="home" roles={['admin', 'manager']}>
           <Route path="/groups/new" page={GroupNewGroupPage} name="newGroup" />
           <Route path="/activities/new" page={ActivityNewActivityPage} name="newActivity" />
+          <Route path="/activities/new-multi-activities" page={ActivityNewMultiActivitiesPage} name="newMultiActivities" />
           <Route path="/manager/create-question" page={ManagerCreateQuestionPage} name="createQuestion" />
           <Route path="/manager/questions" page={ManagerQuestionsPage} name="questions" />
           <Route path="/manager/export-survey" page={ManagerExportSurveyPage} name="exportSurvey" />
+          <Route path="/manager/import-file" page={ManagerImportFilePage} name="importFile" />
         </Private>
 
         <Private unauthenticated="home" roles={['admin', 'manager', 'leader']}>
           <Route path="/activities/{id:Int}" page={ActivityActivityPage} name="activity" />
           <Route path="/activities" page={ActivityActivitiesPage} name="activities" />
           <Route path="/members" page={MemberMembersPage} name="members" />
-          <Route path="/members/new" page={MemberNewMemberPage} name="newMember" />
+          <Route path="/member/new" page={MemberNewMemberPage} name="newMember" />
           <Route path="/member/{id:Int}" page={MemberMemberPage} name="member" />
           <Route path="/update-member/{id:Int}" page={MemberEditMemberPage} name="editMember" />
           <Route path="/attendance" page={AttendanceAttendancePage} name="attendance" />

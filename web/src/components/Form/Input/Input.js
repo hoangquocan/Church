@@ -6,7 +6,6 @@ const Input = ({ name, type, placeholder }) => {
   return (
     <div className='form-input'>
       <InputField
-      // autoFocus={autoFocus}
         type={type}
         name={name}
         validation={

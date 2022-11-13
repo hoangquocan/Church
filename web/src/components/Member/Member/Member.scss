@@ -3,45 +3,41 @@
   background-color: #fff;
   width: 500px;
   margin: 20px auto;
-  padding-bottom: 20px;
+  padding: 20px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgb(236, 234, 234);
-  border-radius: var(--br-10);
+  // border: 1px solid rgb(236, 234, 234);
+  border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 5px 20px, rgba(0, 0, 0, 0.23) 0px 8px 20px;
 
   @media (max-width: 530px) {
-    width: 400px;
+    width: 390px;
   }
   @media (max-width: 400px) {
     width: 386px;
   }
 
-
-  img {
-    margin: 20px;
-    border-radius: 50%;
-    width: 80px;
-    height: 80px;
-    // border: 2px solid #2e2d2d;
-    box-shadow: rgb(49, 48, 48) 4px 10px 2px inset;
-  }
   table {
     width: 100%;
-    margin-bottom: 20px;
+    margin: 20px 0;
     td,
     th {
       padding: 15px 10px 10px 30px;
       color: black;
       text-align: left;
       vertical-align: center;
+      ion-icon{
+        margin-left: 10px;
+        font-size: 24px;
+      }
     }
     th {
       font-family: 'Lobster Two', cursive;
-      font-size: 1rem;
+      font-size: 16px;
       font-weight: 400;
+      min-width: 70px;
     }
 
     tr {
@@ -53,29 +49,20 @@
       }
     }
   }
-
 }
 .member-avatar {
   position: relative;
   padding: 10px;
-
-  ion-icon {
-    margin: 20px;
-    border-radius: 50%;
-    background-color: rgba(31, 245, 245, 0.925);
-    width: 70px;
-    height: 70px;
-    box-shadow: rgb(148 148 148 / 100%) 0 0.5px 1px;
-  }
   ion-icon:last-child {
     width: 22px;
     height: 22px;
     padding: 2px;
     position: absolute;
-    bottom: 12px;
+    bottom: 10px;
     right: 12px;
+    border-radius: 50%;
     background-color: #fff;
     box-shadow: rgb(90, 89, 89) 0 1px 2px;
-    color:rgb(90, 89, 89);
+    color: rgb(70, 68, 68);
   }
 }

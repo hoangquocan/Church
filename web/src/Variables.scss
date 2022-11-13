@@ -1,10 +1,10 @@
 
 :root {
-  --border-input: 1px solid #CED4DA;
-  --box-shadow-input-focus: 0 1px 7px rgb(32 33 36 / 28%);
+  --border-input: 1px solid transparent;
+  --box-shadow-input-focus: 1px 2px 5px #12d1eb;
   --border-color-input-focus: rgba(105, 106, 109, 0);
 
-  --color-primary: rgba(140, 222, 247, 0.267);
+  --color-primary: #45f3ff;
 
   --color-boder: rgb(10, 3, 73);
   --color-placeholder: rgb(32, 32, 34);
@@ -14,11 +14,6 @@
   --bg-hover: #eee;
   --bg-input: rgba(1, 1, 2, 0.842);
   --bg-active: rgba(22, 24, 35, 0.2);
-
-  --br-form-input: 18px;
-  --br-20: 18px;
-  --br-10: 10px;
-  --br-5: 5px;
 
   --form-width: 700px;
   --form-width-tablet: 560px;

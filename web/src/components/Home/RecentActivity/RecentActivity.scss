@@ -1,58 +1,61 @@
 .recentActivity-wrapper {
   display: flex;
-  // column-gap: 40px;
-  margin-top: 30px;
+  justify-content: flex-start;
+  min-height: 1250px;
   margin-bottom: 30px;
-  padding: 10px 30px;
+  padding: 10px;
   box-shadow: 1px 10px 15px rgba(0, 0, 0, 0.8);
   border-radius: 10px;
-  justify-content: flex-start;
-  background: linear-gradient(to right, #373A40, #2C2E33);
+  // background: linear-gradient(to right, #1971C2, #339AF0);
+  background: #fff;
   .mantine-Group-root {
-    color: #fff;
-    padding: 10px 10px;
+    min-width: 340px;
+    padding: 10px;
     border-radius: 10px;
   }
   table {
+    font-weight: 500;
     border-collapse: collapse;
     margin: 0 auto;
-
-    tr:not(:last-child) {
-      border-bottom: 1px solid #919396;
-      border-radius: 10px;
+    tbody {
+      tr {
+        border-top: 1px solid #0000ff;
+        // border-radius: 10px;
+      }
     }
   }
   tr {
-
     th:not(:first-child),
     td:not(:first-child) {
-      font-size: 16px;
+      font-size: 18px;
       text-align: center;
     }
-    td:first-child, th:first-child{
-      border-top-left-radius: 10px;
-      border-bottom-left-radius:10px;
+    &:nth-child(2n) {
+      background-color: #f2f2f2;
     }
-    td:last-child, th:last-child{
-      border-top-right-radius: 10px;
-      border-bottom-right-radius:10px;
-    }
+    // td:first-child, th:first-child{
+    //   border-top-left-radius: 10px;
+    //   border-bottom-left-radius:10px;
+    // }
+    // td:last-child, th:last-child{
+    //   border-top-right-radius: 10px;
+    //   border-bottom-right-radius:10px;
+    // }
     &:hover {
-      background: #101113;
+      background: #9fcbf5;
     }
   }
   tr {
     th {
       font-size: 20px;
-      padding: 20px 40px;
-      color: #fff;
+      padding: 20px 20px;
     }
   }
   img {
     object-fit: cover;
   }
   .Present {
-    color: #fff;
+    color: blue;
   }
   .Absent {
     color: red;
@@ -62,7 +65,11 @@
 @media (max-width: 1024px) {
   .recentActivity-wrapper {
     padding: 6px 0;
-    margin-bottom: 0;
+    margin-bottom: 40px;
+    min-height: 900px;
+    .mantine-Group-root {
+      min-width: 300px;
+    }
     tr {
       th {
         font-size: 20px;
@@ -78,7 +85,9 @@
 @media (max-width: 480px) {
   .recentActivity-wrapper {
     .mantine-Group-root {
+      min-width: 210px;
       padding: 10px 4px;
+      text-align: left;
     }
     table {
       th:not(:first-child),

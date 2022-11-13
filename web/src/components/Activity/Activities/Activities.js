@@ -1,14 +1,14 @@
 import { Link, routes } from '@redwoodjs/router'
 import { useMutation } from '@redwoodjs/web'
-import { useState, useMemo } from 'react'
-
-import { Pagination, useMantineTheme, Text, Image } from '@mantine/core'
+import { useState, useEffect, useRef } from 'react'
+import { Menu, Text, Image, Modal, Divider } from '@mantine/core'
 import { openConfirmModal } from '@mantine/modals'
 import { showNotification } from '@mantine/notifications'
-import { useMediaQuery } from '@mantine/hooks'
-
-import { QUERY } from '../ActivitiesCell'
+import { IconTrash, IconEye } from '@tabler/icons'
+import { useAuth } from '@redwoodjs/auth'
+import { QUERY } from '../ActivitiesPageCell'
 import './Activities.scss'
+import Activity from '../Activity/Activity'
 
 const DELETE_ACTIVITY_MUTATION = gql`
   mutation DeleteActivityMutation($id: Int!) {
@@ -17,30 +17,23 @@ const DELETE_ACTIVITY_MUTATION = gql`
     }
   }
 `
-const timeTag = (datetime) => {
-  return (
-    <time dateTime={datetime} title={datetime}>
-      {new Date(datetime).toLocaleString('sv')}
-    </time>
-  )
-}
-const Activities = ({ activities }) => {
-  const [activePage, setActivePage] = useState(1)
-  const [isDelete, setIsDelete] = useState(false)
-  const [isShow, setIsShow] = useState(false)
+const Activities = ({ activities, page }) => {
+  const [opened, setOpened] = useState(false)
+  const [activity, setActivity] = useState()
 
+  const { hasRole } = useAuth()
+  const iconRefs = useRef([])
   const [deleteActivity] = useMutation(DELETE_ACTIVITY_MUTATION, {
     onCompleted: () => {
       showNotification({
         color: 'red',
         title: 'Activity Has Been Deleted!',
-        // icon: <ion-icon style={{ color: 'white' }} name="checkmark"></ion-icon>,
         autoClose: 3000,
         radius: 'md',
         styles: (theme) => ({
           root: {
-            borderColor: theme.colors.red[4],
-
+            borderColor: theme.colors.red[9],
+            backgroundColor: theme.colors.red[2],
             '&::before': { backgroundColor: theme.red },
           },
 
@@ -52,21 +45,68 @@ const Activities = ({ activities }) => {
         }),
       })
     },
-    refetchQueries: [{ query: QUERY }],
+    onError: (error) => {
+      showNotification({
+        color: 'red',
+        title: `${error}`,
+        autoClose: 3000,
+        radius: 'md',
+        styles: (theme) => ({
+          root: {
+            borderColor: theme.colors.red[9],
+            backgroundColor: theme.colors.red[1],
+            '&::before': { backgroundColor: theme.red },
+          },
+          title: { color: theme.colors.red[5] },
+          closeButton: {
+            color: theme.colors.gray[6],
+            '&:hover': { backgroundColor: theme.colors.gray[4] },
+          },
+        }),
+      })
+    },
+    refetchQueries: [{ query: QUERY, variables: { page: page } }],
     awaitRefetchQueries: true,
   })
+
   const totalActivities = activities.length
-  const totalPage = Math.ceil(totalActivities / 12)
-  const resultActivities = useMemo(() => {
-    const activitiesRender = []
-    for (let i = 0; i < totalActivities; i += 12) {
-      const activitiesPerPage = activities.slice(i, i + 12)
-      activitiesRender.push(activitiesPerPage)
-    }
-    return activitiesRender
+  useEffect(() => {
+    iconRefs.current = iconRefs.current.slice(0, totalActivities)
   }, [activities])
 
-  const handleClick = (id, name) => {
+  const handleMouseEnter = (idx) => {
+    setTimeout(() => {
+      iconRefs.current[idx].classList.add('hovered')
+    }, 400)
+  }
+  const handleMouseLeave = (idx) => {
+    setTimeout(() => {
+      iconRefs.current[idx].classList.remove('hovered')
+    }, 400)
+  }
+
+  const handleDelete = (id, name) => {
+    if (!hasRole(['admin', 'manager'])) {
+      return showNotification({
+        color: 'red',
+        title: 'Error! Only admin, manager can use this feature',
+        autoClose: 3000,
+        radius: 'md',
+        styles: (theme) => ({
+          root: {
+            borderColor: theme.colors.red[9],
+            backgroundColor: theme.colors.red[1],
+            '&::before': { backgroundColor: theme.red },
+          },
+
+          title: { color: theme.colors.red[5] },
+          closeButton: {
+            color: theme.colors.gray[6],
+            '&:hover': { backgroundColor: theme.colors.gray[4] },
+          },
+        }),
+      })
+    }
     openConfirmModal({
       title: 'Please Confirm Your Action!',
       children: <p>Are you sure want to delete Activity {name}?</p>,
@@ -76,99 +116,119 @@ const Activities = ({ activities }) => {
     })
   }
 
-  const theme = useMantineTheme()
-  const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm}px)`)
-
   return (
-  <div className="activities-wrapper">
-    <header className="activities-header">
-        <button
-          onClick={() => setIsShow(!isShow)}
-          className="inline-button inline-button-small inline-button-blue"
-          title="Show Activity"
-        >
-          <ion-icon name="information-circle-outline"></ion-icon>Show Info
-        </button>
-        <button
-          onClick={() => setIsDelete(!isDelete)}
-          className="inline-button inline-button-small inline-button-red"
-          title="Delete Activity"
-        >
-          <ion-icon name="trash-outline"></ion-icon>Delete
-        </button>
-    </header>
+    <div className="activities-wrapper">
       <div className="activities-inner">
-        {/* <div className="activities-inner__info"> */}
-          {resultActivities[activePage - 1].map((activity) => (
-            <div key={activity.id} className="activities-item">
-              <Image
-              mt="-30px"
-                width='100%'
-                height={140}
-                src={activity.urlAttendance}
-                withPlaceholder
-              />
-              <Text></Text>
-              <Text size="lg" weight={700} color="#A61E4D">{activity.name}</Text>
-              <Text>
-                {new Date(activity.date).toLocaleString({ timeZone: 'UTC' })}
+        {activities.map((activity, idx) => (
+          <div
+            key={activity.id}
+            className="activities-item"
+            onMouseEnter={() => handleMouseEnter(idx)}
+            onMouseLeave={() => handleMouseLeave(idx)}
+          >
+            <Image
+              width="100%"
+              height={180}
+              src={activity.urlAttendance}
+              withPlaceholder
+            />
+            <Link to={routes.activity({ id: activity.id })}>
+              <Text size={24} weight={700} color="#A61E4D" ml={10} mr={10}>
+                {activity.name}
               </Text>
-              <Text>{activity.group.name}</Text>
-              {/* <Text>{timeTag(activity.createdAt)}</Text> */}
-              <Text>
-                <nav className="activity-table-action">
-                  {isShow && (
-                    <Link
-                      to={routes.activity({ id: activity.id })}
-                      className="rw-button rw-button-small rw-button-blue"
-                      title={'Show Activity ' + activity.name}
-                    >
-                      <ion-icon
-                        style={{
-                          color: '#15AABF',
-                        }}
-                        name="information-circle-outline"
-                      ></ion-icon>{' '}
-                    </Link>
-                  )}
-                  {isDelete && activity.attendance.length == 0 && (
-                    <a
-                      href="#"
-                      onClick={() => handleClick(activity.id, activity.name)}
-                      className="rw-button rw-button-small rw-button-red"
-                      title={'Delete Activity ' + activity.name}
-                    >
-                      <ion-icon
-                        style={{
-                          color: '#FA5252',
-                        }}
-                        name="trash-outline"
-                      ></ion-icon>
-                    </a>
-                  )}
-                </nav>
-              </Text>
-            </div>
-          ))}
-        {/* </div> */}
-      </div>
-        <div className="activities-pagination">
-          <Pagination
-            position="center"
-            page={activePage}
-            onChange={setActivePage}
-            total={totalPage}
-            radius="lg"
-            withEdges
-            size={isMobile ? 'xs' : 'md'}
-            styles={{
-              item: {
-                fontWeight: '300',
+            </Link>
+            <Text>{new Date(activity.date).toLocaleString('pt-BR')}</Text>
+            <Text>{activity.group.name}</Text>
+            <Menu
+              width={200}
+              height={90}
+              trigger="hover"
+              openDelay={300}
+              closeDelay={100}
+              position="bottom-end"
+              shadow="rgba(0, 0, 0, 0.7) 0px 3px 6px, rgba(0, 0, 0, 0.83) 0px 3px 6px"
+              styles={(theme) => ({
+                divider: {
+                  borderColor: theme.colors.gray[5],
+                },
+                dropdown: {
+                  background: '#25262B',
+                },
+                item: {
+                  margin: '2px 0',
+                  ':hover:not(:last-child)': {
+                    color: '#000',
+                  },
+                },
+              })}
+            >
+              <Menu.Target>
+                <ion-icon
+                  ref={(el) => (iconRefs.current[idx] = el)}
+                  name="ellipsis-horizontal-outline"
+                ></ion-icon>
+              </Menu.Target>
+              <Menu.Dropdown>
+                <Menu.Item
+                  color="white"
+                  icon={<IconEye size={20} />}
+                  onClick={() => {
+                    setActivity(activity)
+                    setOpened(true)
+                  }}
+                >
+                  View Info
+                </Menu.Item>
+                <Divider />
+                <Menu.Item
+                  color="red"
+                  icon={<IconTrash size={20} />}
+                  onClick={() => handleDelete(+activity.id, activity.name)}
+                >
+                  Delete
+                </Menu.Item>
+              </Menu.Dropdown>
+            </Menu>
+          </div>
+        ))}
+        <Modal
+          title="Activity Info"
+          opened={opened}
+          onClose={() => setOpened(false)}
+          zIndex={3}
+          overlayColor="transparent"
+          overlayBlur={1}
+          styles={() => ({
+            modal: {
+              width: 'auto',
+              marginTop: '20px',
+              backgroundColor: 'rgba(0, 0, 0, .9)',
+              backgroundColor: '#2C2E33',
+              '@media(min-width: 1024px)': {
+                marginTop: '50px',
+                marginLeft: '300px',
+                width: '800px',
               },
-            }}
-          />
-        </div>
-  </div>
+            },
+            title: {
+              margin: '0 auto',
+              fontSize: '28px',
+              fontWeight: 500,
+              color: '#fff',
+            },
+            close: {
+              backgroundColor: '#f2f2f2',
+              marginRight: 10,
+              width: 32,
+              height: 32,
+              borderRadius: '50%',
+            },
+          })}
+        >
+          <Activity activity={activity} />
+        </Modal>
+      </div>
+    </div>
   )
 }
 

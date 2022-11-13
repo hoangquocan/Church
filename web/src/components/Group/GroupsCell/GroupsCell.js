@@ -4,7 +4,7 @@ import Groups from 'src/components/Group/Groups'
 
 export const QUERY = gql`
   query GROUPS {
-    groups {
+    groupsPage {
       id
       name
       leader{
@@ -14,12 +14,15 @@ export const QUERY = gql`
         avatar
       }
       userId
+      members{
+        id
+      }
       createdAt
     }
   }
 `
 export const Loading = () => (
-  <div style={{ textAlign:'center', marginTop: '25%'}}>
+  <div style={{ textAlign:'center', marginTop: '15%', marginBottom: '15%'}}>
     <Loader variant="oval" size="md" color="blue" />
   </div>
 )
@@ -39,8 +42,8 @@ export const Failure = ({ error }) => (
   <div style={{ color: 'red' }}>Error: {error.message}</div>
 )
 
-export const Success = ({ groups }) => {
+export const Success = ({ groupsPage, page }) => {
   return (
-    <Groups groups={groups}/>
+    <Groups groups={groupsPage} page={page}/>
   )
 }

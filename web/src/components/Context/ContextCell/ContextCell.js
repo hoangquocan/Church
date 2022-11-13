@@ -8,7 +8,7 @@ export const QUERY = gql`
     groups: groups {
       id
       name
-
+      
     }
   }
 `

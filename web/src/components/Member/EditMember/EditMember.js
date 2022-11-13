@@ -1,15 +1,14 @@
 import { DatePicker } from '@mantine/dates'
-import { TextInput, Checkbox, Button, Group, Box } from '@mantine/core'
+import { TextInput, Button } from '@mantine/core'
 import { useForm } from '@mantine/form'
-import { PickerInline } from 'filestack-react'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { navigate, routes, redirect } from '@redwoodjs/router'
 import { useMutation } from '@redwoodjs/web'
 import { showNotification } from '@mantine/notifications'
 
-import {QUERY} from '../MembersLoad'
 import './EditMember.scss'
 import '../../Member/MemberForm/MemberForm.scss'
+import EditAvatar from 'src/components/EditAvatar/EditAvatar'
 
 const UPDATE_MEMBER = gql`
   mutation UpdateMemberMutation($id: Int!, $input: UpdateMemberInput!) {
@@ -24,26 +23,24 @@ const UPDATE_MEMBER = gql`
     }
   }
 `
-const EditMember = ({ member, handleModal }) => {
+const EditMember = ({ member, handleModal, idx }) => {
   const [value, setValue] = useState(new Date(member.birthDate))
   const [urlAvatar, setUrlAvatar] = useState(member.urlAvatar)
-  const [isChoose, setIsChoose] = useState(false)
-  const [nameAvatar, setNameAvatar] = useState('')
+  const [isChoose, setIsChoose] = useState(true)
 
+  const iconCancelRef = useRef()
   const [updateMember, { loading, error }] = useMutation(UPDATE_MEMBER, {
     onCompleted: () => {
       showNotification({
-        color: 'teal',
-        title: 'Thank You! Your Updated Has Been Saved',
-        // icon: <ion-icon name="checkmark-outline"></ion-icon>,
-        autoClose: 3000,
+        color: 'blue',
+        title: 'Done! Your Updated Has Been Saved',
+        autoClose: 4000,
         radius: 'md',
-        containerWidth: '800px',
         styles: (theme) => ({
           root: {
-            borderColor: theme.colors.teal[7],
-
-            '&::before': { backgroundColor: theme.teal },
+            borderColor: theme.colors.blue,
+            backgroundColor: theme.colors.blue[2],
+            '&::before': { backgroundColor: theme.blue },
           },
 
           closeButton: {
@@ -55,11 +52,8 @@ const EditMember = ({ member, handleModal }) => {
           },
         }),
       }),
-      handleModal()
-      navigate(routes.member({id:member.id}))
+        handleModal && handleModal(idx)
     },
-    // refetchQueries: [{ query: QUERY }],
-    // awaitRefetchQueries: true,
   })
 
   const form = useForm({
@@ -71,78 +65,79 @@ const EditMember = ({ member, handleModal }) => {
     },
   })
   const handleSubmit = (values) => {
-    const inputWithUrl = Object.assign(
-      values,
-      { urlAvatar },
-      { birthDate: value }
-    )
+    const inputWithUrl = Object.assign(values, { birthDate: value })
     updateMember({ variables: { id: member.id, input: inputWithUrl } })
   }
 
-  const onFileUpload = (response) => {
-    setUrlAvatar(response.filesUploaded[0].url)
-    setNameAvatar(response.filesUploaded[0].filename)
-  }
   const handleImg = () => {
     setUrlAvatar(null)
-    setNameAvatar(null)
+    setIsChoose(true)
   }
+
+  const handleModalUpload = () => {
+    iconCancelRef.current.classList.toggle('canceled')
+    setIsChoose(!isChoose)
+    setUrlAvatar(member.urlAvatar)
+  }
+
   return (
-      <div className="member-form">
-        <form onSubmit={form.onSubmit(handleSubmit)}>
-          <TextInput label="Name" {...form.getInputProps('name')} />
+    <div className="member-form">
+      <form onSubmit={form.onSubmit(handleSubmit)}>
+        <TextInput label="Name" {...form.getInputProps('name')} />
 
-          <DatePicker
-            allowFreeInput
-            value={value}
-            label="Date Of Birth"
-            onChange={setValue}
-          />
+        <DatePicker
+          allowFreeInput
+          value={value}
+          label="Date Of Birth"
+          onChange={setValue}
+        />
 
-          <TextInput
-            label="Phone Number"
-            {...form.getInputProps('phoneNumber')}
-          />
+        <TextInput
+          label="Phone Number"
+          {...form.getInputProps('phoneNumber')}
+        />
 
-          <TextInput label="Email" {...form.getInputProps('email')} />
+        <TextInput label="Email" {...form.getInputProps('email')} />
 
-          <TextInput label="Address" {...form.getInputProps('address')} />
+        <TextInput label="Address" {...form.getInputProps('address')} />
 
-          <label>Avatar</label>
-          <div className="member-form-imgpicker">
-            <input
-              type="button"
-              onClick={() => setIsChoose(!isChoose)}
-              value={nameAvatar}
-            />
-            <ion-icon name="image-outline"></ion-icon>
-          </div>
-          {isChoose && (
-            <PickerInline
-              apikey={process.env.REDWOOD_ENV_FILESTACK_API_KEY}
-              onSuccess={onFileUpload}
+        <label>
+          Avatar
+          {!urlAvatar && (
+            <div
+              className="avatar-cancel-choosefile"
+              style={{
+                height: '24px',
+                color: '#fff',
+                width: '24px',
+                position: 'absolute',
+                content: '',
+              }}
             >
-              <div
-                style={{
-                  display: urlAvatar ? 'none' : 'block',
-                  height: '300px',
-                }}
-              ></div>
-            </PickerInline>
-          )}
-          {urlAvatar && (
-            <div className="members-img">
-              <img src={urlAvatar} />
-              <input type="button" onClick={handleImg} value="Replace Avatar" />
+              <ion-icon
+                ref={iconCancelRef}
+                onClick={() => handleModalUpload()}
+                name="close-outline"
+              ></ion-icon>
             </div>
           )}
-          <div className="form-btn">
-            <Button type="submit">
-              Save <ion-icon name="checkmark-circle-outline"></ion-icon>
-            </Button>
+        </label>
+
+        {!urlAvatar && isChoose && <EditAvatar member={member} />}
+
+        {urlAvatar && (
+          <div className="members-img">
+            <img src={urlAvatar} />
+            <input type="button" onClick={handleImg} value="Replace Avatar" />
           </div>
-        </form>
-      </div>
+        )}
+        <div className="form-btn">
+          <Button type="submit">
+            Save <ion-icon name="checkmark-circle-outline"></ion-icon>
+          </Button>
+        </div>
+      </form>
+    </div>
   )
 }
 

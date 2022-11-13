@@ -4,7 +4,6 @@ const MEMBERS_PER_LOAD = 8
 
 export const membersLoad = ({ load = 1}) => {
   const offset = (load - 1) * MEMBERS_PER_LOAD
-console.log(load)
   return {
     members: db.member.findMany({
       take: MEMBERS_PER_LOAD,
@@ -59,7 +58,6 @@ export const membersNoGroup = () => {
 }
 
 export const memberSearchName = ({ nameSearch }) => {
-  // const valueSearch = event.target.value
   const resultValueSearch = nameSearch
     .trim()
     .split(' ')
@@ -74,5 +72,11 @@ export const memberSearchName = ({ nameSearch }) => {
     },
     orderBy: { name: 'asc' },
     take: 6,
+  })
+}
+
+export const createManyMembers = ({ input}) => {
+  return db.member.createMany({
+    data: input
   })
 }

@@ -5,7 +5,6 @@ import { openConfirmModal } from '@mantine/modals'
 import { CSVLink } from 'react-csv'
 
 import './ExportSurvey.scss'
-import { Divider } from '@mantine/core'
 
 const ExportSurvey = ({ questions }) => {
   const [month, setMonth] = useState()
@@ -50,23 +49,22 @@ const ExportSurvey = ({ questions }) => {
     })
   }
   return (
-    <div className="export-wrapper" style={{ color: '#fff' }}>
+    <div className="export-wrapper">
       <div className="datepicker-month">
-        <h2>Select Month To Export</h2>
-
         <DatePicker
           selected={month}
           onChange={(date) => setMonth(date)}
           dateFormat="MM/yyyy"
           showMonthYearPicker
-          style={{ width: '50%' }}
+          popperPlacement='bottom'
+          placeholderText='Select Month To Export'
         />
       </div>
       {questionChoose.length > 0 && (
         <div className="export-questions">
           <h3>
             {'Questions for' +
-              ' ' +
+              ' T' +
               (new Date(questionChoose[0]?.time).getMonth() + 1) +
               '/' +
               new Date(questionChoose[0]?.time).getFullYear()}

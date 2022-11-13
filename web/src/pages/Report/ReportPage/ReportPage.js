@@ -23,6 +23,7 @@ const ReportPage = () => {
           onChange={(date) => setMonthSelect(date)}
           dateFormat="MM/yyyy"
           showMonthYearPicker
+          popperPlacement='bottom'
         />
       </div>
       <ViewReportGroupCell groupId={groupId} time={time} />

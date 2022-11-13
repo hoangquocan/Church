@@ -1,8 +1,23 @@
 import { db } from 'src/lib/db'
 
+const GROUPS_PER_PAGE = 15
+
+export const groupsPage = ({ page = 1 }) => {
+  const offset = (page - 1) * GROUPS_PER_PAGE
+  return db.group.findMany({
+    take: GROUPS_PER_PAGE,
+    skip: offset,
+    orderBy: [{ name: 'asc' }, { createdAt: 'asc' }],
+  })
+}
+
+export const totalGroups = () => {
+  return db.group.count()
+}
+
 export const groups = () => {
   return db.group.findMany({
-    orderBy: { name : 'asc'}
+    orderBy: [{ name: 'asc' }, { createdAt: 'asc' }],
   })
 }
 
@@ -38,6 +53,8 @@ export const Group = {
     db.group.findUnique({ where: { id: root.id } }).leader(),
   reports: (_obj, { root }) =>
     db.group.findUnique({ where: { id: root.id } }).reports(),
+  reportQuarters: (_obj, { root }) =>
+    db.group.findUnique({ where: { id: root.id } }).reportQuarters(),
   activities: (_obj, { root }) =>
     db.group.findUnique({ where: { id: root.id } }).activities(),
 }

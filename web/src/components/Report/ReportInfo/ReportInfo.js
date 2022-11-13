@@ -46,8 +46,7 @@ const ReportInfo = ({ activities, infoQuery }) => {
     onCompleted: () => {
       showNotification({
         color: 'blue',
-        title: 'Thank You! Your Report Has Been Saved',
-        // icon: <ion-icon name="checkmark-outline"></ion-icon>,
+        title: 'Done! Your Report Has Been Saved',
         autoClose: 3000,
         radius: 'md',
       })

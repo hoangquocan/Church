@@ -46,10 +46,13 @@ export const schema = gql`
     groupId: Int
     urlAvatar: String
   }
-
+  type Members {
+    members: [Member]
+  }
   type Mutation {
+    createManyMembers(input: [CreateMemberInput!]!): Members @requireAuth
     createMember(input: CreateMemberInput!): Member! @requireAuth
     updateMember(id: Int!, input: UpdateMemberInput!): Member! @requireAuth
-    deleteMember(id: Int!): Member! @requireAuth
+    deleteMember(id: Int!): Member! @requireAuth(roles: ["admin", "manager"])
   }
 `

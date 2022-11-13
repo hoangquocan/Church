@@ -1,10 +1,9 @@
 .manager-questions {
-  background: #2C2E33;
+  background: transparent;
   max-width: 32em;
   border-radius: 10px;
-  margin: 20px auto;
-  padding: 20px 40px 40px;
-  text-align: center;
+  margin: 40px auto;
+  // padding: 20px 40px 40px;
   @media (min-width: 480px) {
     max-width:  40em;
   }
@@ -12,6 +11,7 @@
     max-width:  50em;
   }
   .manager-questions-item {
+    box-shadow: rgba(0, 0, 0, 0.8) 0px 3px 6px, rgba(0, 0, 0, 0.7) 0px 3px 16px;
     text-align: left;
     position: relative;
     padding: 20px;

@@ -1,17 +1,14 @@
-// import { useMutation } from '@redwoodjs/web'
-// import { QUERY as MembersQuery } from 'src/components/Group/GroupMembersCell'
+import { useState } from 'react'
+import { Avatar, Modal } from '@mantine/core'
 import { Link, routes } from '@redwoodjs/router'
+
+import EditMember from '../EditMember/EditMember'
+import EditAvatar from 'src/components/EditAvatar/EditAvatar'
 import './Member.scss'
 
-// const UPDATE_MEMBER = gql`
-//   mutation UpdateMemberMutation($id: Int!, $input: UpdateMemberInput!) {
-//     updateMember(id: $id, input: $input) {
-//       id
-//       groupId
-//     }
-//   }
-// `
-const Member = ({ member }) => {
+const Member = ({ member, handleModal, idx }) => {
+  const [opened, setOpened] = useState(false)
+  const [openEdit, setOpenEdit] = useState(false)
   // const [updateMember] = useMutation(UPDATE_MEMBER, {
   //   refetchQueries: [
   //     { query: MembersQuery, variables: { id: member.groupId } },
@@ -24,25 +21,33 @@ const Member = ({ member }) => {
   //     })
   //   }
   // }
-  const thumbnail = (url) => {
-    const parts = url.split('/')
-    parts.splice(3, 0, 'resize=width:100')
-    return parts.join('/')
+  const handleCloseModal = () => {
+    setOpened(false)
   }
+  // const handleModalEdit = () => {
+  //   setOpenEdit(false)
+  // }
+  console.log(member)
   return (
     <div className="member-wrapper">
       <div className="member-avatar">
-        <Link
-          to={routes.editMember({id: member.id})}
-          title='Update Member'
-        >
-          {member.urlAvatar ? (
-            <img src={thumbnail(member.urlAvatar)} alt="Avatar" />
-          ) : (
-            <ion-icon name="person-outline"></ion-icon>
-          )}
-          <ion-icon name="camera-reverse-outline"></ion-icon>
-        </Link>
+        <Avatar.Group spacing="sm">
+          <Avatar
+            src={member.urlAvatar}
+            size={90}
+            radius="50%"
+            color="blue"
+            styles={() => ({
+              root: {
+                boxShadow: ' 0 2px 4px 0 hsla(0, 0%, 0%, 0.4)',
+              },
+            })}
+          />
+          <ion-icon
+            name="camera-reverse-outline"
+            onClick={() => setOpened(true)}
+          ></ion-icon>
+        </Avatar.Group>
       </div>
       <table cellSpacing="0">
         <tbody>
@@ -52,7 +57,7 @@ const Member = ({ member }) => {
           </tr>
           <tr>
             <th>Date Of Birth</th>
-            <td>{new Date(member.birthDate).toLocaleDateString('sv')}</td>
+            <td>{new Date(member.birthDate).toLocaleDateString('pt-BR')}</td>
           </tr>
           <tr>
             <th>Email</th>
@@ -68,8 +73,18 @@ const Member = ({ member }) => {
           </tr>
           <tr>
             <th>Group</th>
-            <td>{member.group !== null ? member.group.name: <Link className='inline-button inline-button-small inline-button-green'
-            to={routes.groups()}>Add To One Group</Link>}</td>
+            <td>
+              {member.group !== null ? (
+                member.group.name
+              ) : (
+                <Link
+                  className="inline-button inline-button-small inline-button-green"
+                  to={routes.groups()}
+                >
+                  Add To Group <ion-icon name="arrow-redo-outline"></ion-icon>
+                </Link>
+              )}
+            </td>
           </tr>
           <tr>
             <th>Created At</th>
@@ -77,12 +92,87 @@ const Member = ({ member }) => {
           </tr>
         </tbody>
       </table>
-      <Link
-            to={routes.editMember({id: member.id})}
-            className="inline-button inline-button-small inline-button-blue"
-          >
-            <ion-icon style={{ paddingRight: '6px'}} name="create-sharp"></ion-icon>Update Member
-          </Link>
+      <Modal
+        title="Update Avatar"
+        opened={opened}
+        onClose={() => setOpened(false)}
+        zIndex={101}
+        overlayOpacity={0.2}
+        overlayBlur={3}
+        styles={(theme) => ({
+          modal: {
+            background: '#2C2E33',
+            boxShadow: '0 15px 25px rgba(0, 0, 0, .9)',
+            width: 600,
+            borderRadius: '10px',
+            marginLeft: 290,
+            marginTop: 200,
+            '@media(max-width: 1024px)': {
+              width: 520,
+              marginLeft: 0,
+            },
+            '@media(max-width: 480px)': {
+              width: 410,
+              marginTop: 120,
+            },
+          },
+          inner: {
+            backgroundColor: 'transparent',
+            textAlign: 'center',
+          },
+          header: {
+            fontSize: '1.4rem',
+            fontWeight: 500,
+            color: '#fff',
+          },
+          close: {
+            backgroundColor: '#DEE2E6',
+            marginRight: 14,
+            marginTop: 2,
+            color: '#000',
+            width: 36,
+            height: 36,
+            borderRadius: '50%',
+          },
+        })}
+      >
+        <EditAvatar
+          member={member}
+          handleModal={handleModal}
+          handleCloseModal={handleCloseModal}
+          idx={idx}
+        />
+      </Modal>
+      {/* <Modal
+        title="Update Member"
+        opened={openEdit}
+        onClose={() => setOpenEdit(false)}
+        zIndex={3}
+        styles={(theme) => ({
+          modal: {
+            marginTop: '50px',
+            width: 'auto',
+            backgroundColor: '#2C2E33',
+            '@media(min-width: 1024px)': {
+              marginLeft: '300px',
+            },
+          },
+          header: {
+            fontSize: '1.4rem',
+            marginBottom: 0,
+            paddingBottom: 10,
+            fontWeight: 500,
+          },
+          close: {
+            backgroundColor: '#f2f2f2',
+            marginRight: 10,
+            width: 32,
+            height: 32,
+          },
+        })}
+      >
+        <EditMember member={member} handleModal={handleModalEdit} />
+      </Modal> */}
     </div>
   )
 }

@@ -1,11 +1,19 @@
 import { useQuery } from '@redwoodjs/web'
-import { Link, routes } from '@redwoodjs/router'
-
+import { memo, useState } from 'react'
 import { Loader } from '@mantine/core'
-import { HoverCard, Avatar, Text, Group, Stack } from '@mantine/core'
+import {
+  HoverCard,
+  Avatar,
+  Text,
+  Group,
+  Stack,
+  Image,
+  Modal,
+} from '@mantine/core'
 // import Autoplay from 'embla-carousel-autoplay'
 import { Carousel } from '@mantine/carousel'
 
+import Member from '../Member/Member'
 import './MemberBirthDate.scss'
 
 const QUERY = gql`
@@ -26,9 +34,16 @@ const QUERY = gql`
   }
 `
 const MemberBirthDate = () => {
+  const [openProfile, setOpenProfile] = useState(false)
+  const [member, setMember] = useState()
   const { loading, error, data } = useQuery(QUERY)
-  if (loading) return <div style={{ textAlign: 'center', marginTop: '50px'}}><Loader variant="oval" size="md" color='blue'/></div>
-  if (error) return `Error! ${error.message}`
+  if (loading)
+    return (
+      <div style={{ textAlign: 'center', marginTop: '50px' }}>
+        <Loader variant="oval" size="md" color="blue" />
+      </div>
+    )
+  if (error) return <h2 className="text-center">Please Log In To View</h2>
 
   const members = data.members
   const currentMonth = new Date().getMonth() + 1
@@ -37,103 +52,142 @@ const MemberBirthDate = () => {
     return new Date(member.birthDate).getMonth() + 1 == currentMonth
   })
 
-  const thumbnail = (url) => {
-    const parts = url.split('/')
-    parts.splice(3, 0, 'resize=width:100')
-    return parts.join('/')
-  }
-
   const images = result.map((member) => (
     <Carousel.Slide key={member.id}>
       <Group position="center">
         <HoverCard
-          zIndex={9999}
+          zIndex={2}
           position="bottom"
-          width={280}
-          shadow="lg"
+          width={300}
+          shadow="rgba(0, 0, 0, 0.83) 0px 3px 6px"
           withArrow
           openDelay={100}
           closeDelay={100}
         >
           <HoverCard.Target>
-            {member.urlAvatar ? (
-              <img src={thumbnail(member.urlAvatar)} alt="Avatar" />
-            ) : (
-              <ion-icon title="" name="person-outline"></ion-icon>
-            )}
+            <Image
+              src={member.urlAvatar}
+              radius="5px"
+              height={180}
+              width={120}
+              fit="contain"
+              withPlaceholder
+              placeholder={<Avatar radius="50%" size="xl" color="pink" />}
+              styles={() => ({
+                imageWrapper: {
+                  boxShadow: '0px 1px 3px 0px #EC407A, #EC407A 0px 0px 0px 1px',
+                  borderRadius: '5px',
+                },
+                placeholder: {
+                  background: '#ffdeeb',
+                },
+              })}
+            />
           </HoverCard.Target>
-          <HoverCard.Dropdown>
-            <Group>
-              <Avatar src={thumbnail(member.urlAvatar)} radius="50%" size="xl" />
+          <HoverCard.Dropdown onClick={() => {
+              setMember(member)
+              setOpenProfile(true)
+            }}>
+            <Group spacing="6px">
+              <Avatar
+                mr={10}
+                ml={6}
+                src={member.urlAvatar}
+                radius="50%"
+                size="lg"
+                color="pink"
+                styles={() => ({
+                  root: {
+                    boxShadow: ' 0 2px 4px 2px #FF99AA',
+                  },
+                })}
+              />
               <Stack spacing={1}>
-                <Text size="sm" weight={700} sx={{ lineHeight: 1 }}>
+                <Text size="md" weight={500} color="#A61E4D">
                   {member.name}
                 </Text>
-                <Link to={routes.member({ id: member.id })}>
-                  <span>{member.phoneNumber}</span>
-                </Link>
+                <span>{member.phoneNumber}</span>
+                <Text size="md">
+                  {new Date(member.birthDate).toLocaleDateString('pt-BR')}
+                </Text>
               </Stack>
             </Group>
-
-            <Text size="sm" mt={5}>
-              {new Date(member.birthDate).toLocaleDateString('sv')}
-            </Text>
-
-            {/* <Group mt="md" spacing="xl">
-              <Text size="sm">
-                <b>0</b> Following
-              </Text>
-              <Text size="sm">
-                <b>1,174</b> Followers
-              </Text>
-            </Group> */}
           </HoverCard.Dropdown>
         </HoverCard>
+
       </Group>
     </Carousel.Slide>
   ))
-console.log('render ne')
+
   return (
     <div className="member-birthdate">
-      <h2 style={{ fontFamily: 'Qwigley', fontWeight: '400' }}>BirthDays Of The Month</h2>
-
-      {images.length > 0 ? (
-        <Carousel
-          styles={{
-            root: {
-              margin: '0 auto',
-              width: '50%',
-              '@media (max-width: 1366px)': { width: '80%' },
-              '@media (max-width: 1024px)': { width: '100%' },
-              '@media (max-width: 480px)': { height: 240 },
+      <h2 style={{ fontFamily: 'Qwigley', fontWeight: '400' }}>
+        BirthDays Of The Month
+      </h2>
+      <>
+        {images.length > 0 ? (
+          <Carousel
+            styles={{
+              root: {
+                margin: '0px auto',
+                paddingTop: '5px',
+                width: '50%',
+                '@media (max-width: 1366px)': { width: '80%' },
+                '@media (max-width: 1024px)': { width: '100%' },
+                ':hover': {
+                  cursor: 'pointer',
+                },
+              },
+              control: {
+                backgroundColor: '#fff',
+                color: '#000',
+                marginTop: -110,
+                '@media (max-width: 480px)': { marginTop: -90 },
+              },
+              indicator: {
+                marginBottom: 84,
+              },
+            }}
+            withIndicators
+            height="300px"
+            slideSize="25%"
+            slideGap="md"
+            align="center"
+            controlsOffset="xs"
+            slidesToScroll={3}
+          >
+            {images}
+          </Carousel>
+        ) : null}
+      </>
+      <Modal
+          opened={openProfile}
+          onClose={() => setOpenProfile(false)}
+          overlayColor="transparent"
+          zIndex={101}
+          styles={() => ({
+            modal: {
+              marginTop: '20px',
+              backgroundColor: 'rgba(0, 0, 0, .8)',
+              '@media(min-width: 1024px)': {
+                marginTop: '50px',
+                marginLeft: '300px',
+                width: '700px',
+              },
             },
-            control: {
-              backgroundColor: '#fff',
-              color: '#000',
-              marginTop: -120,
-              '@media (max-width: 480px)': { marginTop: -90 },
+            close: {
+              backgroundColor: '#f2f2f2',
+              marginRight: 10,
+              width: 32,
+              height: 32,
+              borderRadius: '50%',
             },
-            indicator: { marginBottom: 100,
-              '@media (min-width: 480px)': { marginBottom: 135 },
-             },
-          }}
-          withIndicators
-          height={360}
-          slideSize="22%"
-          slideGap="md"
-          align="center"
-          controlsOffset="xs"
-          slidesToScroll={4}
+          })}
         >
-          {images}
-        </Carousel>
-      ) : (
-        <h3 className="text-center">
-          Don't Have Any Member Has BirthDay On This Month
-        </h3>
-      )}
+          <Member member={member} />
+        </Modal>
     </div>
   )
 }
 
-export default MemberBirthDate
+export default memo(MemberBirthDate)

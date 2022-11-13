@@ -7,10 +7,12 @@ import {
   Text,
   Stack,
   Button,
+  Modal,
 } from '@mantine/core'
 import { showNotification } from '@mantine/notifications'
 import { useMutation } from '@redwoodjs/web'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import EditUserAvatar from '../EditUserAvatar/EditUserAvatar'
 import { QUERY as UserQuery } from '../UserProfileCell'
 
 import './EditProfile.scss'
@@ -29,6 +31,15 @@ const UPDATE_USER_MUTATION = gql`
 const EditProfile = ({ user, handleModal }) => {
   const [name, setName] = useState(user.name || '')
   const [bio, setBio] = useState(user.bio || '')
+  const [file, setFile] = useState('')
+  const [opened, setOpened] = useState(false)
+
+  useEffect(() => {
+    return () => {
+      file && URL.revokeObjectURL(file.preview)
+    }
+  }, [file])
+
   const [updateUser] = useMutation(UPDATE_USER_MUTATION, {
     onCompleted: () => {
       showNotification({
@@ -37,9 +48,8 @@ const EditProfile = ({ user, handleModal }) => {
         radius: 'md',
         styles: (theme) => ({
           root: {
-            borderColor: theme.colors.gray[8],
+            borderColor: theme.colors.dark,
             backgroundColor: theme.colors.gray[7],
-
             '&::before': { backgroundColor: theme.white },
           },
           title: {
@@ -67,11 +77,15 @@ const EditProfile = ({ user, handleModal }) => {
       variables: { input: { name: name, bio: bio }, id: user.id },
     })
   }
-
+  const handleChange = (e) => {
+    const avatar = e.target.files[0]
+    avatar.preview = URL.createObjectURL(avatar)
+    setFile(avatar)
+    setOpened(true)
+  }
   return (
     <div className="edit-profile">
       <Divider size="sm" mb="20px" ml="-20px" mr="-20px" />
-
       <Group>
         <Text size="md" mt="-80px" weight="500">
           Profile Avatar
@@ -84,15 +98,28 @@ const EditProfile = ({ user, handleModal }) => {
               radius="50%"
               color="blue"
               ml="50px"
+              styles={(theme) => ({
+                root: {
+                  '@media(max-width: 480px)': {
+                    marginLeft: 10,
+                  },
+                },
+              })}
             />
-
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => handleChange(e)}
+              onClick={(e) => (e.target.value = '')}
+              required
+            />
             <ion-icon name="camera-outline"></ion-icon>
           </Avatar.Group>
         </Stack>
       </Group>
-      <Divider mb="20px" mt="8px" />
+      <Divider mb="30px" mt="20px" />
       <Group>
-        <Text size="md" mt="-12px" weight="500">
+        <Text size="md" weight="500">
           UserName
         </Text>
         <TextInput
@@ -117,9 +144,9 @@ const EditProfile = ({ user, handleModal }) => {
           Username can be VietNamese
         </span>
       </Group>
-      <Divider mb="20px" mt="10px" />
+      <Divider mb="30px" mt="20px" />
       <Group>
-        <Text size="md" mt="-68px" weight="500">
+        <Text size="md" mt="-52px" weight="500">
           Bio
         </Text>
         <Textarea
@@ -146,7 +173,7 @@ const EditProfile = ({ user, handleModal }) => {
           })}
         />
       </Group>
-      <Divider size="sm" mb="20px" mt="10px" ml="-20px" mr="-20px" />
+      <Divider size="sm" mb="40px" mt="20px" ml="-20px" mr="-20px" />
       <Button
         variant="default"
         onClick={() => handleModal()}
@@ -161,6 +188,49 @@ const EditProfile = ({ user, handleModal }) => {
       >
         Save
       </Button>
+      <Modal
+        title="Update Avatar"
+        opened={opened}
+        onClose={() => setOpened(false)}
+        zIndex={101}
+        centered
+        styles={(theme) => ({
+          modal: {
+            background: '#2C2E33',
+            boxShadow: '0 15px 25px rgba(0, 0, 0, .9)',
+            width: 600,
+            height: 600,
+            borderRadius: '10px',
+            '@media(max-width: 1024px)': {
+              width: 520,
+            },
+            '@media(max-width: 480px)': {
+              width: 410,
+            },
+          },
+          inner: {
+            backgroundColor: 'transparent',
+            textAlign: 'center',
+          },
+          header: {
+            fontSize: '1.4rem',
+            fontWeight: 500,
+            color: '#fff',
+            marginLeft: '30px',
+          },
+          close: {
+            backgroundColor: '#DEE2E6',
+            marginRight: 14,
+            marginTop: 2,
+            color: '#000',
+            width: 36,
+            height: 36,
+            borderRadius: '50%',
+          },
+        })}
+      >
+        <EditUserAvatar file={file} user={user} handleModal={handleModal} />
+      </Modal>
     </div>
   )
 }

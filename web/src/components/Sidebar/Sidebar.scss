@@ -15,7 +15,7 @@
   // background-image: linear-gradient(to bottom, #424246  , #0e0608);
   transition: 0.5s;
   padding-bottom: 40px;
-  @media (max-width: 1024px) {
+  @media (max-width: 1366px) {
     left: calc(var(--sidebar-width) * -1);
   }
   @media (max-width: 480px) {
@@ -90,7 +90,7 @@
     width: 0px;
     border: none;
     // background: #23242a;
-    @media (max-width: 1024px) {
+    @media (max-width: 1366px) {
       width: var(--sidebar-width);
       left: 0;
     }

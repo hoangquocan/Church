@@ -3,68 +3,69 @@
   width: 100%;
   padding: 20px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(380px, 410px));
-  grid-gap: 30px;
-  background: #C1C2C5;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 400px));
+  grid-gap: 20px;
+  background: rgb(188, 241, 239);
   border-radius: 10px;
   box-shadow: inset 0 -10px 10px -10px #000000;
+  margin-bottom: 80px;
   // grid-auto-flow: row;
   // align-self: center;
-  // background: linear-gradient( to right, #185a9d,#48b1bf);
+  // background: linear-gradient( to right, #3fa1ec,#48b1bf);
   .activity-item {
     position: relative;
-    background: #fff;
-    background: linear-gradient( to right, #1A1B1E,#909296);
-    padding: 10px 40px 10px 20px;
+    background: transparent;
+    // background: linear-gradient( to right, #1864AB,#48b1bf);
+    padding: 10px 10px 20px;
     border-radius: 20px;
     min-height: 200px;
-    min-width: 300px;
+    // max-width: 390px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-end;
-    // align-content: space-between;
-
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border: 2px solid #7266b9;
+    transition: all .4s;
+    // box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     &:hover {
-      transform: scale(1.01);
+      transform: scale(1.02);
       transition: 0.5s;
       box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4);
     }
     .name {
       font-size: 1.8em;
       font-weight: 500;
-      color: #fff;
+      // color: #fff;
     }
     .date {
-      font-size: 1.4em;
+      font-size: 1.3em;
       // margin-right: 20px;
       margin-bottom: 6px;
     }
     .time {
       // margin-right: 20px;
-      font-size: 1.2em;
+      font-size: 1.1em;
     }
     .attendance-btn {
       display: none;
       position: absolute;
-      left: 18px;
+      left: 10px;
       bottom: 18px;
-      font-size: 10px;
+      font-size: 14px;
+      color: #0000ff;
       border: 1px solid #0ae0f0;
       box-shadow: 0 3px 10px rgb(78, 209, 241);
-      border-radius: 10px;
+      border-radius: 30px;
       transition: 0.5s;
-      padding: 4px;
+      padding: 4px 10px;
       align-items: center;
       ion-icon {
-        font-size: 14px;
-        // transform: translateY(26%);
-        margin-left: 4px;
+        font-size: 20px;
+        margin-left: 8px;
       }
       &:hover {
         cursor: pointer;
-        transform: translateX(12px);
+        transform: translateX(8px);
       }
       &.hovered {
         display: flex;

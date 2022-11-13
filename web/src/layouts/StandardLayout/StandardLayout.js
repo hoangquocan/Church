@@ -14,7 +14,7 @@ const StandardLayout = ({ children }) => {
         <Header />
         <div className="layout-content">{children}</div>
         <Footer />
-        <div className='background-layout__effect'>
+        {/* <div className='background-layout__effect'>
 
         <div className="circle-container">
           <div className="circle"></div>
@@ -196,7 +196,7 @@ const StandardLayout = ({ children }) => {
         <div className="circle-container">
           <div className="circle"></div>
         </div>
-        </div>
+        </div> */}
       </div>
     </div>
   )

@@ -26,7 +26,6 @@ const ContactForm = () => {
               root: {
                 borderColor: theme.colors.gray[8],
                 backgroundColor: theme.colors.gray[7],
-
                 '&::before': { backgroundColor: theme.white },
               },
               title: {

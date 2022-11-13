@@ -102,13 +102,10 @@ const Header = () => {
         }
         opened={opened}
         onClose={() => setOpened(false)}
-        overlayOpacity={0}
-        overlayBlur={0}
-        // overflow="inside"
+        overlayColor="transparent"
         transition="fade"
         transitionDuration={600}
         transitionTimingFunction="ease"
-        closeButtonLabel="Close authentication modal"
         styles={(theme) => ({
           root: {
             backgroundImage: 'linear-gradient(to right, #ffafbd  , #ffc3a0)',
@@ -161,7 +158,7 @@ const Header = () => {
           </>
         ) : (
           <button className="btn-cyan" onClick={() => setOpened(true)}>
-            Log In
+          <ion-icon name="log-in-outline"></ion-icon>Log In
           </button>
         )}
       </div>

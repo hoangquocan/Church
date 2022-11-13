@@ -17,7 +17,7 @@ const SelectViewAttendanced = () => {
     value: group.id,
     label: group.name,
   }))
-  const handleView = (values) => {
+  const handleView = () => {
     setView(true)
   }
   return (
@@ -30,7 +30,7 @@ const SelectViewAttendanced = () => {
             onChange={setValue}
             fs="md"
           />
-          <SelectField mb={24} label="Select group"value={groupId} onChange={setGroupId} data={dataSelect} />
+          <SelectField mb={24} label="Select group" value={groupId} onChange={setGroupId} data={dataSelect} />
           <button className="btn-cyan" type="button" onClick={handleView}>
             Submit
           </button>

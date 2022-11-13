@@ -1,13 +1,15 @@
-import { Link, routes } from '@redwoodjs/router'
+import { navigate, routes } from '@redwoodjs/router'
 import { useAuth } from '@redwoodjs/auth'
 import { useMutation } from '@redwoodjs/web'
-import { Pagination } from '@mantine/core'
-import { useState, useMemo } from 'react'
+import { useState, useRef, useEffect } from 'react'
+import { Text, Menu, Modal, Divider } from '@mantine/core'
 import { showNotification } from '@mantine/notifications'
 import { openConfirmModal } from '@mantine/modals'
+import { IconEye, IconTrash, IconUserPlus, IconEdit } from '@tabler/icons'
 
 import { QUERY } from '../GroupsCell'
 import './Groups.scss'
+import GroupUpdateLeader from '../GroupUpdateLeader/GroupUpdateLeader'
 
 const DELETE_GROUP_MUTATION = gql`
   mutation DeleteGroupMutation($id: Int!) {
@@ -16,37 +18,28 @@ const DELETE_GROUP_MUTATION = gql`
     }
   }
 `
-const timeTag = (datetime) => {
-  return (
-    <time dateTime={datetime} title={datetime}>
-      {new Date(datetime).toLocaleDateString('sv')}
-    </time>
-  )
-}
-const Groups = ({ groups }) => {
-  const [activePage, setActivePage] = useState(1)
-  const [isDelete, setIsDelete] = useState(false)
-  const [isShow, setIsShow] = useState(false)
-  const [isAdd, setIsAdd] = useState(false)
+const Groups = ({ groups, page }) => {
+  const [opened, setOpened] = useState(false)
+  const [group, setGroup] = useState()
 
+  const iconRefs = useRef([])
   const { hasRole } = useAuth()
+
+  useEffect(() => {
+    iconRefs.current = iconRefs.current.slice(0, groups.length)
+  }, [groups])
+
   const [deleteGroup] = useMutation(DELETE_GROUP_MUTATION, {
     onCompleted: () => {
       showNotification({
         color: 'red',
         title: 'Group Has Been Deleted!',
-        icon: (
-          <ion-icon
-            style={{ color: 'white' }}
-            name="checkmark-outline"
-          ></ion-icon>
-        ),
-        autoClose: 3000,
+        autoClose: 4000,
         radius: 'md',
         styles: (theme) => ({
           root: {
-            borderColor: theme.colors.red[4],
-
+            borderColor: theme.colors.red[7],
+            backgroundColor: theme.colors.red[1],
             '&::before': { backgroundColor: theme.white },
           },
 
@@ -61,11 +54,32 @@ const Groups = ({ groups }) => {
         }),
       })
     },
-    refetchQueries: [{ query: QUERY }],
+    refetchQueries: [{ query: QUERY, variables: { page: page } }],
     awaitRefetchQueries: true,
   })
 
-  const handleClick = (id, name) => {
+  const handleDelete = (id, name) => {
+    if (!hasRole(['admin', 'manager'])) {
+      return showNotification({
+        color: 'red',
+        title: 'Error! Only admin, manager can use this feature',
+        autoClose: 3000,
+        radius: 'md',
+        styles: (theme) => ({
+          root: {
+            borderColor: theme.colors.red[9],
+            backgroundColor: theme.colors.red[1],
+            '&::before': { backgroundColor: theme.red },
+          },
+
+          title: { color: theme.colors.red[5] },
+          closeButton: {
+            color: theme.colors.gray[6],
+            '&:hover': { backgroundColor: theme.colors.gray[4] },
+          },
+        }),
+      })
+    }
     openConfirmModal({
       title: 'Please Confirm Your Action!',
       children: <p>Are you sure want to delete Group {name}?</p>,
@@ -74,135 +88,154 @@ const Groups = ({ groups }) => {
       onConfirm: () => deleteGroup({ variables: { id } }),
     })
   }
-  const totalGroups = groups.length
-  const totalPage = Math.ceil(totalGroups / 10)
-  const resultGroups = useMemo(() => {
-    const groupsRender = []
-    for (let i = 0; i < totalGroups; i += 10) {
-      const groupsPerPage = groups.slice(i, i + 10)
-      groupsRender.push(groupsPerPage)
-    }
-    return groupsRender
-  }, [groups])
+
+  const handleMouseEnter = (idx) => {
+    setTimeout(() => {
+      iconRefs.current[idx].classList.add('hovered')
+    }, 400)
+  }
+  const handleMouseLeave = (idx) => {
+    setTimeout(() => {
+      iconRefs.current[idx].classList.remove('hovered')
+    }, 400)
+  }
+  const handleModal = () => {
+    setOpened(false)
+  }
 
   return (
     <div className="groups-wrapper">
       <div className="groups-info">
-        <div className="groups-header">
-          {/* <Link
-            to={routes.newGroup()}
-            className="inline-button inline-button- small inline-button-green"
+        {groups.map((group, idx) => (
+          <div
+            key={group.id}
+            className="groups-item"
+            onMouseEnter={() => handleMouseEnter(idx)}
+            onMouseLeave={() => handleMouseLeave(idx)}
           >
-            <ion-icon name="add-circle-sharp"></ion-icon>New Group
-          </Link> */}
-          <nav>
-            <button
-              onClick={() => setIsShow(!isShow)}
-              className="inline-button inline-button-small inline-button-blue"
-              title="Show Group"
+            <Text size={24} weight={700} color="#A61E4D">
+              {group.name}
+            </Text>
+            <Text size={22} weight="500">
+              <p>Leader</p>
+              {group.leader?.name || group.leader?.email || ''}
+            </Text>
+            <Text>
+              Group Id <span>{group.id}</span>
+            </Text>
+            <Text>
+              Total Members <span>{group.members.length}</span>
+            </Text>
+            <Menu
+              width={200}
+              height={90}
+              trigger="hover"
+              openDelay={300}
+              closeDelay={100}
+              position="bottom-end"
+              shadow="rgba(0, 0, 0, 0.7) 0px 3px 6px, rgba(0, 0, 0, 0.83) 0px 3px 6px"
+              styles={(theme) => ({
+                divider: {
+                  borderColor: theme.colors.gray[5],
+                },
+                dropdown: {
+                  background: '#25262B',
+                },
+                item: {
+                  margin: '2px 0',
+                  ':hover:not(:last-child)': {
+                    color: '#000',
+                  },
+                },
+              })}
             >
-              <ion-icon name="information-circle-outline"></ion-icon>Show Info
-            </button>
-            <button
-              onClick={() => setIsAdd(!isAdd)}
-              className="inline-button inline-button-small inline-button-green"
-              title="Add Member"
-            >
-              <ion-icon name="person-add-outline"></ion-icon>Add Member
-            </button>
-           {hasRole(['admin', 'manager']) && <button
-              onClick={() => setIsDelete(!isDelete)}
-              className="inline-button inline-button-small inline-button-red"
-              title="Delete Group"
-            >
-              <ion-icon name="trash-outline"></ion-icon>Delete
-            </button>}
-          </nav>
-        </div>
-        <table cellSpacing="0">
-          <thead>
-            <tr>
-              <th>Stt</th>
-              <th>Group Name</th>
-              <th>Leader</th>
-              <th>Created At</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {resultGroups[activePage - 1].map((group) => (
-              <tr key={group.id}>
-                <td></td>
-                <td>{group.name}</td>
-                <td>{group.leader.name || group.leader.email}</td>
-                <td>{timeTag(group.createdAt)}</td>
-                <td>
-                  <nav>
-                    {isShow && (
-                      <Link
-                        to={routes.group({ id: group.id })}
-                        title={'Show Group ' + group.name}
-                      >
-                        <ion-icon
-                          style={{
-                            color: '#15AABF',
-                          }}
-                          name="information-circle-outline"
-                        ></ion-icon>
-                      </Link>
-                    )}
-                    {isAdd && (
-                      <Link
-                        to={routes.groupAddMem({
-                          id: group.id,
-                          name: group.name,
-                        })}
-                        title={'Add Member To ' + group.name}
-                      >
-                        <ion-icon
-                          style={{
-                            color: '#40C057',
-                          }}
-                          name="person-add-outline"
-                        ></ion-icon>
-                      </Link>
-                    )}
-                    {isDelete && (
-                      <a
-                        href="#"
-                        style={{ backgroundColor: 'transparent' }}
-                        onClick={() => handleClick(group.id, group.name)}
-                        title={'Delete Group ' + group.name}
-                      >
-                        <ion-icon
-                          style={{
-                            color: '#FA5252',
-                          }}
-                          name="trash-outline"
-                        ></ion-icon>
-                      </a>
-                    )}
-                  </nav>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div className="groups-pagination">
-        <Pagination
-          position="center"
-          page={activePage}
-          onChange={setActivePage}
-          total={totalPage}
-          radius="lg"
-          withEdges
-          styles={{
-            item: {
-              fontWeight: '300',
+              <Menu.Target>
+                <ion-icon
+                  ref={(el) => (iconRefs.current[idx] = el)}
+                  name="ellipsis-horizontal-outline"
+                ></ion-icon>
+              </Menu.Target>
+              <Menu.Dropdown>
+                <Menu.Item
+                  color="white"
+                  icon={<IconEye size={20} />}
+                  onClick={() => {
+                    navigate(routes.group({ id: group.id }))
+                  }}
+                >
+                  View Info
+                </Menu.Item>
+                <Divider />
+                <Menu.Item
+                  color="white"
+                  icon={<IconUserPlus size={20} />}
+                  onClick={() => {
+                    navigate(
+                      routes.groupAddMem({ id: group.id, name: group.name })
+                    )
+                  }}
+                >
+                  Add Member
+                </Menu.Item>
+                <Divider />
+                <Menu.Item
+                  color="white"
+                  icon={<IconEdit size={20} />}
+                  onClick={() => {
+                    setGroup(group)
+                    setOpened(true)
+                  }}
+                >
+                  Update
+                </Menu.Item>
+                <Divider />
+                <Menu.Item
+                  color="red"
+                  icon={<IconTrash size={20} />}
+                  onClick={() => handleDelete(+group.id, group.name)}
+                >
+                  Delete
+                </Menu.Item>
+              </Menu.Dropdown>
+            </Menu>
+          </div>
+        ))}
+        <Modal
+          title="Update Group"
+          opened={opened}
+          onClose={() => setOpened(false)}
+          zIndex={3}
+          styles={() => ({
+            modal: {
+              backgroundColor: '#2C2E33',
+              marginTop: '20px',
+              '@media(min-width: 1024px)': {
+                marginTop: '50px',
+                marginLeft: '300px',
+                width: '600px',
+              },
             },
-          }}
-        />
+            title: {
+              margin: '0 auto',
+              fontSize: '28px',
+              fontWeight: 500,
+              color: '#fff',
+            },
+            close: {
+              backgroundColor: '#f2f2f2',
+              marginRight: 10,
+              width: 32,
+              height: 32,
+              borderRadius: '50%',
+            },
+          })}
+        >
+          <GroupUpdateLeader
+            group={group}
+            page={page}
+            handleModal={handleModal}
+          />
+        </Modal>
       </div>
     </div>
   )

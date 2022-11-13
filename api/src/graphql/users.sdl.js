@@ -13,6 +13,7 @@ export const schema = gql`
   }
 
   type Query {
+    leaderNoGroup: [User!]! @requireAuth
     usersHasRole: [User!]! @requireAuth
     usersExist: [User!]! @skipAuth
     users: [User!]! @requireAuth

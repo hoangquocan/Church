@@ -28,8 +28,6 @@ body {
 }
 ::-webkit-scrollbar {
   width: 8px;
-  // background-color: #23242a;
-  // z-index: 1;
   @media (max-width: 768px) {
     width: 0px;
   }
@@ -47,14 +45,14 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background-color: #a8bbbf;
 }
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-weight: 500;
-}
+// h1,
+// h2,
+// h3,
+// h4,
+// h5,
+// h6 {
+//   font-weight: 500;
+// }
 
 button,
 input,
@@ -115,6 +113,37 @@ ul {
   font-weight: 400;
   color: #46e6fc;
 }
+.text-title {
+  display: inline-block;
+  position: relative;
+  color: #fff;
+  font-size: 36px;
+  margin: 0 0 30px 20px;
+  @media (max-width: 480px) {
+    font-size: 24px;
+    margin: 0 28px 30px;
+  }
+  &:before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -20px;
+    width: 10px;
+    height: 10px;
+    border-left: 5px solid #fff;
+    border-top: 5px solid #fff;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    right: -22px;
+    bottom: -5px;
+    width: 10px;
+    height: 10px;
+    border-right: 5px solid #fff;
+    border-bottom: 5px solid #fff;
+  }
+}
 
 .link {
   color: var(--color-link);
@@ -156,20 +185,23 @@ ul {
 .btn-purple {
   display: flex;
   justify-content: center;
-  align-items: center;
-  border: 2px solid #FAA2C1;
-  width: 30%;
+  align-self: center;
+  border: 2px solid #faa2c1;
   padding: 10px 30px;
   border-radius: 5px;
   position: relative;
-  font-size: 20px;
-  font-weight: 400;
-  background-image: linear-gradient(to right, #FAA2C1, #C2255C);
-  color: #000;
-  letter-spacing: 1px;
+  font-size: 24px;
+  font-weight: 500;
+  background-image: linear-gradient(to right, #faa2c1, #c2255c);
+  color: #fff;
+  // letter-spacing: 1px;
   margin: 30px auto;
   transition: ease-out 0.5s;
   z-index: 1;
+  ion-icon{
+    margin-right: 8px;
+    // font-size: 28px;
+  }
   &:before {
     content: '';
     position: absolute;
@@ -177,7 +209,7 @@ ul {
     left: 50%;
     right: 50%;
     bottom: 0;
-    background-image: linear-gradient(to right, #C2255C, #FAA2C1);
+    background-image: linear-gradient(to right, #c2255c, #faa2c1);
     opacity: 0;
     transition: 0.5s all ease;
   }
@@ -195,24 +227,54 @@ ul {
 }
 
 .btn-cyan {
-  padding: 8px 22px;
-  border-radius: 6px;
-  color: #04848d;
+  padding: 6px 12px;
+  border-radius: 5px;
+  color: #fff;
   font-size: 20px;
   font-weight: 500;
-  background: #fff;
-  background-image: linear-gradient(to left, transparent 50%, #3BC9DB 50%);
+  background: #4543ff;
+  background-image: linear-gradient(to left, transparent 50%, #fff 50%);
   background-size: 200%;
   background-position: 100%;
-  transition: 0.5s;
-  border: 2px solid #48b1bf;
+  border: 1px solid #4543ff;
+  min-height: 40px;
   display: flex;
   justify-content: center;
+  align-items: center;
+  transition: 0.4s;
+  ion-icon{
+    margin-right: 6px;
+    font-size: 24px;
+  }
   &:hover {
     background-position: 0%;
-    color: #fff;
+    color: #4543ff;
     cursor: pointer;
   }
+}
+.btn-upload {
+    position: relative;
+    max-width: 380px;
+    width: 300px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #4543ff;
+    font-weight: 500;
+    font-size: 16px;
+    margin: 30px auto;
+    border: 1px solid #4543ff;
+    border-radius: 5px;
+    ion-icon {
+      font-size: 24px;
+      margin-right: 10px;
+    }
+    &:hover {
+      cursor: pointer;
+      color: #fff;
+      background: #4543ff;
+    }
 }
 .inline-button {
   position: relative;
@@ -221,11 +283,10 @@ ul {
   align-items: center;
   justify-content: center;
   font-size: 1.2rem;
-  font-weight: 400;
-  padding: 0.1rem 0.6rem;
+  font-weight: 500;
+  padding: 0.3rem 1rem;
   text-decoration: none;
   letter-spacing: 0.025em;
-  // font-family: 'Dancing Script', cursive;
   border-radius: 16px;
   @media screen and (max-width: 768px) {
     padding-right: 0.4rem;
@@ -266,7 +327,7 @@ ul {
 }
 .inline-button.inline-button-blue:hover {
   border-color: #fff;
-  background-color: #99e9f2;
+  background-color: #3182ce;
   color: #fff;
 }
 
@@ -278,7 +339,7 @@ ul {
 .error {
   color: red;
 }
-ion-icon{
+ion-icon {
   &:hover {
     cursor: pointer;
   }

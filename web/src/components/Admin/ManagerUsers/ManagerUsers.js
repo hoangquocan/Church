@@ -28,6 +28,12 @@ const ManagerUsers = ({ users }) => {
   const handleModal = () => {
     setOpened(false)
   }
+
+  const checkLeader = (user) => {
+    const roles = user.userRoles.map((role) => role.name)
+    return roles.includes('leader')
+  }
+
   return (
     <div className="users-wrapper">
       {users.map((user, idx) => (
@@ -41,7 +47,7 @@ const ManagerUsers = ({ users }) => {
             src={user.avatar}
             radius="50%"
             size="80px"
-            mt={-30}
+            mt={-40}
             color="cyan"
             styles={() => ({
               root: {
@@ -62,11 +68,12 @@ const ManagerUsers = ({ users }) => {
           </Text>
           <Group>
             {user.userRoles.map((role) => (
-              <Text key={role.id} align="center" size="lg" weight={400}>
-                {role.name == 'user' ? '' : role.name.toUpperCase()}
-              </Text>
+                <Text key={role.id} align="center" size="lg" weight={400}>
+                  {role.name == 'user' ? '' : role.name.toUpperCase()}
+                </Text>
             ))}
           </Group>
+                <Text>{checkLeader(user) ? user.group?.name : null}</Text>
           <Menu
             width={200}
             height={90}
@@ -124,6 +131,9 @@ const ManagerUsers = ({ users }) => {
         styles={(theme) => ({
           modal: {
             marginTop: '100px',
+            '@media(min-width: 1024px)': {
+                marginLeft: '300px',
+              },
           },
           header: {
             fontSize: '1.4rem',
@@ -136,6 +146,7 @@ const ManagerUsers = ({ users }) => {
             marginRight: 10,
             width: 32,
             height: 32,
+            borderRadius: '50%',
           },
         })}
       >

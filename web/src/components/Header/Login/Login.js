@@ -85,12 +85,12 @@ const Login = ({ handleLogin }) => {
     showNotification({
       color: 'blue',
       title: 'Welcome! Log In Success',
-      autoClose: 1800,
+      autoClose: 3000,
       radius: 'md',
       styles: (theme) => ({
         root: {
-          borderColor: theme.colors.blue[7],
-
+          borderColor: theme.colors.blue[9],
+          backgroundColor: theme.colors.blue[2],
           '&::before': { backgroundColor: theme.blue },
         },
 
@@ -120,12 +120,12 @@ const Login = ({ handleLogin }) => {
         showNotification({
           color: 'blue',
           title: 'Welcome! Log In Success',
-          autoClose: 1800,
+          autoClose: 3000,
           radius: 'md',
           styles: (theme) => ({
             root: {
-              borderColor: theme.colors.blue[7],
-
+              borderColor: theme.colors.blue[9],
+              backgroundColor: theme.colors.blue[2],
               '&::before': { backgroundColor: theme.blue },
             },
 
@@ -150,8 +150,8 @@ const Login = ({ handleLogin }) => {
           autoClose: false,
           styles: (theme) => ({
             root: {
-              borderColor: theme.colors.red[4],
-
+              borderColor: theme.colors.red[7],
+              backgroundColor: theme.colors.red[2],
               '&::before': { backgroundColor: theme.red },
             },
 
@@ -169,20 +169,20 @@ const Login = ({ handleLogin }) => {
   }
 
   const handleEmail = () => {
-    usernameRef.current.classList.toggle('focus')
+    usernameRef.current.classList.add('focus')
   }
   const handlePassword = () => {
-    passwordRef.current.classList.toggle('focus')
+    passwordRef.current.classList.add('focus')
   }
 
   return (
     <div className="modal-login">
       <form onSubmit={form.onSubmit(handleSubmit)}>
-        <div className="inputLogin" onClick={handleEmail}>
+        <div className="inputLogin" onFocus={handleEmail}>
           <TextInput variant="unstyled" {...form.getInputProps('email')} />
           <label ref={usernameRef}>Email</label>
         </div>
-        <div className="inputLogin" onClick={handlePassword}>
+        <div className="inputLogin" onFocus={handlePassword}>
           <PasswordInput
             variant="unstyled"
             {...form.getInputProps('password')}

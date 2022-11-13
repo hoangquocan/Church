@@ -1,158 +1,26 @@
 .members-wrapper {
-  // background-color: #fff;
-  // width: 100%;
-  // margin: 0 40px;
-  // padding: 10px 10px;
-  // height: auto;
-  // // gap: 10px;
-  // border-radius: 10px;
-  // @media (max-width: 480px) {
-  //   padding: 10px 2px;
-  //   margin: 0;
-  // }
-
-  // .members-item {
-  //   // padding-top: 10px;
-
-  //   height: auto;
-  //   // ion-icon{
-  //   //   display: block;
-  //   // }
-  // }
-  .members-link {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-left: -8px;
-    margin-bottom: 8px;
-    ion-icon {
-      padding: 2px 6px 2px 0;
-      transform: translateY(-5%);
-    }
-  }
-
-  // img {
-  //   border-radius: 50%;
-  //   width: 80px;
-  //   height: 80px;
-  //   box-shadow: inset 0 2px 4px 0 hsla(0, 0%, 0%, .2);
-  //   object-fit: cover;
-  //   @media (max-width: 768px) {
-  //     width: 60px;
-  //     height: 60px;
-  //   }
-  // }
-
-  // table {
-  //   width: 100%;
-  //   border-collapse: collapse;
-  //   border-spacing: 0;
-  //   margin-bottom: 10px;
-  //   @media (max-width: 480px) {
-  //     width: 408px;
-  //   }
-  //   @media (max-width: 400px) {
-  //     padding: 0;
-  //     top: 26px;
-  //     width: 386px;
-  //   }
-
-  //   ion-icon {
-  //     // border: 0.5px solid rgb(177, 172, 172);
-  //     box-shadow: inset 0 2px 4px 0 hsla(0, 0%, 0%, .2);
-  //     border-radius: 50%;
-  //     color: inherit;
-  //     width: 50px;
-  //     height: 50px;
-  //     @media (max-width: 480px) {
-  //       width: 30px;
-  //       height: 30px;
-  //     }
-  //   }
-  // }
-  // table tr:first-child th:first-child {
-  //   border-top-left-radius: 10px;
-  //   @media (max-width: 480px) {
-  //     border-top-left-radius: 0;
-  //   }
-  // }
-  // table tr:first-child th:last-child {
-  //   border-top-right-radius: 10px;
-  //   @media (max-width: 480px) {
-  //     border-top-right-radius: 0;
-  //   }
-  // }
-  // // table tr:first-child th:nth-last-child(4) {
-  // //   @media (max-width: 480px) {
-  // //     border-top-right-radius: 10px;
-  // //   }
-  // // }
-  // table tr:not(:first-child) {
-  //   counter-increment: rowNumber;
-  // }
-  // td,
-  // th {
-  //   padding: 5px;
-  //   color: black;
-  //   text-align: left;
-  //   vertical-align: center;
-  //   border-style: hidden;
-
-  //   @media (max-width: 480px) {
-  //     padding: 5px 1px;
-  //   }
-  // }
-  // th {
-  //   background-color: var(--bg-active);
-  //   font-weight: 300;
-  //   font-size: 0.8rem;
-  //   @media (min-width: 480px) {
-  //     font-size: 1.4rem;
-  //   }
-  // }
-  // tr {
-  //   &:nth-child(2n) {
-  //     background-color: #e9ecef;
-  //   }
-  //   &:nth-child(2n + 1) {
-  //     background-color: #fff;
-  //   }
-  // }
-
-  // td:last-child,
-  // td:nth-last-child(2) {
-  //   ion-icon {
-  //     position: relative;
-  //     background-color: transparent;
-  //     width: 18px;
-  //     height: 16px;
-  //     border-style: none;
-  //     box-shadow: none;
-  //     transform: translateY(-5%);
-  //     padding-right: 2px;
-  //     color: inherit;
-  //   }
-  // }
-
-  // th:nth-last-child(2),
-  // td:nth-last-child(2),
-  // th:nth-last-child(3),
-  // td:nth-last-child(3) {
-  //   // th:last-child,
-  //   // td:last-child {
-  //   @media (max-width: 480px) {
-  //     display: none;
-  //   }
-  // }
-  .members-pagination {
-    width: 100%;
-    margin-top: 10px;
-
+  .members-item {
     button {
-      border: 0.5px solid #adb5bd;
-      font-family: 'Dancing Script', cursive;
-      &:focus {
-        color: #000;
+      &.button-inline-icon {
+        position: absolute;
+        display: none;
+        bottom: 10px;
+        background: none;
+        color: #f03e3e;
+        ion-icon {
+          display: inline-block;
+          position: relative;
+          top: 0;
+          right: 0;
+          border: 1px solid #f03e3e;
+          &:hover {
+            background: #f03e3e;
+            color: #fff;
+          }
+        }
+      }
+      &.hovered {
+        display: block;
       }
     }
   }

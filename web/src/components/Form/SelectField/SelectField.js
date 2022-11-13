@@ -18,12 +18,11 @@ const SelectField = ({ data, value, onChange, label, ...props }) => {
         transition="pop-top-left"
         transitionDuration={500}
         transitionTimingFunction="ease"
-        // fs="md"
         styles={(theme) => ({
           wrapper: {
             backgroundColor: 'white',
-            borderRadius: 18,
-
+            borderRadius: 30,
+            height: 40,
           },
           label: {
               fontSize: '1.1rem',

@@ -12,6 +12,7 @@ export const QUERY = gql`
         id
         name
         leader {
+          name
           email
         }
       }

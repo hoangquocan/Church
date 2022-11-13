@@ -1,6 +1,6 @@
 import { showNotification } from '@mantine/notifications'
 import { useAuth } from '@redwoodjs/auth'
-import { Link, navigate, routes } from '@redwoodjs/router'
+import { navigate, routes } from '@redwoodjs/router'
 
 import './ActivityNotAtten.scss'
 
@@ -27,12 +27,12 @@ const ActivityNotAtten = ({ activities }) => {
         autoClose: false,
         styles: (theme) => ({
           root: {
-            borderColor: theme.colors.red[4],
-
+            borderColor: theme.colors.red[9],
+            backgroundColor: theme.colors.red[1],
             '&::before': { backgroundColor: theme.red },
           },
 
-          title: { color: theme.colors.red[5] },
+          title: { color: theme.colors.red[7] },
           closeButton: {
             color: theme.colors.gray[7],
             '&:hover': {
@@ -63,7 +63,7 @@ const ActivityNotAtten = ({ activities }) => {
               <td></td>
               <td>{activity.name}</td>
               <td>
-                {new Date(activity.date).toLocaleString({ timeZone: 'UTC' })}
+                {new Date(activity.date).toLocaleString('pt-BR')}
               </td>
               <td>{activity.group.name}</td>
               <td>

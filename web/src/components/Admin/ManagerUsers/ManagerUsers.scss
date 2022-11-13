@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 30px;
-  padding: 40px 30px 20px;
+  padding: 60px 80px;
   margin-bottom: 20px;
   @media (max-width: 1266px) {
     grid-template-columns: repeat(2, 1fr);
@@ -15,19 +15,17 @@
     display: flex;
     background: #25262b;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
-    gap: 10px;
-    padding: 0 10px 10px;
+    min-width: 280px;
+    min-height: 250px;
+    // gap: 10px;
+    padding: 0 10px 20px;
     margin-bottom: 20px;
     color: #fff;
     border-radius: 10px;
-    border: 1px solid #343a40;
+    border: 2px solid #5C5F66;
     line-height: 2;
-    // a{
-    //   width: 100%;
-    //   color: inherit;
-    // }
     ion-icon {
       position: absolute;
       top: 10px;
@@ -45,6 +43,7 @@
     }
     &:hover {
       cursor: pointer;
+      border-color: var(--color-primary);
     }
   }
 }

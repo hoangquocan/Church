@@ -9,6 +9,7 @@ import { useMutation } from '@redwoodjs/web'
 
 import './CreateQuestion.scss'
 import 'src/components/Member/MemberForm/MemberForm.scss'
+import '../ExportSurvey/ExportSurvey.scss'
 
 const CREATE_QUESTION_MUTATION = gql`
   mutation CreateQuestionMutation($input: CreateQuestionInput!) {
@@ -22,58 +23,61 @@ const CREATE_QUESTION_MUTATION = gql`
 `
 const CreateQuestion = () => {
   const [monthSelect, setMonthSelect] = useState()
-  const [createQuestion, {loading, error}] = useMutation(CREATE_QUESTION_MUTATION, {
-    onCompleted: () => {
-      showNotification({
-        color: 'teal',
-        title: 'Thank You! Your Survey Has Been Saved',
-        icon: <ion-icon name="checkmark-outline"></ion-icon>,
-        autoClose: 3000,
-        radius: 'md',
-        styles: (theme) => ({
-          root: {
-            borderColor: theme.colors.teal[7],
-
-            '&::before': { backgroundColor: theme.teal },
-          },
-
-          closeButton: {
-            color: theme.colors.gray[7],
-            '&:hover': {
-              color: theme.white,
-              backgroundColor: theme.colors.gray[6],
+  const [createQuestion, { loading, error }] = useMutation(
+    CREATE_QUESTION_MUTATION,
+    {
+      onCompleted: () => {
+        showNotification({
+          color: 'blue',
+          title: 'Done! Your Survey Has Been Saved',
+          autoClose: 3000,
+          radius: 'md',
+          styles: (theme) => ({
+            root: {
+              borderColor: theme.colors.blue[9],
+              backgroundColor: theme.colors.blue[2],
+              '&::before': { backgroundColor: theme.blue },
             },
-          },
-        }),
-      })
-      form.reset()
-    },
-    onError: () => {
-      showNotification({
-        color: 'red',
-        title: 'Notification!',
-        message: 'Please check your Survey if it has been created on that month',
-        rd: 'md',
-        autoClose: false,
-        styles: (theme) => ({
-          root: {
-            borderColor: theme.colors.red[4],
 
-            '&::before': { backgroundColor: theme.red },
-          },
-
-          title: { color: theme.colors.red[5] },
-          closeButton: {
-            color: theme.colors.gray[7],
-            '&:hover': {
-              color: theme.white,
-              backgroundColor: theme.colors.gray[6],
+            closeButton: {
+              color: theme.colors.gray[7],
+              '&:hover': {
+                color: theme.white,
+                backgroundColor: theme.colors.gray[6],
+              },
             },
-          },
-        }),
-      })
+          }),
+        })
+        form.reset()
+      },
+      onError: () => {
+        showNotification({
+          color: 'red',
+          title: 'Notification!',
+          message:
+            'Please check your Survey if it has been created on that month',
+          rd: 'md',
+          autoClose: false,
+          styles: (theme) => ({
+            root: {
+              borderColor: theme.colors.red[7],
+              backgroundColor: theme.colors.red[1],
+              '&::before': { backgroundColor: theme.red },
+            },
+
+            title: { color: theme.colors.red[5] },
+            closeButton: {
+              color: theme.colors.gray[7],
+              '&:hover': {
+                color: theme.white,
+                backgroundColor: theme.colors.gray[6],
+              },
+            },
+          }),
+        })
+      },
     }
-  })
+  )
   const form = useForm({
     initialValues: {
       questionOne: '',
@@ -81,34 +85,22 @@ const CreateQuestion = () => {
       questionThree: '',
     },
     validate: {
-      questionOne: (value) => {
-        if (value.length < 10) {
-          return 'Please write for Question One'
-        } else if (value.length > 191) {
-          return 'Please write less than 191 words'
-        }
-      },
-      questionTwo: (value) => {
-        if (value.length < 10) {
-          return 'Please write for Question One'
-        } else if (value.length > 191) {
-          return 'Please write less than 191 words'
-        }
-      },
-      questionThree: (value) => {
-        if (value.length < 10) {
-          return 'Please write for Question One'
-        } else if (value.length > 191) {
-          return 'Please write less than 191 words'
-        }
-      },
+      questionOne: (value) =>
+        value.length < 10 ? 'Please write for Question One' : null,
+      questionTwo: (value) =>
+        value.length < 10 ? 'Please write for Question Two' : null,
+      questionThree: (value) =>
+        value.length < 10 ? 'Please write for Question Three' : null,
     },
   })
   const handleSubmit = (values) => {
     openConfirmModal({
       title: ' Do you want to Save these Questions?',
       children: (
-        <p>If you want create new one on the same Month, please delete before or you can update it!!!</p>
+        <p>
+          If you want create new one on the same Month, please delete before or
+          you can update it!!!
+        </p>
       ),
       labels: { confirm: 'Yes', cancel: 'Cancel' },
       onConfirm: () =>
@@ -123,13 +115,17 @@ const CreateQuestion = () => {
   return (
     <div className="member-form">
       <form onSubmit={form.onSubmit(handleSubmit)}>
-        <h3>Select Month To Create </h3>
-        <DatePicker
-          selected={monthSelect}
-          onChange={(date) => setMonthSelect(date)}
-          dateFormat="MM/yyyy"
-          showMonthYearPicker
-        />
+        <div className="datepicker-month">
+          {/* <h3 style={{margin: '20px'}} className='text-center'>Select Month To Create </h3> */}
+          <DatePicker
+            selected={monthSelect}
+            onChange={(date) => setMonthSelect(date)}
+            dateFormat="MM/yyyy"
+            showMonthYearPicker
+            popperPlacement="bottom"
+            placeholderText="Select Month To Create"
+          />
+        </div>
         <Textarea
           label="Question One"
           autosize
@@ -151,7 +147,7 @@ const CreateQuestion = () => {
         />
         <div className="form-btn">
           <Button variant="unstyled" type="submit">
-            Save<ion-icon name="checkmark-outline"></ion-icon>
+            Save<ion-icon name="checkmark-circle-outline"></ion-icon>
           </Button>
         </div>
       </form>

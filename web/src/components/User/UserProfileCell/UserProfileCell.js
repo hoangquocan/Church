@@ -9,6 +9,10 @@ export const QUERY = gql`
       email
       avatar
       bio
+      group{
+        id
+        name
+      }
       userRoles {
         id
         name

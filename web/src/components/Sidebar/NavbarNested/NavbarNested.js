@@ -6,8 +6,7 @@ const mockdata = [
     icon: 'person-outline',
     links: [
       { label: 'View Members', to: '/members' },
-      { label: 'New Member', to: '/members/new' },
-      // { label: 'Member View', to: 'routes.' },
+      { label: 'New Member', to: '/member/new' },
     ],
   },
   {
@@ -16,7 +15,6 @@ const mockdata = [
     links: [
       { label: 'View Groups', to: '/groups' },
       { label: 'New Group', to: '/groups/new' },
-      // { label: 'Member View', to: 'routes.' },
     ],
   },
   {
@@ -25,6 +23,7 @@ const mockdata = [
     links: [
       { label: 'View Activities', to: '/activities' },
       { label: 'New Activity', to: '/activities/new' },
+      { label: 'New Multi Activities', to: '/activities/new-multi-activities' },
     ],
   },
   {
@@ -41,26 +40,8 @@ const mockdata = [
     links: [
       { label: 'View Reports', to: '/reports' },
       { label: 'Create Report', to: '/report-create' },
-      // { label: 'View Attendanced', to: '/attendanced' },
     ],
   },
-  // {
-  //   label: 'Admin',
-  //   icon: 'construct-outline',
-  //   links: [
-  //     { label: 'Set UserRole', to: '/admin' },
-  //     { label: 'View Attendanced', to: '/attendanced' },
-  //   ],
-  // },
-  // {
-  //   label: 'Manager',
-  //   icon: 'build-outline',
-  //   links: [
-  //     { label: 'Create Questions', to: '/manager/create-question' },
-  //     { label: 'View Questions', to: '/manager/questions' },
-  //     { label: 'View Questions', to: '/manager/questions' },
-  //   ],
-  // },
 ]
 const links = mockdata.map((item) => (
   <NavbarLinksGroup key={item.label} {...item} />

@@ -3,14 +3,17 @@ export const schema = gql`
     id: Int!
     name: String!
     members: [Member]!
-    leader: User!
-    userId: Int!
+    leader: User
+    userId: Int
     reports: [Report]!
+    reportQuarters: [ReportQuarter]!
     activities: [Activity]!
     createdAt: DateTime!
   }
 
   type Query {
+    totalGroups: Int @requireAuth
+    groupsPage: [Group!]! @requireAuth
     groups: [Group!]! @requireAuth
     group(id: Int!): Group @requireAuth
   }
@@ -28,6 +31,6 @@ export const schema = gql`
   type Mutation {
     createGroup(input: CreateGroupInput!): Group! @requireAuth
     updateGroup(id: Int!, input: UpdateGroupInput!): Group! @requireAuth
-    deleteGroup(id: Int!): Group! @requireAuth
+    deleteGroup(id: Int!): Group! @requireAuth(roles: ["admin", "manager"])
   }
 `

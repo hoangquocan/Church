@@ -8,7 +8,7 @@ const ViewAttendance = ({ attendanced }) => {
           <tbody>
             <tr>
               <td>{activity.name}</td>
-              <td>{new Date(activity.date).toLocaleDateString()}</td>
+              <td>{new Date(activity.date).toLocaleDateString('pt-BR')}</td>
             </tr>
             {activity.attendance.map((attendance) => (
               <tr key={attendance.id}>

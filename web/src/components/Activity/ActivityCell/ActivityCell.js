@@ -8,14 +8,16 @@ export const QUERY = gql`
       name
       date
       urlAttendance
+      attendance {
+        id
+        present
+        member{
+          name
+        }
+      }
       group {
         id
         name
-        members {
-          id
-          name
-          email
-        }
       }
     }
   }

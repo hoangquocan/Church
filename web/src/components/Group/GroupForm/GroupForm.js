@@ -7,17 +7,13 @@ import { TextInput, Button } from '@mantine/core'
 
 import SelectField from 'src/components/Form/SelectField/SelectField'
 import 'src/components/Member/MemberForm/MemberForm.scss'
-import ConvertEnglish from 'src/components/Function/ConvertEnglish/ConvertEnglish'
 
-const QUERY_LEADERS = gql`
-  query QueryLeaders {
-    usersLeader {
+const LEADER_NO_GROUP = gql`
+  query LeaderNoGroup {
+    leaderNoGroup {
       id
-      user {
-        id
-        name
-        email
-      }
+      name
+      email
     }
   }
 `
@@ -48,15 +44,15 @@ const GroupForm = () => {
       setTimeout(() => {
         updateNotification({
           id: 'load-data',
-          color: 'white',
+          color: 'blue',
           title: 'Group Has Been Created!',
           message: 'You can add member to this Group',
-          // icon: <ion-icon name="checkmark-outline"></ion-icon>,
-          autoClose: 3000,
+          autoClose: 4000,
           radius: 'md',
           styles: (theme) => ({
             root: {
-              borderColor: theme.colors.blue[7],
+              borderColor: theme.colors.blue[9],
+              backgroundColor: theme.colors.blue[2],
               '&::before': { backgroundColor: theme.blue },
             },
             closeButton: {
@@ -73,17 +69,42 @@ const GroupForm = () => {
         navigate(routes.groups())
       }, 1200)
     },
+    onError: () => {
+      showNotification({
+        color: 'red',
+        title: 'Error! Please Check Again',
+        message: 'One User Only Has One Group',
+        rd: 'md',
+        autoClose: false,
+        styles: (theme) => ({
+          root: {
+            borderColor: theme.colors.red[9],
+            backgroundColor: theme.colors.red[1],
+            '&::before': { backgroundColor: theme.red },
+          },
+
+          title: { color: theme.colors.red[7] },
+          closeButton: {
+            color: theme.colors.gray[7],
+            '&:hover': {
+              color: theme.white,
+              backgroundColor: theme.colors.gray[6],
+            },
+          },
+        }),
+      })
+    }
   })
-  const { loading, error, data } = useQuery(QUERY_LEADERS)
+  const { loading, error, data } = useQuery(LEADER_NO_GROUP)
   //  if (loading) return 'Loading...'
   if (error) return `Error! ${error.message}`
   let leaders = []
   if (data) {
-    leaders = data.usersLeader
+    leaders = data.leaderNoGroup
   }
   const leaderSelect = leaders.map((leader) => ({
-    value: leader.user.id,
-    label: leader.user.email,
+    value: leader.id,
+    label: leader.name || leader.email,
   }))
   const form = useForm({
     initialValues: {
@@ -97,12 +118,10 @@ const GroupForm = () => {
           : 'Please Choose One Leader',
     },
   })
-const regex = /(\S*)(\S{1})/
   const handleSubmit = (values) => {
     // const arr = values.name.split(' ')
     // const arr2 = arr.shift()
     // const result = arr2.concat(arr.map((i) =>  i[0]).join(""))
-    // console.log(result)
     createGroup({ variables: { input: values } })
   }
 

@@ -52,7 +52,7 @@ const UpcomingActivities = ({ upcomingActivities }) => {
               setOpened(true)
             }}
           >
-            Attendance Now<ion-icon name="arrow-forward-outline"></ion-icon>
+            Attendance<ion-icon name="arrow-forward-circle-outline"></ion-icon>
           </div>
         </div>
       ))}
@@ -60,18 +60,17 @@ const UpcomingActivities = ({ upcomingActivities }) => {
         title="Make Attendance"
         opened={opened}
         onClose={() => setOpened(false)}
-        // zIndex={3}
+        zIndex={101}
         overlayOpacity={0.2}
         overlayBlur={3}
         centered
         styles={(theme) => ({
           root: {
-            '@media(max-width: 480px)': {
-            },
+            '@media(max-width: 480px)': {},
           },
           modal: {
-            // backgroundColor: '#185a9d',
-            background: 'linear-gradient(  #5C5F66,#5C5F66,#5C5F66)',
+            background: '#2C2E33',
+            // background: 'linear-gradient(  #5C5F66,#5C5F66,#5C5F66)',
             boxShadow: '0 15px 25px rgba(0, 0, 0, .9)',
             width: 800,
             borderRadius: '10px',
@@ -83,14 +82,14 @@ const UpcomingActivities = ({ upcomingActivities }) => {
               padding: 2,
             },
           },
-          inner: { backgroundColor: 'transparent' },
-          header: {
-            fontSize: '1.4rem',
-            marginBottom: '0',
-            marginLeft: 36,
+          title: {
+            margin: '0 auto',
+            fontSize: '28px',
             fontWeight: 500,
             color: '#fff',
+            // marginBottom: 0,
           },
+          inner: { backgroundColor: 'transparent' },
           close: {
             backgroundColor: '#DEE2E6',
             // borderColor: '#000',

@@ -21,6 +21,7 @@ const QUERY_USERS = gql`
   query UsersQuery {
     users {
       id
+      name
       email
       userRoles {
         name
@@ -36,12 +37,12 @@ const SetRoles = () => {
       showNotification({
         color: 'blue',
         title: 'Done! User has been updated Role',
-        autoClose: 3000,
+        autoClose: 4000,
         radius: 'md',
         styles: (theme) => ({
           root: {
-            borderColor: theme.colors.blue[7],
-
+            borderColor: theme.colors.blue[9],
+            backgroundColor: theme.colors.blue[2],
             '&::before': { backgroundColor: theme.blue },
           },
 
@@ -67,7 +68,7 @@ const SetRoles = () => {
   }
   const dataSelect = users.map((user) => ({
     value: user.email,
-    label: user.email,
+    label: user.name || user.email,
     roles: user.userRoles,
   }))
   const rolesSelect = [
@@ -128,8 +129,8 @@ const SetRoles = () => {
         autoClose: false,
         styles: (theme) => ({
           root: {
-            borderColor: theme.colors.red[4],
-
+            borderColor: theme.colors.red[8],
+            backgroundColor: theme.colors.red[2],
             '&::before': { backgroundColor: theme.red },
           },
 

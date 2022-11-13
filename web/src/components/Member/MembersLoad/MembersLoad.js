@@ -1,14 +1,15 @@
-import { useEffect, useState, memo, useRef } from 'react'
-import { useQuery } from '@redwoodjs/web'
+import { useEffect, useState, memo, useRef, useMemo } from 'react'
+import { useQuery, useMutation } from '@redwoodjs/web'
 import { Avatar, Text, Menu, Modal, Divider, Loader } from '@mantine/core'
 import { showNotification } from '@mantine/notifications'
-import { IconEdit, IconMail, IconTrash } from '@tabler/icons'
-import { Link, routes } from '@redwoodjs/router'
-
+import { openConfirmModal } from '@mantine/modals'
+import { IconEdit, IconMail, IconTrash, IconEye } from '@tabler/icons'
+import { useAuth } from '@redwoodjs/auth'
 import EditMember from '../EditMember/EditMember'
 import './MembersLoad.scss'
+import Member from '../Member/Member'
 
-const QUERY = gql`
+export const QUERY = gql`
   query MembersLoadQuery($load: Int!) {
     membersLoad(load: $load) {
       members {
@@ -29,45 +30,120 @@ const QUERY = gql`
     }
   }
 `
+const DELETE_MEMBER = gql`
+  mutation DeleteMember($id: Int!) {
+    deleteMember(id: $id) {
+      id
+    }
+  }
+`
 
 const MembersLoad = () => {
   const [membersRender, setMembersRender] = useState([])
   const [loadMembers, setLoadMembers] = useState(1)
   const [opened, setOpened] = useState(false)
+  const [openProfile, setOpenProfile] = useState(false)
+  const [idx, setIdx] = useState()
   const [member, setMember] = useState()
-  const iconRefs = useRef([])
 
-  const { loading, error, data } = useQuery(QUERY, {
+  const iconRefs = useRef([])
+  const { hasRole } = useAuth()
+  const { loading, data } = useQuery(QUERY, {
     variables: { load: loadMembers },
-    fetchPolicy: 'network-only',
-    onCompleted: (data) => {
-      // setMembersRender((prev) => [...prev, ...data.membersLoad.members])
-      // if (membersRender.length == data?.membersLoad?.count) {
-      //   alert(' end!')
-      // }
-    },
   })
+  let membersQuery = []
+  if (data) {
+    membersQuery = data?.membersLoad.members
+  }
+  const findIndexChange = (arr, target) => {
+    return arr.findIndex((item) => !target.includes(item))
+  }
+  const checker = (arr, target) => target.some((v) => arr.includes(v))
+
   useEffect(() => {
     iconRefs.current = iconRefs.current.slice(0, membersRender.length)
-    if (data && !membersRender.includes(...data.membersLoad.members)) {
-      // console.log(membersRender)
-      setMembersRender((prev) => [...prev, ...data?.membersLoad.members])
+    if (data) {
+      const membersArr = data?.membersLoad.members
+      const membersRenderId = membersRender.map((item) => item.id)
+      const idAvai = membersArr.map((item) => item.id)
+      const ind = findIndexChange(idAvai, membersRenderId)
+      if (!checker(membersRender, membersArr)) {
+        setMembersRender((prev) => [...prev, ...membersArr])
+      }
+      // Delete
+      else if (ind == 7 && membersRender.length < data.membersLoad.count) {
+        setMembersRender((prev) => [...prev, membersArr[7]])
+      }
     }
-  }, [data, loadMembers])
+  }, [data])
 
-  if (loading) {
+  const [deleteMember] = useMutation(DELETE_MEMBER, {
+    onCompleted: (idx) => {
+      showNotification({
+        color: 'red',
+        title: 'Member Has Been Deleted!',
+        autoClose: 4000,
+        radius: 'md',
+        styles: (theme) => ({
+          root: {
+            borderColor: theme.colors.red[7],
+            backgroundColor: theme.colors.red[1],
+            '&::before': { backgroundColor: theme.red },
+          },
+
+          title: { color: theme.colors.red[5] },
+          closeButton: {
+            color: theme.colors.gray[7],
+            '&:hover': {
+              color: theme.white,
+              backgroundColor: theme.colors.gray[6],
+            },
+          },
+        }),
+      })
+    },
+    onError: (error) => {
+      showNotification({
+        color: 'red',
+        title: `${error}`,
+        autoClose: 3000,
+        radius: 'md',
+        styles: (theme) => ({
+          root: {
+            borderColor: theme.colors.red[9],
+            backgroundColor: theme.colors.red[1],
+            '&::before': { backgroundColor: theme.red },
+          },
+
+          title: { color: theme.colors.red[5] },
+          closeButton: {
+            color: theme.colors.gray[6],
+            '&:hover': { backgroundColor: theme.colors.gray[4] },
+          },
+        }),
+      })
+    },
+    refetchQueries: [{ query: QUERY, variables: { load: loadMembers } }],
+  })
+
+  if (loading && loadMembers === 1) {
     return (
-      <div style={{ textAlign: 'center' }}>
-        <Loader variant="oval" size="md" color="white" />
+      <div
+        style={{
+          textAlign: 'center',
+          alignItems: 'center',
+          marginTop: '100px',
+        }}
+      >
+        <Loader variant="oval" size="md" color="blue" />
       </div>
     )
   }
-  // if (error) return `Error! ${error.message}`
-
+  const totalMembers = data?.membersLoad?.count
   const handleLoadMembers = () => {
     if (membersRender.length >= data?.membersLoad?.count) {
       return showNotification({
-        title: 'All users have been loaded!',
+        title: 'All members have been loaded!',
         autoClose: 4000,
         radius: 'md',
         styles: (theme) => ({
@@ -75,7 +151,6 @@ const MembersLoad = () => {
             height: '60px',
             borderColor: theme.colors.gray[6],
             backgroundColor: theme.colors.gray[7],
-
             '&::before': { backgroundColor: theme.white },
           },
           title: {
@@ -98,6 +173,7 @@ const MembersLoad = () => {
       setLoadMembers((prev) => prev + 1)
     }
   }
+
   const handleMouseEnter = (idx) => {
     setTimeout(() => {
       iconRefs.current[idx].classList.add('hovered')
@@ -109,9 +185,60 @@ const MembersLoad = () => {
     }, 400)
   }
 
-  const handleModal = () => {
+  const handleModal = (idx) => {
+    if (findIndexChange(membersQuery, membersRender) >= 0) {
+      setMembersRender((prev) => {
+        prev.splice(
+          idx,
+          1,
+          membersQuery[findIndexChange(membersQuery, membersRender)]
+        )
+        return prev
+      })
+    }
     setOpened(false)
+    setOpenProfile(false)
   }
+
+  const handleDelete = (id, idx) => {
+    if (!hasRole(['admin', 'manager'])) {
+      return showNotification({
+        color: 'red',
+        title: 'Error! Only admin, manager can use this feature',
+        autoClose: 3000,
+        radius: 'md',
+        styles: (theme) => ({
+          root: {
+            borderColor: theme.colors.red[9],
+            backgroundColor: theme.colors.red[1],
+            '&::before': { backgroundColor: theme.red },
+          },
+
+          title: { color: theme.colors.red[5] },
+          closeButton: {
+            color: theme.colors.gray[6],
+            '&:hover': { backgroundColor: theme.colors.gray[4] },
+          },
+        }),
+      })
+    }
+    openConfirmModal({
+      title: 'Please Confirm Your Action!',
+      children: <p>Are you sure want to delete this member?</p>,
+      labels: { confirm: 'Delete', cancel: 'Cancel' },
+      confirmProps: { color: 'red' },
+      onConfirm: () => {
+        deleteMember({
+          variables: { id },
+        })
+        setMembersRender((prev) => {
+          prev.splice(idx, 1)
+          return prev
+        })
+      },
+    })
+  }
+
   return (
     <>
       <div className="members-wrapper">
@@ -122,30 +249,28 @@ const MembersLoad = () => {
             onMouseEnter={() => handleMouseEnter(idx)}
             onMouseLeave={() => handleMouseLeave(idx)}
           >
-            <Link to={routes.member({ id: member.id })} title="View Profile">
-              <Avatar
-                src={member.urlAvatar}
-                radius="50%"
-                size="80px"
-                mt={-30}
-                color="cyan"
-                styles={() => ({
-                  root: {
-                    border: '3px solid #1A1B1E',
-                    '@media(max-width: 768px)': {
-                      minWidth: '60px',
-                      width: '60px',
-                      height: '60px',
-                    },
+            <Avatar
+              src={member.urlAvatar}
+              radius="50%"
+              size="80px"
+              mt={-40}
+              color="cyan"
+              styles={() => ({
+                root: {
+                  border: '3px solid #1A1B1E',
+                  '@media(max-width: 768px)': {
+                    minWidth: '60px',
+                    width: '60px',
+                    height: '60px',
                   },
-                })}
-              />{' '}
-            </Link>
-            <Text align="center" size="20px" weight={500}>
+                },
+              })}
+            />
+            <Text align="center" size="20px" weight={500} color="#A61E4D">
               {member.name}
             </Text>
             <Text align="center" size="md">
-              {new Date(member.birthDate).toLocaleDateString('sv')}
+              {new Date(member.birthDate).toLocaleDateString('pt-BR')}
             </Text>
             <Text align="center" size="md">
               {member.phoneNumber}
@@ -161,7 +286,6 @@ const MembersLoad = () => {
             </Text>
             <Menu
               width={200}
-              height={90}
               trigger="hover"
               openDelay={300}
               closeDelay={100}
@@ -175,8 +299,8 @@ const MembersLoad = () => {
                   background: '#25262B',
                 },
                 item: {
-                  margin: '4px 0',
-                  ':hover': {
+                  margin: '2px 0',
+                  ':hover:not(:last-child)': {
                     color: '#000',
                   },
                 },
@@ -190,33 +314,81 @@ const MembersLoad = () => {
               </Menu.Target>
               <Menu.Dropdown>
                 <Menu.Item
+                  color="white"
+                  icon={<IconEye size={20} />}
                   onClick={() => {
                     setMember(member)
+                    setIdx(idx)
+                    setOpenProfile(true)
+                  }}
+                >
+                  View Profile
+                </Menu.Item>
+                <Divider />
+                <Menu.Item
+                  onClick={() => {
+                    setMember(member)
+                    setIdx(idx)
                     setOpened(true)
                   }}
                   color="white"
-                  icon={<IconEdit size={16} />}
+                  icon={<IconEdit size={20} />}
                 >
-                  Update Member
+                  Update
                 </Menu.Item>
                 <Divider />
-                <a
-                  target="_blank"
-                  href="https://mail.google.com/mail/u/0/#inbox"
+                <Menu.Item
+                  color="white"
+                  icon={<IconMail size={20} />}
+                  onClick={() => window.open('https://mail.google.com')}
                 >
-                  <Menu.Item color="white" icon={<IconMail size={16} />}>
-                    Send Email
-                  </Menu.Item>
-                </a>
+                  Send Email
+                </Menu.Item>
                 <Divider />
-                <Menu.Item color="red" icon={<IconTrash size={16} />}>
-                  Delete Member
+                <Menu.Item
+                  color="red"
+                  icon={<IconTrash size={20} />}
+                  onClick={() => handleDelete(+member.id, idx)}
+                >
+                  Delete
                 </Menu.Item>
               </Menu.Dropdown>
             </Menu>
           </div>
         ))}
 
+        <Modal
+          // title="Member Profile"
+          opened={openProfile}
+          onClose={() => setOpenProfile(false)}
+          zIndex={3}
+          overlayColor="transparent"
+          styles={() => ({
+            modal: {
+              marginTop: '20px',
+              backgroundColor: 'rgba(0, 0, 0, .9)',
+              '@media(min-width: 1024px)': {
+                marginTop: '50px',
+                marginLeft: '300px',
+                width: '700px',
+              },
+            },
+            header: {
+              fontSize: '1.4rem',
+              fontWeight: 500,
+              color: '#fff',
+            },
+            close: {
+              backgroundColor: '#f2f2f2',
+              marginRight: 10,
+              width: 32,
+              height: 32,
+              borderRadius: '50%',
+            },
+          })}
+        >
+          <Member member={member} handleModal={handleModal} idx={idx} />
+        </Modal>
         <Modal
           title="Update Member"
           opened={opened}
@@ -231,35 +403,43 @@ const MembersLoad = () => {
                 marginLeft: '300px',
               },
             },
-            header: {
-              fontSize: '1.4rem',
-              marginBottom: 0,
-              paddingBottom: 10,
+            title: {
+              margin: '0 auto',
+              fontSize: '28px',
               fontWeight: 500,
+              color: '#fff',
             },
             close: {
               backgroundColor: '#f2f2f2',
               marginRight: 10,
               width: 32,
               height: 32,
+              borderRadius: '50%',
             },
           })}
         >
-          <EditMember member={member} handleModal={handleModal} />
+          <EditMember member={member} handleModal={handleModal} idx={idx} />
         </Modal>
       </div>
-      <button
-        style={{
-          width: '200px',
-          padding: '10px 10px',
-          borderColor: '#753a88',
-          backgroundImage: 'linear-gradient(to right, #753a88, #C2255C)',
-        }}
-        className="btn-purple"
-        onClick={handleLoadMembers}
-      >
-        Load More
-      </button>
+      {totalMembers > 8 && (
+        <button
+          style={{
+            color: '#fff',
+            width: '200px',
+            padding: '10px 10px',
+            borderColor: '#753a88',
+            backgroundImage: 'linear-gradient(to right, #753a88, #C2255C)',
+          }}
+          className="btn-purple"
+          onClick={handleLoadMembers}
+        >
+          <ion-icon
+            style={{ fontSize: 24, marginRight: 10, fontWeight: 700 }}
+            name="sync-outline"
+          ></ion-icon>{' '}
+          Load More
+        </button>
+      )}
     </>
   )
 }

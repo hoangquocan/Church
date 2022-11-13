@@ -18,12 +18,12 @@ const EditUserRole = ({ user, handleModal }) => {
       showNotification({
         color: 'red',
         title: 'Role has been deleted!',
-        autoClose: 3000,
+        autoClose: 4000,
         radius: 'md',
         styles: (theme) => ({
           root: {
-            borderColor: theme.colors.red[4],
-
+            borderColor: theme.colors.red[7],
+            backgroundColor: theme.colors.red[2],
             '&::before': { backgroundColor: theme.red },
           },
 
@@ -43,7 +43,6 @@ const EditUserRole = ({ user, handleModal }) => {
     awaitRefetchQueries: true,
   })
   const handleDelete = (id) => {
-    console.log(id)
     openConfirmModal({
       title: 'Please Confirm Your Action!',
       children: <p>Are you sure want to delete this Role of User</p>,
@@ -65,7 +64,7 @@ const EditUserRole = ({ user, handleModal }) => {
         {user.email}
       </Text>
       {user.userRoles.map((role) => (
-        <Group position='center'>
+        <Group key={role.id} position='center'>
 
         <Text key={role.id} align="center" size="lg" weight={400}>
           {role.name == 'user' ? null : role.name.toUpperCase()}

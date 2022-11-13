@@ -4,60 +4,22 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  margin: 0 auto;
-  background: #2C2E33;
+  background: #2c2e33;
   max-width: 31em;
   border-radius: 10px;
   margin: 20px auto;
   @media (min-width: 480px) {
     padding: 20px 40px 40px;
-    max-width:  40em;
+    max-width: 40em;
   }
   @media (min-width: 769px) {
     padding: 20px 60px 40px;
-    max-width:  55em;
-  }
-  .datepicker-month {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    input {
-      width: 100%;
-      padding-left: 20px;
-      margin: 20px 0;
-      height: 2.5rem;
-      font-size: 16px;
-      border-radius: 5px;
-      background-color: #fff;
-      border: 1px solid rgb(143, 142, 142);
-      box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px,
-        rgba(0, 0, 0, 0.23) 0px 3px 6px;
-      appearance: none;
-      background-image: linear-gradient(45deg, transparent 50%, #495057 50%),
-        linear-gradient(135deg, #343a40 50%, transparent 50%),
-        linear-gradient(to right, #ccc, #ccc);
-      background-position: calc(100% - 20px) calc(1em + 0px),
-        calc(100% - 15px) calc(1em + 0px), calc(100% - 2.5em) 0.5em;
-      background-size: 5px 5px, 5px 5px, 1px 1.3em;
-      background-repeat: no-repeat;
-      &:hover {
-        cursor: pointer;
-      }
-      &:focus {
-        box-shadow: var(--box-shadow-input-focus);
-        border-color: var(--border-color-input-focus);
-      }
-      @media (max-width: 768px) {
-        height: 2.1rem;
-      }
-
-    }
+    max-width: 55em;
   }
 
-  h3,h4{
+  h2,
+  h3,
+  h4 {
     margin-bottom: 10px;
   }
   .export-questions {
@@ -67,10 +29,9 @@
     border-radius: 10px;
     margin: 20px 0;
     line-height: 1.6;
-    // max-width: 38em;
+    width: 100%;
   }
   .export-answers {
-    // max-width: 38em;
     width: 100%;
     background-color: #fff;
     color: #000;
@@ -86,13 +47,59 @@
     }
   }
   p:nth-child(2) {
-    color: #1864AB;
+    color: #1864ab;
   }
   p:nth-child(3) {
-    color: #F59F00
-    ;
+    color: #f59f00;
   }
   p:nth-child(4) {
-    color: #D6336C;
+    color: #d6336c;
+  }
+}
+
+.datepicker-month {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto;
+  width: 380px;
+  input {
+    text-align: center;
+    width: 100%;
+    height: 2.5rem;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 20px;
+    background-color: #fff;
+    border: 1px solid rgb(238, 223, 223);
+    box-shadow: rgba(0, 0, 0, 0.8) 0px 3px 6px, rgba(0, 0, 0, 0.6) 0px 3px 6px;
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, #495057 50%),
+      linear-gradient(135deg, #343a40 50%, transparent 50%),
+      linear-gradient(to right, #868e96, #868e96);
+    background-position: calc(100% - 26px) calc(1em + 1px),
+      calc(100% - 19px) calc(1em + 1px), calc(100% - 2.8em) 0.22em;
+    background-size: 7px 7px, 7px 7px, 1px 1.8em;
+    background-repeat: no-repeat;
+    &:focus {
+      // box-shadow: var(--box-shadow-input-focus);
+      // border-color: var(--border-color-input-focus);
+      background-image: linear-gradient(45deg, #2c2e33 50%, transparent 50%),
+        linear-gradient(135deg, transparent 50%, #2c2e33 50%),
+        linear-gradient(to right, #495057, #495057);
+      background-position: calc(100% - 19px) 1em, calc(100% - 26px) 1em,
+        calc(100% - 2.8em) 0.22em;
+    }
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  .react-datepicker,
+    .react-datepicker__header {
+      font-size: 20px;
+    }
+  @media (max-width: 768px) {
+    width: 340px;
   }
 }

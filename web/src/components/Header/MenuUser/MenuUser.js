@@ -17,7 +17,7 @@ const QUERY_USER = gql`
   }
 `
 const MenuUser = () => {
-  const [count, setCount] = useState(8)
+  // const [count, setCount] = useState(8)
   const [email, setEmail] = useState('')
   const { logOut, userMetadata } = useAuth()
 
@@ -33,12 +33,14 @@ const MenuUser = () => {
   if (data) {
     user = data.user
   }
-  // console.log(user)
   useEffect(() => {
     setTimeout(() => {
       const emailCurrent = userMetadata.email
       setEmail(emailCurrent)
     }, 2000)
+    return () => {
+      clearTimeout()
+    }
   }, [userMetadata])
 
   const onClick = async () => {
@@ -60,7 +62,7 @@ const MenuUser = () => {
 
   return (
     <div className="header-menu-user">
-      <Indicator label={""} inline size={19}>
+      <Indicator label={''} inline size={19}>
         <ion-icon
           style={{ color: '#06beb6' }}
           name="notifications-outline"
@@ -88,6 +90,7 @@ const MenuUser = () => {
             ml="md"
             styles={(theme) => ({
               root: {
+                boxShadow: 'inset 0 2px 4px 0 #46e6fc',
                 '@media (max-width: 480px)': {
                   minWidth: '40px',
                   width: '40px',
@@ -103,27 +106,31 @@ const MenuUser = () => {
               <ion-icon name="person-circle-outline"></ion-icon>View Profile
             </Menu.Item>
           </Link>
-          <Menu.Item onClick={ () => showNotification({
-        color: 'teal',
-        title: 'Sorry! We are updating this feature',
-        autoClose: 4000,
-        radius: 'md',
-        styles: (theme) => ({
-          root: {
-            borderColor: theme.colors.teal[7],
+          <Menu.Item
+            onClick={() =>
+              showNotification({
+                color: 'teal',
+                title: 'Sorry! We are updating this feature',
+                autoClose: 4000,
+                radius: 'md',
+                styles: (theme) => ({
+                  root: {
+                    borderColor: theme.colors.teal[7],
+                    backgroundColor: theme.colors.teal[1],
+                    '&::before': { backgroundColor: theme.teal },
+                  },
 
-            '&::before': { backgroundColor: theme.teal },
-          },
-
-          closeButton: {
-            color: theme.colors.gray[7],
-            '&:hover': {
-              color: theme.white,
-              backgroundColor: theme.colors.gray[6],
-            },
-          },
-        }),
-      })}>
+                  closeButton: {
+                    color: theme.colors.gray[7],
+                    '&:hover': {
+                      color: theme.white,
+                      backgroundColor: theme.colors.gray[6],
+                    },
+                  },
+                }),
+              })
+            }
+          >
             <ion-icon name="settings-outline"></ion-icon>Setting
           </Menu.Item>
           <Link to={routes.feedback()}>

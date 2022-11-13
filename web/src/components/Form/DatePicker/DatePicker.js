@@ -18,6 +18,7 @@ const DatePicker = ({ name, control, showTimeSelect, dateFormat }) => {
               showMonthDropdown
               showYearDropdown
               dropdownMode="select"
+              popperPlacement='bottom'
               showTimeSelect={showTimeSelect}
               className="datepicker"
             />

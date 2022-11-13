@@ -9,7 +9,6 @@ const ViewReportGroup = ({ report, time }) => {
   const timeReport = timeReverse.join('/')
   return (
     <div className="viewreport-wrapper">
-
       <div className="details">
         <div className="cards">
           <div className="cardname">

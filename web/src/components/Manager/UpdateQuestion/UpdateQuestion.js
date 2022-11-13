@@ -18,22 +18,18 @@ const UpdateQuestion = ({ question, handleModal }) => {
     onCompleted: () => {
       showNotification({
         title: 'Questions has been updated!',
-        autoClose: 3000,
+        autoClose: 4000,
         radius: 'md',
         containerWidth: '700px',
         styles: (theme) => ({
           root: {
-            borderColor: theme.colors.gray[8],
-            backgroundColor: theme.colors.gray[7],
+            borderColor: theme.colors.teal[8],
+            backgroundColor: theme.colors.teal[2],
 
-            '&::before': { backgroundColor: theme.white },
+            '&::before': { backgroundColor: theme.colors.teal[8] },
           },
           title: {
-            color: theme.white,
-          },
-          icon: {
-            backgroundColor: theme.white,
-            color: theme.white,
+            color: theme.colors.teal,
           },
           closeButton: {
             color: theme.colors.white,
@@ -44,9 +40,9 @@ const UpdateQuestion = ({ question, handleModal }) => {
           },
         }),
       }),
-      handleModal()
+        handleModal()
     },
-    refetchQueries: [{ query: QUERY}]
+    refetchQueries: [{ query: QUERY }],
   })
   const form = useForm({
     initialValues: {
@@ -85,13 +81,14 @@ const UpdateQuestion = ({ question, handleModal }) => {
   }
   return (
     <div>
-      <Divider size="sm" mb="0px" ml="-20px" mr="-20px" />
+      <Divider size="sm" mb="10px" ml="-20px" mr="-20px" />
 
-      <form  onSubmit={form.onSubmit(handleUpdate)}>
+      <form onSubmit={form.onSubmit(handleUpdate)}>
         <Textarea
           label="Question One"
           autosize
           minRows={3}
+          mt={20}
           autoFocus
           {...form.getInputProps('questionOne')}
         />
@@ -99,31 +96,33 @@ const UpdateQuestion = ({ question, handleModal }) => {
           label="Question Two"
           autosize
           minRows={3}
+          mt={20}
           {...form.getInputProps('questionTwo')}
         />
         <Textarea
           label="Question Three"
           autosize
+          mt={20}
           minRows={3}
           {...form.getInputProps('questionThree')}
         />
-      <Divider size="sm" mb="20px" mt="10px" ml="-20px" mr="-20px" />
-      <Group position="center">
-        <Button
-          variant="default"
-          onClick={handleModal}
-          style={{ width: '100px', margin: '6px', fontWeight: '400' }}
-        >
-          Cancel
-        </Button>
-        <Button
-        type='submit'
-          variant="default"
-          style={{ width: '100px', margin: '6px', fontWeight: '400' }}
-        >
-          Update
-        </Button>
-      </Group>
+        <Divider size="sm" mb="20px" mt="20px" ml="-20px" mr="-20px" />
+        <Group position="center">
+          <Button
+            variant="default"
+            onClick={handleModal}
+            style={{ width: '100px', margin: '6px', fontWeight: '400' }}
+          >
+            Cancel
+          </Button>
+          <Button
+            type="submit"
+            variant="default"
+            style={{ width: '100px', margin: '6px', fontWeight: '400' }}
+          >
+            Update
+          </Button>
+        </Group>
       </form>
     </div>
   )

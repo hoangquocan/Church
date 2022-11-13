@@ -1,22 +1,23 @@
-import MembersLoad from "../MembersLoad/MembersLoad"
+import MembersLoad from '../MembersLoad/MembersLoad'
 
 export const QUERY = gql`
   query MembersLoadQuery($load: Int!) {
     membersLoad(load: $load) {
-      members{id
-      name
-      phoneNumber
-      email
-      birthDate
-      urlAvatar
-      group{
+      members {
         id
         name
+        phoneNumber
+        email
+        birthDate
+        urlAvatar
+        group {
+          id
+          name
+        }
+        address
+        createdAt
       }
-      address
-      createdAt
-      }
-    count
+      count
     }
   }
 `
@@ -35,5 +36,10 @@ export const Failure = ({ error }) => (
 )
 
 export const Success = ({ membersLoad, handleLoadMembers }) => {
-  return <MembersLoad members={membersLoad.members} handleLoadMembers={handleLoadMembers}/>
+  return (
+    <MembersLoad
+      members={membersLoad.members}
+      handleLoadMembers={handleLoadMembers}
+    />
+  )
 }

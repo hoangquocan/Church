@@ -1,7 +1,7 @@
 import { useMutation } from '@redwoodjs/web'
 import { navigate, routes } from '@redwoodjs/router'
 import { showNotification, updateNotification } from '@mantine/notifications'
-
+import { QUERY } from '../MembersLoad'
 import MemberForm from 'src/components/Member/MemberForm'
 
 const CREATE_MEMBER_MUTATION = gql`
@@ -39,15 +39,15 @@ const NewMember = () => {
         setTimeout(() => {
           updateNotification({
             id: 'load-data',
-            // color: 'cyan',
+            color: 'blue',
             title: 'Member Has Been Created!',
             message: 'You can add member to one Group',
-            // icon: <ion-icon name="checkmark-outline"></ion-icon>,
             autoClose: 3000,
             radius: 'md',
             styles: (theme) => ({
               root: {
-                borderColor: theme.colors.blue[5],
+                borderColor: theme.colors.blue[9],
+                backgroundColor: theme.colors.blue[2],
                 '&::before': { backgroundColor: theme.blue },
               },
               closeButton: {
@@ -60,9 +60,7 @@ const NewMember = () => {
             }),
           })
         }, 1000)
-        setTimeout(() => {
-          navigate(routes.members())
-        }, 1200)
+        navigate(routes.home())
       },
     }
   )

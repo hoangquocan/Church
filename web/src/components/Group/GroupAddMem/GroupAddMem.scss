@@ -1,14 +1,11 @@
 .group-addmem {
   width: 100%;
-  margin: 10px auto;
-  // min-height: 480px;
+  margin: 40px auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   padding: 20px 50px;
-  // @media (max-width: 640px) {
-  //   min-height: 580px;
-  // }
   @media (max-width: 480px) {
     padding: 20px 4px;
   }
@@ -22,18 +19,7 @@
     }
   }
 
-  img {
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    @media (max-width: 480px) {
-      width: 30px;
-      height: 30px;
-    }
-  }
   table {
-    // position: absolute;
-    // top: 40px;
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
@@ -65,11 +51,6 @@
   table tr:first-child th:last-child {
     border-top-right-radius: 18px;
   }
-  // table tr:first-child th:nth-last-child(3) {
-  //   @media (max-width: 480px) {
-  //     border-top-right-radius: 18px;
-  //   }
-  // }
   table tr:not(:first-child) {
     counter-increment: rowNumber;
   }
@@ -83,7 +64,7 @@
   th {
     font-family: 'Dancing Script', cursive;
     background-color: var(--bg-active);
-    font-size: 1rem;
+    font-size: 16px;
     font-weight: 400;
   }
   table tr:last-child {

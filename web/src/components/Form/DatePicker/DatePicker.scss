@@ -1,33 +1,41 @@
 .datepicker-wrapper {
   position: relative;
   height: 40px;
-  border-radius: var(--br-20);
+  border-radius: 30px;
   z-index: 99;
   background-color: #fff;
+  // border: var(--border-input);
+  border:none;
+  &:hover {
+    // box-shadow: var(--box-shadow-input-focus);
+    // border-color: #f5095c;
+    transform: scaleY(1.04);
+  }
+  &:focus-within {
+    transform: scaleY(1.04);
+  }
+
   .datepicker-icon {
     position: absolute;
-    right: 12px;
-    top: 55%;
+    right: 16px;
+    top: 52%;
     transform: translateY(-50%);
-    color: #615f5fe5;
+    color: #495057;
     z-index: -1;
     ion-icon {
       width: 30px;
       height: 28px;
     }
   }
-}
-.datepicker {
-  z-index: 4;
-  box-shadow: inset 0 1px 2px #adb5bd;
-  background-color: transparent;
-  border-radius: var(--br-20);
-  border: var(--border-input);
-  &:focus {
-    box-shadow: var(--box-shadow-input-focus);
-    border-color: var(--border-color-input-focus);
-  }
   &:hover {
     cursor: pointer;
   }
+}
+.datepicker {
+  z-index: 4;
+  background-color: transparent;
+
+}
+.react-datepicker__day--weekend {
+color: #D50000;
 }

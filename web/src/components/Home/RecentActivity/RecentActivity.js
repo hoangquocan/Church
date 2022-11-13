@@ -23,69 +23,84 @@ const RecentActivity = ({ activities }) => {
     activityThree?.attendance?.length == activityOne?.attendance?.length
   for (let i = 0; i < totalMembers; i++) {
     members[i].attOne = attendanceOne[i]
-    trueMemberTwo ? members[i].attTwo = attendanceTwo[i] : null
-    trueMemberThree ? members[i].attThree = attendanceThree[i] : null
+    trueMemberTwo ? (members[i].attTwo = attendanceTwo[i]) : null
+    trueMemberThree ? (members[i].attThree = attendanceThree[i]) : null
   }
-
+  const timetag = (datetime) => {
+    return (
+      <time dateTime={datetime} title={datetime}>
+        {new Date(datetime).toLocaleDateString('pt-BR')}
+      </time>
+    )
+  }
+console.log(activities)
+console.log('activities')
   return (
-    <div className="recentActivity-wrapper">
-      <table>
-        <thead>
-          <tr>
-            <th></th>
-            <th>{new Date(activityOne.date).toLocaleDateString()}</th>
-            {trueMemberTwo && <th>{new Date(activityTwo.date).toLocaleDateString()}</th>}
-            {trueMemberThree && <th>{new Date(activityThree?.date).toLocaleDateString()}</th>}
-          </tr>
-        </thead>
-        <tbody>
-          {members.map((item, i) => (
-            <tr key={i}>
-              <td className="members">
-                <Group spacing="xs">
-                  <Avatar
-                    src={item.urlAvatar}
-                    radius="50%"
-                    size="50px"
-                    color="cyan"
-                    styles={() => ({
-                      root: {
-                        border: '2px solid #25262B',
-
-                        '@media(max-width: 1024px)': {
-                          minWidth: '40px',
-                          width: '40px',
-                          height: '40px',
-                        },
-                        '@media(max-width: 480px)': {
-                          minWidth: '30px',
-                          width: '36px',
-                          height: '36px',
-                        },
-                      },
-                    })}
-                  />
-                  <Stack spacing={4}>
-                    <p>{item.name}</p>
-                    <span>{item.phone}</span>
-                  </Stack>
-                </Group>
-              </td>
-              <td className={item.attOne ? 'Present' : 'Absent'}>
-                {item.attOne ? 'Present' : 'Absent'}
-              </td>
-              {trueMemberTwo && <td className={item.attTwo ? 'Present' : 'Absent'}>
-                {item.attTwo ? 'Present' : 'Absent'}
-              </td>}
-              {trueMemberThree && <td className={item.attThree ? 'Present' : 'Absent'}>
-                {item.attThree ? 'Present' : 'Absent'}
-              </td>}
+    <div>
+      <h1 className='text-title'>Recent Activities</h1>
+      <div className="recentActivity-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th>{timetag(activityOne.date)}</th>
+              {trueMemberTwo && <th>{timetag(activityTwo.date)}</th>}
+              {trueMemberThree && <th>{timetag(activityThree?.date)}</th>}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {members.map((item, i) => (
+              <tr key={i}>
+                <td className="members">
+                  <Group spacing="xs">
+                    <Avatar
+                      src={item.urlAvatar}
+                      radius="50%"
+                      size="50px"
+                      color="cyan"
+                      styles={() => ({
+                        root: {
+                          // border: '2px solid #909296',
+                          boxShadow: 'inset 0 2px 4px 0 hsla(0, 0%, 0%, 0.7)',
+                          '@media(max-width: 1024px)': {
+                            minWidth: '40px',
+                            width: '40px',
+                            height: '40px',
+                          },
+                          '@media(max-width: 480px)': {
+                            minWidth: '30px',
+                            width: '36px',
+                            height: '36px',
+                          },
+                        },
+                      })}
+                    />
+                    <Stack spacing={4}>
+                      <p>{item.name}</p>
+                      <span>{item.phone}</span>
+                    </Stack>
+                  </Group>
+                </td>
+                <td className={item.attOne ? 'Present' : 'Absent'}>
+                  {item.attOne ? 'Present' : 'Absent'}
+                </td>
+                {trueMemberTwo && (
+                  <td className={item.attTwo ? 'Present' : 'Absent'}>
+                    {item.attTwo ? 'Present' : 'Absent'}
+                  </td>
+                )}
+                {trueMemberThree && (
+                  <td className={item.attThree ? 'Present' : 'Absent'}>
+                    {item.attThree ? 'Present' : 'Absent'}
+                  </td>
+                )}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   )
 }
 
-export default memo(RecentActivity)
+export default RecentActivity

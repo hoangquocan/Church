@@ -35,13 +35,13 @@ export const Empty = () => {
       >
         <ion-icon
           style={{ padding: '5px', fontSize: '2rem' }}
-          name="arrow-back-circle-outline"
+          name="arrow-undo-outline"
         ></ion-icon>
         Go Back
       </button>
     </>
   )
 }
-export const Success = ({ membersNoGroup, id }) => {
-  return <GroupAddMem members={membersNoGroup} id={id} />
+export const Success = ({ membersNoGroup, id, name }) => {
+  return <GroupAddMem members={membersNoGroup} id={id} name={name}/>
 }

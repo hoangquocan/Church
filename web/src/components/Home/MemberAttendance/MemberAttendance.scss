@@ -1,38 +1,48 @@
 .memberAttendance-wrapper {
-  margin-top: 30px;
-  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  // align-items: center;
   text-align: center;
   box-shadow: 1px 10px 15px rgba(0, 0, 0, 0.9);
   border-radius: 10px;
+  margin-bottom: 30px;
   padding: 20px;
-  background: #373A40;
-  background: linear-gradient( to right, #2C2E33,#373A40);
-  color: #fff;
+  // width: 100%;
+  min-height: 1250px;
+  min-width: 400px;
+  background: #fff;
   font-weight: 500;
   .mantine-Group-root {
     padding: 10px;
-    border-radius: 10px;
+    border-top: 1px solid #0000ff;
+    &:nth-child(2n) {
+      background-color: #f2f2f2;
+    }
     &:hover {
-      background: #5C5F66;
+      background: #9fcbf5;
     }
   }
   .member-maxPresent {
-    margin-bottom: 20px;
-    max-width: 400px;
+    min-width: 360px;
+    margin: 0 auto;
     span:first-child,
     ion-icon {
       font-size: 36px;
-      color: blue;
+      color: #0000ff;
+      // margin-bottom: 10px;
     }
     span {
-      color: blue;
+      color: #0000ff;
+      margin-bottom: 10px;
       font-size: 20px;
     }
   }
   .member-minPresent {
-    max-width: 400px;
-    line-height: normal;
+    min-width: 360px;
+    margin: 0 auto;
     .mantine-Group-root {
+      border-top: 1px solid #ff6b6b;
       &:hover {
         background: #ff6b6b;
       }

@@ -1,6 +1,7 @@
 import { useMutation } from '@redwoodjs/web'
 import { openConfirmModal } from '@mantine/modals'
 import { showNotification } from '@mantine/notifications'
+import { Avatar } from '@mantine/core'
 import { QUERY } from '../GroupAddMemCell'
 
 import './GroupAddMem.scss'
@@ -13,20 +14,19 @@ const UPDATE_MEMBER = gql`
     }
   }
 `
-const GroupAddMem = ({ members, id }) => {
+const GroupAddMem = ({ members, id, name }) => {
   const [updateMember, { loading, error }] = useMutation(UPDATE_MEMBER, {
     onCompleted: () => {
       showNotification({
         color: 'teal',
         title: 'Member Has Been Added!',
         message: 'You can add another member to this Group',
-        // icon: <ion-icon name="checkmark-outline"></ion-icon>,
-        autoClose: 3000,
+        autoClose: 4000,
         radius: 'md',
         styles: (theme) => ({
           root: {
             borderColor: theme.colors.teal[7],
-
+            backgroundColor: theme.colors.teal[2],
             '&::before': { backgroundColor: theme.teal },
           },
 
@@ -54,6 +54,9 @@ const GroupAddMem = ({ members, id }) => {
 
   return (
     <div className="group-addmem">
+    <h2 className="text-title" >
+        Add Member To {name}
+      </h2>
       <table cellSpacing="0">
         <thead>
           <tr>
@@ -70,11 +73,7 @@ const GroupAddMem = ({ members, id }) => {
           {members.map((member) => (
             <tr key={member.id}>
               <td>
-                {member.urlAvatar ? (
-                  <img src={member.urlAvatar} alt="Avatar" />
-                ) : (
-                  <ion-icon name="person-outline"></ion-icon>
-                )}
+                <Avatar src={member.urlAvatar} color="blue" size={60} radius="50%"/>
               </td>
               <td>{member.name}</td>
               <td>{new Date(member.birthDate).toLocaleDateString('sv')}</td>

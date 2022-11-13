@@ -1,13 +1,11 @@
 import { useMutation } from '@redwoodjs/web'
-import { useState, useMemo } from 'react'
-import { navigate, routes } from '@redwoodjs/router'
+import { useState, useMemo, useRef } from 'react'
 import { PickerInline } from 'filestack-react'
+import {navigate, routes} from '@redwoodjs/router'
 import { showNotification } from '@mantine/notifications'
 import { openConfirmModal } from '@mantine/modals'
-import { Form, CheckboxField, Label, FieldError } from '@redwoodjs/forms'
+import { Form } from '@redwoodjs/forms'
 
-import Button from 'src/components/Form/Button'
-// import 'src/components/Member/MemberForm/MemberForm.scss'
 import './Attendance.scss'
 
 const CREATE_ATTENDANCE = gql`
@@ -34,23 +32,25 @@ const Attendance = ({ activity, handleModal }) => {
   const [isChoose, setIsChoose] = useState(false)
   const [nameAttendance, setNameAttendance] = useState('')
 
-  const members = activity.group.members
+  const members = activity.group?.members
+  const groupId = activity.group.id
   const [checkedState, setCheckedState] = useState(
     new Array(members.length).fill(false)
   )
 
+  const checkAllRef = useRef()
   const [updateActivity, { error }] = useMutation(UPDATE_ACTIVITY)
   const [createAttendance, { loading }] = useMutation(CREATE_ATTENDANCE, {
     onCompleted: () => {
       showNotification({
         color: 'blue',
-        title: 'Thank You! Your Result Has Been Saved',
-        autoClose: 3000,
+        title: 'Done! Your Result Has Been Saved',
+        autoClose: 4000,
         radius: 'md',
         styles: (theme) => ({
           root: {
-            borderColor: theme.colors.blue[7],
-
+            borderColor: theme.colors.blue[9],
+            backgroundColor: theme.colors.blue[2],
             '&::before': { backgroundColor: theme.blue },
           },
 
@@ -62,8 +62,9 @@ const Attendance = ({ activity, handleModal }) => {
             },
           },
         }),
-      })
-      navigate(routes.attendance())
+      }),
+        navigate(routes.activity({id: activity.id}))
+        // handleModal()
     },
   })
 
@@ -89,6 +90,7 @@ const Attendance = ({ activity, handleModal }) => {
   }, [checkedState])
 
   const onSubmit = (result) => {
+    // console.log(activity.urlAttendance)
     // if (urlAttendance == '') {
     //   return showNotification({
     //     color: 'red',
@@ -98,12 +100,12 @@ const Attendance = ({ activity, handleModal }) => {
     //     autoClose: false,
     //     styles: (theme) => ({
     //       root: {
-    //         borderColor: theme.colors.red[4],
-
+    //         borderColor: theme.colors.red[9],
+    // backgroundColor: theme.colors.red[1],
     //         '&::before': { backgroundColor: theme.red },
     //       },
 
-    //       title: { color: theme.colors.red[5] },
+    //       title: { color: theme.colors.red[7] },
     //       closeButton: {
     //         color: theme.colors.gray[7],
     //         '&:hover': {
@@ -114,17 +116,16 @@ const Attendance = ({ activity, handleModal }) => {
     //     }),
     //   })
     // }
-    if (urlAttendance !== '') {
-      updateActivity({
-        variables: { id: activity.id, input: { urlAttendance } },
-      })
-    }
+    // if (urlAttendance !== '') {
+    updateActivity({
+      variables: { id: activity.id, input: { urlAttendance } },
+    })
+    // }
     openConfirmModal({
       title: 'Please Confirm Your Action!',
       children: <p>Are you sure save attendance?</p>,
       labels: { confirm: 'Yes', cancel: 'Cancel' },
-      onConfirm: () =>
-      createAttendance({ variables: { input: result } }),
+      onConfirm: () => createAttendance({ variables: { input: result } }),
     })
   }
   const onFileUpload = (response) => {
@@ -134,6 +135,9 @@ const Attendance = ({ activity, handleModal }) => {
   const handleImg = () => {
     setUrlAttendance(null)
     setNameAttendance(null)
+  }
+  const handleCheckAll = (e) => {
+    setCheckedState(new Array(members.length).fill(e.target.checked))
   }
   return (
     <div className="attendance-wrapper">
@@ -151,14 +155,31 @@ const Attendance = ({ activity, handleModal }) => {
               <th>Nhóm Tham Gia</th>
               <th>{activity.group.name}</th>
             </tr>
+            <tr
+              style={{
+                color: '#A61E4D',
+              }}
+            >
+              <th>
+                <span>Present All</span>
+              </th>
+              <th>
+                <input
+                  ref={checkAllRef}
+                  type="checkbox"
+                  onChange={(e) => handleCheckAll(e)}
+                />
+              </th>
+            </tr>
           </thead>
           <tbody>
             {activity.group.members.map((member, index) => (
               <tr key={member.id}>
                 <td>{member.name}</td>
-                <td className='attendance-checkbox'>
+                <td className="attendance-checkbox">
                   <span>Present</span>
-                  <input type="checkbox"
+                  <input
+                    type="checkbox"
                     name="present"
                     checked={checkedState[index]}
                     value={checkedState[index]}
@@ -169,9 +190,9 @@ const Attendance = ({ activity, handleModal }) => {
             ))}
           </tbody>
         </table>
-        <Label name="urlAttendance">
+        <label>
           Picture<span> (Take a picture of your activity )</span>
-        </Label>
+        </label>
         <div className="attendance-imgpicker">
           <input
             name="urlAttendance"
@@ -182,7 +203,6 @@ const Attendance = ({ activity, handleModal }) => {
           />
           <ion-icon name="image-outline"></ion-icon>
         </div>
-        <FieldError name="urlAttendance" />
         {isChoose && (
           <PickerInline
             apikey={process.env.REDWOOD_ENV_FILESTACK_API_KEY}
@@ -202,11 +222,9 @@ const Attendance = ({ activity, handleModal }) => {
             <input type="button" onClick={handleImg} value="Replace Picture" />
           </div>
         )}
-        {/* <div className="form-btn-secondary"> */}
-          <button className='btn-purple' disabled={loading}>
-            Submit
-          </button>
-        {/* </div> */}
+        <button className="btn-purple" disabled={loading}>
+          <ion-icon name="arrow-redo-outline"></ion-icon>Submit
+        </button>
       </Form>
     </div>
   )

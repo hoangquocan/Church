@@ -21,7 +21,7 @@ export const QUERY = gql`
 
 export const Loading = () => (
   <div style={{ textAlign: 'center' }}>
-    <Loader variant="oval" size="md" color="dark" />
+    <Loader variant="oval" size="md" color="blue" />
   </div>
 )
 

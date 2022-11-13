@@ -70,13 +70,12 @@ const SignUp = ({ handleLogin }) => {
         showNotification({
           color: 'blue',
           title: 'Welcome! User Created Success',
-          icon: <ion-icon name="checkmark-outline"></ion-icon>,
-          autoClose: 1500,
+          autoClose: 2000,
           radius: 'md',
           styles: (theme) => ({
             root: {
-              borderColor: theme.colors.blue[7],
-
+              borderColor: theme.colors.blue[9],
+              backgroundColor: theme.colors.blue[2],
               '&::before': { backgroundColor: theme.blue },
             },
 
@@ -100,8 +99,8 @@ const SignUp = ({ handleLogin }) => {
           autoClose: false,
           styles: (theme) => ({
             root: {
-              borderColor: theme.colors.red[4],
-
+              borderColor: theme.colors.red[7],
+              backgroundColor: theme.colors.blue[1],
               '&::before': { backgroundColor: theme.red },
             },
 
@@ -118,7 +117,6 @@ const SignUp = ({ handleLogin }) => {
       })
   }
   const handleEmail = () => {
-    console.log(emailRef.current)
     emailRef.current.classList.add('focus')
   }
   const handlePassword = () => {
@@ -135,23 +133,21 @@ const SignUp = ({ handleLogin }) => {
           <TextInput variant="unstyled" {...form.getInputProps('email')} />
           <label ref={emailRef}>Email</label>
         </div>
-        <div className="inputLogin" onClick={handlePassword}>
+        <div className="inputLogin" onFocus={handlePassword}>
           <PasswordInput
             variant="unstyled"
             {...form.getInputProps('password')}
           />
           <label ref={passwordRef}>Password</label>
         </div>
-        <div className="inputLogin" onClick={handleCfPassword}>
+        <div className="inputLogin" onFocus={handleCfPassword}>
           <PasswordInput
             variant="unstyled"
             {...form.getInputProps('confirmPassword')}
           />
           <label ref={confirmPasswordRef}>Comfirm Password</label>
         </div>
-        {/* <div className="btn-cyan"> */}
           <button className="btn-purple" type="submit">Sign Up</button>
-        {/* </div> */}
       </form>
     </div>
   )
