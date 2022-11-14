@@ -8,7 +8,7 @@
 [web]
   title = "Church System"
   port = 8910
-  apiUrl = "/api"
+  apiUrl = "/.netlify/functions"
   includeEnvironmentVariables = ['FIREBASE_API_KEY', 'FIREBASE_AUTH_DOMAIN', 'FIREBASE_PROJECT_ID', 'FIREBASE_STORAGE_BUCKET', 'FIREBASE_MESSAGING_SENDER_ID', 'FIREBASE_APP_ID'] # any ENV vars that should be available to the web side, see https://redwoodjs.com/docs/environment-variables#web
 [api]
   port = 8911
