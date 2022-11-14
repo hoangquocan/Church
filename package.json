@@ -8,8 +8,8 @@
     ]
   },
   "devDependencies": {
-    "@redwoodjs/core": "^2.2.4",
-    "@redwoodjs/graphql-server": "^2.2.4"
+    "@redwoodjs/core": "^3.4.0",
+    "@redwoodjs/graphql-server": "^3.4.0"
   },
   "eslintConfig": {
     "extends": "@redwoodjs/eslint-config",
