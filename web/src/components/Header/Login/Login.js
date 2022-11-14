@@ -32,7 +32,7 @@ const QUERY_USER = gql`
   }
 `
 const Login = ({ handleLogin }) => {
-  const { isAuthenticated, logIn, userMetadata } = useAuth()
+  const { logIn } = useAuth()
 
   const [createUser] = useMutation(CREATE_USER)
   const [createUserRole] = useMutation(CREATE_USERROLE)
@@ -41,15 +41,6 @@ const Login = ({ handleLogin }) => {
   const usernameRef = useRef()
   const passwordRef = useRef()
 
-  // useEffect(() => {
-  //   document.addEventListener('click', handleClickOutside, true)
-  //   return () => document.removeEventListener('click', handleClickOutside, true)
-  // }, [])
-  // const handleClickOutside = (e) => {
-  //   // if (!usernameRef.current.contains(e.target)) {
-  //   //   usernameRef.current.classList.remove('focus')
-  //   // }
-  // }
   let userExist = []
   if (data) {
     userExist = data.usersExist.map((user) => user.email)
@@ -69,7 +60,6 @@ const Login = ({ handleLogin }) => {
     const { user } = loginres
     const email = user.email
     localStorage.setItem('email', email)
-
     if (!userExist.includes(email)) {
       await createUser({
         variables: { input: { email: email, avatar: user.photoURL } },

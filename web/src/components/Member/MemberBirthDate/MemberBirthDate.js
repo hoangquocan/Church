@@ -118,75 +118,77 @@ const MemberBirthDate = () => {
       </Group>
     </Carousel.Slide>
   ))
-
+console.log(images)
   return (
-    <div className="member-birthdate">
-      <h2 style={{ fontFamily: 'Qwigley', fontWeight: '400' }}>
-        BirthDays Of The Month
-      </h2>
-      <>
-        {images.length > 0 ? (
-          <Carousel
-            styles={{
-              root: {
-                margin: '0px auto',
-                paddingTop: '5px',
-                width: '50%',
-                '@media (max-width: 1366px)': { width: '80%' },
-                '@media (max-width: 1024px)': { width: '100%' },
-                ':hover': {
-                  cursor: 'pointer',
+    <>
+      {images.length > 0 ?  <div className="member-birthdate">
+        <h2 style={{ fontFamily: 'Qwigley', fontWeight: '400' }}>
+          BirthDays Of The Month
+        </h2>
+        <>
+
+            <Carousel
+              styles={{
+                root: {
+                  margin: '0px auto',
+                  paddingTop: '5px',
+                  width: '50%',
+                  '@media (max-width: 1366px)': { width: '80%' },
+                  '@media (max-width: 1024px)': { width: '100%' },
+                  ':hover': {
+                    cursor: 'pointer',
+                  },
+                },
+                control: {
+                  backgroundColor: '#fff',
+                  color: '#000',
+                  marginTop: -110,
+                  '@media (max-width: 480px)': { marginTop: -90 },
+                },
+                indicator: {
+                  marginBottom: 84,
+                },
+              }}
+              withIndicators
+              height="300px"
+              slideSize="25%"
+              slideGap="md"
+              align="center"
+              controlsOffset="xs"
+              slidesToScroll={3}
+            >
+              {images}
+            </Carousel>
+        </>
+        <Modal
+            opened={openProfile}
+            onClose={() => setOpenProfile(false)}
+            overlayColor="transparent"
+            zIndex={101}
+            styles={() => ({
+              modal: {
+                marginTop: '20px',
+                backgroundColor: 'rgba(0, 0, 0, .8)',
+                '@media(min-width: 1024px)': {
+                  marginTop: '50px',
+                  marginLeft: '300px',
+                  width: '700px',
                 },
               },
-              control: {
-                backgroundColor: '#fff',
-                color: '#000',
-                marginTop: -110,
-                '@media (max-width: 480px)': { marginTop: -90 },
+              close: {
+                backgroundColor: '#f2f2f2',
+                marginRight: 10,
+                width: 32,
+                height: 32,
+                borderRadius: '50%',
               },
-              indicator: {
-                marginBottom: 84,
-              },
-            }}
-            withIndicators
-            height="300px"
-            slideSize="25%"
-            slideGap="md"
-            align="center"
-            controlsOffset="xs"
-            slidesToScroll={3}
+            })}
           >
-            {images}
-          </Carousel>
-        ) : null}
-      </>
-      <Modal
-          opened={openProfile}
-          onClose={() => setOpenProfile(false)}
-          overlayColor="transparent"
-          zIndex={101}
-          styles={() => ({
-            modal: {
-              marginTop: '20px',
-              backgroundColor: 'rgba(0, 0, 0, .8)',
-              '@media(min-width: 1024px)': {
-                marginTop: '50px',
-                marginLeft: '300px',
-                width: '700px',
-              },
-            },
-            close: {
-              backgroundColor: '#f2f2f2',
-              marginRight: 10,
-              width: 32,
-              height: 32,
-              borderRadius: '50%',
-            },
-          })}
-        >
-          <Member member={member} />
-        </Modal>
-    </div>
+            <Member member={member} />
+          </Modal>
+      </div>
+     : null}
+    </>
   )
 }
 
