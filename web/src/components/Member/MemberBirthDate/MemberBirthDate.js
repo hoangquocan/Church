@@ -39,7 +39,7 @@ const MemberBirthDate = () => {
   const { loading, error, data } = useQuery(QUERY)
   if (loading)
     return (
-      <div style={{ textAlign: 'center', marginTop: '50px' }}>
+      <div style={{ textAlign: 'center', marginTop: '40px' }}>
         <Loader variant="oval" size="md" color="blue" />
       </div>
     )
@@ -118,7 +118,7 @@ const MemberBirthDate = () => {
       </Group>
     </Carousel.Slide>
   ))
-console.log(images)
+
   return (
     <>
       {images.length > 0 ?  <div className="member-birthdate">

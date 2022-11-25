@@ -102,7 +102,7 @@ const UserProfile = ({ user }) => {
                 <span></span>
                 Edit Profile
                 <ion-icon
-                  style={{ marginLeft: '10px', fontSize: '1.2rem' }}
+                  style={{ marginLeft: '10px', fontSize: '24px' }}
                   name="arrow-redo-outline"
                 ></ion-icon>
               </button>

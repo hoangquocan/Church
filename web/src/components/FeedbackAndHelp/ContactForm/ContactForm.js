@@ -123,7 +123,7 @@ const ContactForm = () => {
               <p>Please write your feedback here...</p>
             </div>
             <div className="inputBox w100">
-              <input type="submit" value="Send" />
+              <button>Send <ion-icon name="arrow-redo-outline"></ion-icon></button>
             </div>
           </div>
         </div>

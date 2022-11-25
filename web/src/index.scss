@@ -112,13 +112,14 @@ ul {
   text-align: center;
   font-weight: 400;
   color: #46e6fc;
+  margin-top: 20px;
 }
 .text-title {
   display: inline-block;
   position: relative;
   color: #fff;
   font-size: 36px;
-  margin: 0 0 30px 20px;
+  margin: 0 0 40px 20px;
   @media (max-width: 480px) {
     font-size: 24px;
     margin: 0 28px 30px;
@@ -185,14 +186,14 @@ ul {
 .btn-purple {
   display: flex;
   justify-content: center;
-  align-self: center;
-  border: 2px solid #faa2c1;
+  align-items: center;
+  border: 3px solid #faa2c1;
   padding: 10px 30px;
   border-radius: 5px;
   position: relative;
   font-size: 24px;
   font-weight: 500;
-  background-image: linear-gradient(to right, #faa2c1, #c2255c);
+  background-image: linear-gradient(to right, #A61E4D, #c03b69);
   color: #fff;
   // letter-spacing: 1px;
   margin: 30px auto;
@@ -237,14 +238,14 @@ ul {
   background-size: 200%;
   background-position: 100%;
   border: 1px solid #4543ff;
-  min-height: 40px;
+  height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: 0.4s;
   ion-icon{
     margin-right: 6px;
-    font-size: 24px;
+    font-size: 26px;
   }
   &:hover {
     background-position: 0%;

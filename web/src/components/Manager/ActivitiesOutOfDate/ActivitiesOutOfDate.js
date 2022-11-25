@@ -1,13 +1,11 @@
-import { useRef, useState, useEffect, memo } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { useMutation } from '@redwoodjs/web'
 import { Text, Modal } from '@mantine/core'
 import { openConfirmModal } from '@mantine/modals'
 import { showNotification } from '@mantine/notifications'
 
-import { QUERY } from 'src/components/Manager/ActivitiesOutOfDateCell/ActivitiesOutOfDateCell'
 import Attendance from 'src/components/Attendance/Attendance'
 import 'src/components/Home/UpcomingActivities/UpcomingActivities.scss'
-// import *  from 'src/components/Function/Handle/Handle'
 
 const DELETE_ACTIVITY_MUTATION = gql`
   mutation DeleteActivityMutation($id: Int!) {
@@ -78,7 +76,6 @@ const ActivitiesOutOfDate = ({ activities }) => {
     })
   }
 
-  console.log('render-OOD')
   return (
     <>
       <h2 className="text-title">Activities Out Of Date</h2>
@@ -164,5 +161,6 @@ const ActivitiesOutOfDate = ({ activities }) => {
     </>
   )
 }
+// export default memo(ActivitiesOutOfDate)
+export default ActivitiesOutOfDate
 
-export default memo(ActivitiesOutOfDate)

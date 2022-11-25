@@ -104,7 +104,6 @@ const Login = ({ handleLogin }) => {
         const groupId = data.usersExist.find(
           (user) => user.email == values.email
         ).group?.id
-        console.log(groupId)
         localStorage.setItem('groupId', groupId)
 
         showNotification({
@@ -164,6 +163,7 @@ const Login = ({ handleLogin }) => {
   const handlePassword = () => {
     passwordRef.current.classList.add('focus')
   }
+  console.log(userExist)
 
   return (
     <div className="modal-login">

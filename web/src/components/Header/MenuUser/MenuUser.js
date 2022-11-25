@@ -28,7 +28,7 @@ const MenuUser = () => {
   // if (loading) {
   //   return <div>Auth Loading...</div>
   // }
-  if (error) return `Error! ${error.message}`
+  // if (error) return `Error! ${error.message}`
   let user = {}
   if (data) {
     user = data.user
@@ -62,12 +62,12 @@ const MenuUser = () => {
 
   return (
     <div className="header-menu-user">
-      <Indicator label={''} inline size={19}>
+      {/* <Indicator label={''} inline size={19}>
         <ion-icon
           style={{ color: '#06beb6' }}
           name="notifications-outline"
         ></ion-icon>
-      </Indicator>
+      </Indicator> */}
 
       <Menu
         classNames={classes}

@@ -94,18 +94,18 @@ const SetRoles = () => {
     },
   })
   const findRole = useMemo(() => {
-    const index = dataSelect.findIndex((item) => item.value === email)
+    const index = dataSelect.findIndex((item) => item.label === email)
     if (index >= 0) {
       const roleValue = rolesSelect
-        .filter((item) => item.label === role)
-        .map((item) => item.value)
-        .toString()
+      .filter((item) => item.label === role)
+      .map((item) => item.value)
+      .toString()
       const roleExist = dataSelect[index].roles.findIndex(
         (item) => item.name === roleValue
-      )
-      return roleExist
-    }
-  }, [role, email])
+        )
+        return roleExist
+      }
+    }, [role, email])
 
   const handleSubmit = (values) => {
     if (findRole < 0) {

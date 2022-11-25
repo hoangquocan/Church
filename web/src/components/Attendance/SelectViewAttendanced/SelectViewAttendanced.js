@@ -6,7 +6,6 @@ import { RefContext } from 'src/components/Context/Context'
 import ViewAttendancedCell from 'src/components/Attendance/ViewAttendancedCell'
 import './SelectViewAttendanced.scss'
 
-
 const SelectViewAttendanced = () => {
   const [groupId, setGroupId] = useState('')
   const [value, setValue] = useState([new Date(), new Date()])
@@ -22,19 +21,25 @@ const SelectViewAttendanced = () => {
   }
   return (
     <div className="viewAttendanced-wrapper">
-       <div className='viewAttendanced-select'>
-          <DateRangePicker
-            label="Select Dates Range To View"
-            placeholder="Pick dates range"
-            value={value}
-            onChange={setValue}
-            fs="md"
-          />
-          <SelectField mb={24} label="Select group" value={groupId} onChange={setGroupId} data={dataSelect} />
-          <button className="btn-cyan" type="button" onClick={handleView}>
-            Submit
-          </button>
-       </div>
+      <div className="viewAttendanced-select">
+        <DateRangePicker
+          label="Select Dates Range To View"
+          placeholder="Pick dates range"
+          value={value}
+          onChange={setValue}
+          fs="md"
+        />
+        <SelectField
+          mb={24}
+          label="Select group"
+          value={groupId}
+          onChange={setGroupId}
+          data={dataSelect}
+        />
+        <button className="btn-cyan" type="button" onClick={handleView}>
+          <ion-icon name="arrow-redo-outline"></ion-icon>Submit
+        </button>
+      </div>
       {view && (
         <ViewAttendancedCell
           groupId={+groupId}

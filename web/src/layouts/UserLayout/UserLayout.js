@@ -15,8 +15,8 @@ const UserLayout = ({ children }) => {
                 zIndex: '101',
                 color: '#45f3ff',
                 fontSize: '30px',
-                top: '10px',
-                left: '40px',
+                top: '16px',
+                left: '20px',
               }}
               name="home-outline"
             ></ion-icon>

@@ -3,11 +3,10 @@
   min-height: 100vh;
   width: 100vw;
   .userlayout-container {
-
     .header-wrapper {
       width: 100%;
       left: 0;
-      .sidebar-toggle{
+      .sidebar-toggle {
         color: var(--layout-bg-color);
       }
     }
@@ -17,9 +16,9 @@
       // padding-top: 80px;
       width: 100%;
       min-height: 100vh;
-      @media(max-width: 480px) {
-        // padding-top: 50px;
-        ion-icon{
+      @media (max-width: 480px) {
+        padding-top: 30px;
+        ion-icon {
           top: 0px;
         }
       }

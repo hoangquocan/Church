@@ -110,7 +110,7 @@ const Members = ({ groupId, members }) => {
               })}
             />
           </Link>
-          <Text weight={600} size="20px">
+          <Text weight={600} size="20px" color='#A61E4D'>
             {member.name}
           </Text>
           <Text size="md">

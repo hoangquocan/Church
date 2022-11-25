@@ -19,8 +19,8 @@ const ReportChart = ({ reportsByMonth }) => {
   // }
   const getName = (name) => {
     const indxChar = name.indexOf('Nhóm')
-    const endInd = name.lastIndexOf(' ')
-    const result = name.substring(indxChar, endInd)
+    // const endInd = name.lastIndexOf(' ')
+    const result = name.substring(indxChar)
     return result
   }
 
@@ -32,7 +32,7 @@ const ReportChart = ({ reportsByMonth }) => {
 
   return (
     <div className="reportchart-wrapper">
-      <ResponsiveContainer width="94%" height={300} fontSize="10px">
+      <ResponsiveContainer width="98%" height={300} fontSize="10px">
         <LineChart
           data={data}
           margin={{ top: 5, right: 10, bottom: 5, left: 0 }}

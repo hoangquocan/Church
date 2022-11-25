@@ -8,7 +8,7 @@ export const QUERY = gql`
     groups: groups {
       id
       name
-      
+
     }
   }
 `
@@ -22,6 +22,5 @@ export const Failure = ({ error }) => (
 )
 
 export const Success = ({ groups }) => {
-  console.log(groups)
   return <ContextProvider groups={groups}/>
 }

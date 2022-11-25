@@ -63,7 +63,6 @@ export const memberSearchName = ({ nameSearch }) => {
     .split(' ')
     .map((char) => `+${char}*`)
     .join(' ')
-    console.log(resultValueSearch)
   return db.member.findMany({
     where: {
       name: {

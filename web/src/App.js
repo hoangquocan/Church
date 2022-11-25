@@ -46,7 +46,7 @@ const App = () => (
           withCSSVariables
           theme={{ fontFamily: 'Roboto Serif, serif' }}
         >
-          <NotificationsProvider position="top-center" zIndex={2077}>
+          <NotificationsProvider position="top-right" zIndex={2077}>
             <ModalsProvider>
               <RedwoodApolloProvider>
                 <ContextProvider>

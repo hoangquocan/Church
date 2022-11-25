@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useAuth } from '@redwoodjs/auth'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
+import { Divider } from '@mantine/core'
 
 import RecentActivityCell from '../RecentActivityCell'
 import UpcomingActivitiesCell from '../UpcomingActivitiesCell'
@@ -10,14 +11,13 @@ import ManagerQuarterCell from 'src/components/Manager/ManagerQuarterCell'
 import ActivitiesOutOfDateCell from 'src/components/Manager/ActivitiesOutOfDateCell/ActivitiesOutOfDateCell'
 import './Home.scss'
 
-import { Divider } from '@mantine/core'
 
 const Home = () => {
   const [quarter, setQuarter] = useState()
   const [viewQuarter, setViewQuarter] = useState(false)
   const { hasRole } = useAuth()
   const groupId = +localStorage.getItem('groupId')
-  const time = new Date(new Date().setDate(new Date().getDate() - 1))
+  const time = new Date(new Date().setHours(0,0,0,0))
 
   // for (let i = 0; i < 8; i++) {
   //   let activityRandom = activities[Math.floor(Math.random() * totalActivities)]
@@ -29,16 +29,16 @@ const Home = () => {
   // }
   const month = quarter?.getMonth() + 1
   const year = quarter?.getFullYear()
+  
   return (
     <>
-      {/* <MemberBirthDate /> */}
       <div className="home-wrapper">
         {hasRole(['leader']) && (
           <div className="home-leader">
-            <Divider size="md" mt={20} mb={40} />
+            <Divider size="md" mt={30} mb={40} />
             <h1 className="text-title">Upcoming Activities</h1>
             <UpcomingActivitiesCell groupId={groupId} time={time} />
-            <Divider size="md" mt={20} mb={40} />
+            <Divider size="md" mt={30} mb={40} />
             <div className="home-leader-view">
               <RecentActivityCell groupId={groupId} />
               <MembersViewAttenCell groupId={groupId} />
@@ -47,7 +47,7 @@ const Home = () => {
         )}
         {hasRole(['admin', 'manager']) && (
           <div className="home-manager">
-            <Divider size="md" mt={-20} mb={30} />
+            <Divider size="md" mb={30} />
             <h1 className='text-title'>Manager Quarter Report</h1>
             <div className="home-manager-quarterPicker">
               <DatePicker
@@ -64,7 +64,7 @@ const Home = () => {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-evenly',
-                  fontSize: '22px',
+                  fontSize: '20px',
                   fontWeight: 500,
                   minWidth: '130px',
                   height: '100%',

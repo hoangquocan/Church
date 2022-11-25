@@ -31,7 +31,7 @@ const NewMultiActivities = () => {
     onCompleted: () => {
       showNotification({
         color: 'blue',
-        title: 'Activitis Have Been Created!',
+        title: 'Activities Have Been Created!',
         message: 'Leader can view and attendance it',
         autoClose: 4000,
         radius: 'md',
@@ -55,8 +55,6 @@ const NewMultiActivities = () => {
     },
   })
 
-
-  console.log(groups)
   const SelectAll = [
     {
       value: groups.map((group) => {

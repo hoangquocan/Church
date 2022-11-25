@@ -90,7 +90,6 @@ const Attendance = ({ activity, handleModal }) => {
   }, [checkedState])
 
   const onSubmit = (result) => {
-    // console.log(activity.urlAttendance)
     // if (urlAttendance == '') {
     //   return showNotification({
     //     color: 'red',

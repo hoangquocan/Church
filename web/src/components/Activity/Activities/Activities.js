@@ -132,13 +132,13 @@ const Activities = ({ activities, page }) => {
               src={activity.urlAttendance}
               withPlaceholder
             />
-            <Link to={routes.activity({ id: activity.id })}>
+            {/* <Link to={routes.activity({ id: activity.id })}> */}
               <Text size={24} weight={700} color="#A61E4D" ml={10} mr={10}>
                 {activity.name}
               </Text>
-            </Link>
-            <Text>{new Date(activity.date).toLocaleString('pt-BR')}</Text>
-            <Text>{activity.group.name}</Text>
+            {/* </Link> */}
+            <Text size={18}>{new Date(activity.date).toLocaleString('pt-BR')}</Text>
+            <Text size={18}>{activity.group.name}</Text>
             <Menu
               width={200}
               height={90}

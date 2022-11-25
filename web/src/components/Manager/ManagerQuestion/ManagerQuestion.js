@@ -192,7 +192,7 @@ const ManagerQuestion = ({ questionsView }) => {
             </Menu.Dropdown>
           </Menu>
           <h4>
-            T{new Date(question.time).getMonth() +
+            Tháng {new Date(question.time).getMonth() +
               1 +
               '/' +
               new Date(question.time).getFullYear()}

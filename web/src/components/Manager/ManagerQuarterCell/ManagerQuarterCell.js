@@ -22,16 +22,16 @@ export const QUERY = gql`
 `
 
 export const Loading = () => (
-  <div style={{ textAlign:'center', marginTop: '25%'}}>
+  <div style={{ textAlign:'center', marginTop: '5%'}}>
     <Loader variant="oval" size="md" color="blue" />
   </div>
 )
 
 export const Empty = () => <h2 className='text-center'>No Activity Yet</h2>
 
-export const Failure = ({ error }) => (
-  <div style={{ color: 'red' }}>Please select quarter to view!</div>
-)
+// export const Failure = ({ error }) => (
+//   <div style={{ color: 'red' }}>Please select quarter to view!</div>
+// )
 
 export const Success = ({ activitiesQuarter }) => {
   return <ManagerQuarter activities={activitiesQuarter}/>

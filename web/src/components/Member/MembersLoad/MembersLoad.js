@@ -258,11 +258,6 @@ const MembersLoad = () => {
               styles={() => ({
                 root: {
                   border: '3px solid #1A1B1E',
-                  '@media(max-width: 768px)': {
-                    minWidth: '60px',
-                    width: '60px',
-                    height: '60px',
-                  },
                 },
               })}
             />
@@ -367,7 +362,7 @@ const MembersLoad = () => {
             modal: {
               marginTop: '20px',
               backgroundColor: 'rgba(0, 0, 0, .9)',
-              '@media(min-width: 1024px)': {
+              '@media(min-width: 768px)': {
                 marginTop: '50px',
                 marginLeft: '300px',
                 width: '700px',
@@ -394,13 +389,24 @@ const MembersLoad = () => {
           opened={opened}
           onClose={() => setOpened(false)}
           zIndex={3}
+          padding={0}
           styles={(theme) => ({
+            roor:{
+            },
             modal: {
-              marginTop: '50px',
+              overflowX: 'hidden',
+              marginTop: '40px',
               width: 'auto',
               backgroundColor: '#2C2E33',
               '@media(min-width: 1024px)': {
                 marginLeft: '300px',
+                padding: '20px',
+              },
+            },
+            inner:{
+              padding: '30px 6px',
+              '@media(min-width: 480px)': {
+                padding: '60px 16px',
               },
             },
             title: {
@@ -425,16 +431,16 @@ const MembersLoad = () => {
         <button
           style={{
             color: '#fff',
-            width: '200px',
+            width: '300px',
             padding: '10px 10px',
-            borderColor: '#753a88',
-            backgroundImage: 'linear-gradient(to right, #753a88, #C2255C)',
+            // borderColor: '#753a88',
+            // backgroundImage: 'linear-gradient(to right, #753a88, #C2255C)',
           }}
           className="btn-purple"
           onClick={handleLoadMembers}
         >
           <ion-icon
-            style={{ fontSize: 24, marginRight: 10, fontWeight: 700 }}
+            style={{ fontSize: 26, marginRight: 10, fontWeight: 700 }}
             name="sync-outline"
           ></ion-icon>{' '}
           Load More

@@ -49,6 +49,21 @@ const ReportInfo = ({ activities, infoQuery }) => {
         title: 'Done! Your Report Has Been Saved',
         autoClose: 3000,
         radius: 'md',
+        styles: (theme) => ({
+          root: {
+            borderColor: theme.colors.blue[9],
+            backgroundColor: theme.colors.blue[2],
+            '&::before': { backgroundColor: theme.blue },
+          },
+
+          closeButton: {
+            color: theme.colors.gray[7],
+            '&:hover': {
+              color: theme.white,
+              backgroundColor: theme.colors.gray[6],
+            },
+          },
+        }),
       })
       navigate(routes.reports())
     },
@@ -64,7 +79,6 @@ const ReportInfo = ({ activities, infoQuery }) => {
   if (data) {
     questions = data.questionByMonth
   }
-  // useEffect(() => {}, [infoQuery])
   const totalActivity = activities.length
   const activitiesCompleted = activities.filter(
     (item) => item.attendance.length > 0
@@ -115,8 +129,6 @@ const ReportInfo = ({ activities, infoQuery }) => {
     clearInputErrorOnChange: true,
   })
   const handleSubmit = (values) => {
-    // console.log(values)
-    // console.log(infoQuery.groupId)
     openConfirmModal({
       title: ' Do you want to Save this Report?',
       children: <p>This report can not change on the future!!!</p>,
@@ -137,7 +149,7 @@ const ReportInfo = ({ activities, infoQuery }) => {
       </h2>
       <div className="reportinfo-wrapper">
         <form onSubmit={form.onSubmit(handleSubmit)}>
-          <Grid gutter="xs">
+          <Grid gutter="md">
             <Grid.Col span={4}>
               <NumberInput
                 variant="unstyled"
@@ -240,7 +252,7 @@ const ReportInfo = ({ activities, infoQuery }) => {
               />
             </Grid.Col>
           </Grid>
-          <Grid gutter="xs" mt="6px">
+          <Grid gutter="md" mt="10px">
             <Grid.Col span={4}>
               <NumberInput
                 disabled
@@ -346,7 +358,7 @@ const ReportInfo = ({ activities, infoQuery }) => {
           <Textarea
             label={questionOne}
             autosize
-            mt={10}
+            mt={30}
             minRows={3}
             {...form.getInputProps('answerOne')}
             styles={() => ({
@@ -358,7 +370,7 @@ const ReportInfo = ({ activities, infoQuery }) => {
           <Textarea
             label={questionTwo}
             autosize
-            mt={10}
+            mt={30}
             minRows={3}
             {...form.getInputProps('answerTwo')}
             styles={() => ({
@@ -370,7 +382,7 @@ const ReportInfo = ({ activities, infoQuery }) => {
           <Textarea
             label={questionThree}
             autosize
-            mt={10}
+            mt={30}
             minRows={3}
             {...form.getInputProps('answerThree')}
             styles={() => ({
@@ -382,7 +394,7 @@ const ReportInfo = ({ activities, infoQuery }) => {
           <Textarea
             label="Write Your Comment About Last Month"
             autosize
-            mt={10}
+            mt={30}
             minRows={3}
             {...form.getInputProps('comment')}
             styles={() => ({
@@ -394,7 +406,7 @@ const ReportInfo = ({ activities, infoQuery }) => {
 
           <div className="form-btn">
             <Button variant="unstyled" type="submit">
-              Save Report <ion-icon name="checkmark-circle-outline"></ion-icon>
+              Save <ion-icon name="checkmark-circle-outline"></ion-icon>
             </Button>
           </div>
         </form>

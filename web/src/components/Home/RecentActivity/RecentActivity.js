@@ -1,5 +1,4 @@
-import { Avatar, Group, Stack, Text } from '@mantine/core'
-import { memo } from 'react'
+import { Avatar, Group, Stack } from '@mantine/core'
 
 import './RecentActivity.scss'
 
@@ -33,8 +32,6 @@ const RecentActivity = ({ activities }) => {
       </time>
     )
   }
-console.log(activities)
-console.log('activities')
   return (
     <div>
       <h1 className='text-title'>Recent Activities</h1>

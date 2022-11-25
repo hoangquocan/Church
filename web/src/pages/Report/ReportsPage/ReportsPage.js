@@ -41,7 +41,7 @@ const ReportsPage = () => {
         </nav>
       )}
       <ReportsPortalCell fromMonth={fromMonth} toMonth={toMonth} />
-      <Divider size="sm" mt={60} ml={-30} mr={-30} mb={20} />
+      <Divider size="md" mt={60} ml={-30} mr={-30} mb={20} />
       <div className="reports-select-month">
         <h3 style={{marginBottom: 0}} className='text-title'>View Chart Result</h3>
         <DatePicker

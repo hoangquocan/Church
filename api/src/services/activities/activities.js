@@ -94,7 +94,9 @@ export const activitiesOutOfDate = ({ time }) => {
 export const recentActivity = ({ groupId }) => {
   return db.activity.findMany({
     where: {
-      AND: [{ groupId }, { urlAttendance: { not: null } }],
+      groupId,
+      // AND: [{ groupId }, { urlAttendance: { not: null } }],
+      NOT: [{ attendance: { none: {} } }],
     },
     orderBy: { date: 'desc' },
     take: 3,

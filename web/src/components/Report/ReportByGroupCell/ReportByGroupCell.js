@@ -29,7 +29,7 @@ export const beforeQuery = ({ timequery }) => {
 }
 export const Loading = () => (
   <div style={{ textAlign:'center', marginTop: '25%'}}>
-    <Loader variant="oval" size="md" color="dark" />
+    <Loader variant="oval" size="md" color="blue" />
   </div>
 )
 export const Empty = () => <h2 className='text-center'>No activities have been generated yet</h2>

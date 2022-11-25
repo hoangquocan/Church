@@ -13,8 +13,12 @@
 .group-info {
   line-height: 1.6;
   margin: 10px auto;
-  span{
+  span {
     font-size: 28px;
     margin-right: 16px;
+    color: #a61e4d;
+    @media (max-width: 480px) {
+      font-size: 22px;
+    }
   }
 }

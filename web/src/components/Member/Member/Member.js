@@ -27,7 +27,6 @@ const Member = ({ member, handleModal, idx }) => {
   // const handleModalEdit = () => {
   //   setOpenEdit(false)
   // }
-  console.log(member)
   return (
     <div className="member-wrapper">
       <div className="member-avatar">

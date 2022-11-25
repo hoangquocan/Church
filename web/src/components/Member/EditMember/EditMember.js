@@ -83,7 +83,7 @@ const EditMember = ({ member, handleModal, idx }) => {
   return (
     <div className="member-form">
       <form onSubmit={form.onSubmit(handleSubmit)}>
-        <TextInput label="Name" {...form.getInputProps('name')} />
+        <TextInput label="Full Name" {...form.getInputProps('name')} />
 
         <DatePicker
           allowFreeInput

@@ -46,6 +46,7 @@ const MemberAttendance = ({ group }) => {
                     radius="xl"
                     size="50px"
                     color="cyan"
+                    // variant='filled'
                     styles={() => ({
                       root: {
                         // border: '2px solid #909296',

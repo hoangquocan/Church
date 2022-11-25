@@ -48,9 +48,6 @@ const Header = () => {
       <div className="search-bar">
         <SearchBar />
       </div>
-      {/* <div className='search-toggle' ref={searchRef}>
-      <ion-icon name="search-outline" onClick={() => handleIconSearch()}></ion-icon>
-      </div> */}
       <Modal
         opened={openedSearch}
         onClose={() => handleCloseSearch()}
@@ -64,11 +61,6 @@ const Header = () => {
         styles={() => ({
           root: {
             backgroundImage: 'linear-gradient(to right, #ffafbd  , #ffc3a0)',
-            // top: '50px',
-            '@media(max-width: 480px)': {
-              // top: "0px",
-              //
-            },
           },
           modal: {
             backgroundColor: 'transparent',
@@ -108,7 +100,8 @@ const Header = () => {
         transitionTimingFunction="ease"
         styles={(theme) => ({
           root: {
-            backgroundImage: 'linear-gradient(to right, #ffafbd  , #ffc3a0)',
+            // backgroundImage: 'linear-gradient(to right, #ffafbd  , #ffc3a0)',
+            background: '#fff'
           },
           modal: {
             // backgroundColor: '#ee9ca7',
