@@ -65,12 +65,8 @@ const UpcomingActivities = ({ upcomingActivities }) => {
         overlayBlur={3}
         centered
         styles={(theme) => ({
-          root: {
-            '@media(max-width: 480px)': {},
-          },
           modal: {
             background: '#2C2E33',
-            // background: 'linear-gradient(  #5C5F66,#5C5F66,#5C5F66)',
             boxShadow: '0 15px 25px rgba(0, 0, 0, .9)',
             width: 800,
             borderRadius: '10px',
@@ -78,7 +74,7 @@ const UpcomingActivities = ({ upcomingActivities }) => {
               width: 600,
             },
             '@media(max-width: 480px)': {
-              width: 410,
+              width: 400,
               padding: 2,
             },
           },

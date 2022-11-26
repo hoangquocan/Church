@@ -163,7 +163,6 @@ const Login = ({ handleLogin }) => {
   const handlePassword = () => {
     passwordRef.current.classList.add('focus')
   }
-  console.log(userExist)
 
   return (
     <div className="modal-login">

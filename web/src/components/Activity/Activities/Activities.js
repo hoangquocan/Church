@@ -152,7 +152,7 @@ const Activities = ({ activities, page }) => {
                   borderColor: theme.colors.gray[5],
                 },
                 dropdown: {
-                  background: '#25262B',
+                  background: '#1A1B1E',
                 },
                 item: {
                   margin: '2px 0',
@@ -198,27 +198,35 @@ const Activities = ({ activities, page }) => {
           zIndex={3}
           overlayColor="transparent"
           overlayBlur={1}
+          padding={0}
           styles={() => ({
             modal: {
+              overflowX: 'hidden',
               width: 'auto',
               marginTop: '20px',
               backgroundColor: 'rgba(0, 0, 0, .9)',
-              backgroundColor: '#2C2E33',
+              backgroundColor: '#fff',
               '@media(min-width: 1024px)': {
                 marginTop: '50px',
                 marginLeft: '300px',
                 width: '800px',
               },
             },
+            inner: {
+              padding: '48px 2px',
+              '@media(min-width: 480px)': {
+                padding: '60px 16px',
+              },
+            },
             title: {
               margin: '0 auto',
               fontSize: '28px',
               fontWeight: 500,
-              color: '#fff',
             },
             close: {
+              color: '#000',
               backgroundColor: '#f2f2f2',
-              marginRight: 10,
+              marginRight: 20,
               width: 32,
               height: 32,
               borderRadius: '50%',

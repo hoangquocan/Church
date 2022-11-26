@@ -94,8 +94,8 @@ const EditUserAvatar = ({file, user ,handleModal}) => {
       {file && (
         <Image
           src={file.preview}
-          height={300}
-          width={300}
+          height={320}
+          width={320}
           fit='contain'
           withPlaceholder
           m="40px auto"

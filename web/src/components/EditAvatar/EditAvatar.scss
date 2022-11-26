@@ -3,10 +3,11 @@
   display: flex;
   flex-direction: column;
   position: relative;
+  width: 100%;
   input[type='file'] {
     position: relative;
     max-width: 380px;
-    width: 300px;
+    width: 320px;
     height: 40px;
     text-align: center;
     color: #fff;

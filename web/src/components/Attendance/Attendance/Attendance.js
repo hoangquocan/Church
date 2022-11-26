@@ -1,7 +1,7 @@
 import { useMutation } from '@redwoodjs/web'
 import { useState, useMemo, useRef } from 'react'
 import { PickerInline } from 'filestack-react'
-import {navigate, routes} from '@redwoodjs/router'
+import { navigate, routes } from '@redwoodjs/router'
 import { showNotification } from '@mantine/notifications'
 import { openConfirmModal } from '@mantine/modals'
 import { Form } from '@redwoodjs/forms'
@@ -63,8 +63,8 @@ const Attendance = ({ activity, handleModal }) => {
           },
         }),
       }),
-        navigate(routes.activity({id: activity.id}))
-        // handleModal()
+        navigate(routes.activity({ id: activity.id }))
+      // handleModal()
     },
   })
 
@@ -156,7 +156,7 @@ const Attendance = ({ activity, handleModal }) => {
             </tr>
             <tr
               style={{
-                color: '#A61E4D',
+                color: '#0000ff',
               }}
             >
               <th>

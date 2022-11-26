@@ -22,7 +22,7 @@
     align-items: center;
     gap: 10px;
     padding: 0 10px 10px;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
     min-height: 285px;
     min-width: 320px;
     color: #fff;
@@ -50,6 +50,21 @@
       cursor: pointer;
       border-color: #45f3ff;
       transform: scale(1.02);
+    }
+  }
+}
+.btn-purple{
+  ion-icon{
+    &.loading{
+      animation: lds-dual-ring 1s linear infinite;
+    }
+    @keyframes lds-dual-ring {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
     }
   }
 }

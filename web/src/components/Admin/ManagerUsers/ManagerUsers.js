@@ -52,11 +52,6 @@ const ManagerUsers = ({ users }) => {
             styles={() => ({
               root: {
                 border: '3px solid #1A1B1E',
-                '@media(max-width: 1024px)': {
-                  minWidth: '60px',
-                  width: '60px',
-                  height: '60px',
-                },
               },
             })}
           />
@@ -87,7 +82,7 @@ const ManagerUsers = ({ users }) => {
                 borderColor: theme.colors.gray[5],
               },
               dropdown: {
-                background: '#25262B',
+                background: '#1A1B1E',
               },
               item: {
                 margin: '4px 0',

@@ -58,6 +58,7 @@ const Header = () => {
         transition="fade"
         transitionDuration={500}
         transitionTimingFunction="ease"
+        padding={0}
         styles={() => ({
           root: {
             backgroundImage: 'linear-gradient(to right, #ffafbd  , #ffc3a0)',
@@ -68,12 +69,13 @@ const Header = () => {
             boxShadow: 'none',
             marginBottom: '50px',
             minHeight: '800px',
-            top: '40px',
-            '@media(max-width: 480px)': {
-              padding: '8px',
-              top: '10px',
-              paddingRight: '14px',
-            },
+            top: '10px',
+            width: '410px'
+            // '@media(max-width: 480px)': {
+            //   padding: '8px',
+            //   top: '10px',
+            //   paddingRight: '4px',
+            // },
           },
           close: {
             marginBottom: '-78px',

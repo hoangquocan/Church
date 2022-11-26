@@ -47,13 +47,17 @@ const MembersLoad = () => {
   const [member, setMember] = useState()
 
   const iconRefs = useRef([])
+  const loadmoreRef = useRef()
   const { hasRole } = useAuth()
+
   const { loading, data } = useQuery(QUERY, {
     variables: { load: loadMembers },
   })
+
   let membersQuery = []
   if (data) {
     membersQuery = data?.membersLoad.members
+    loadmoreRef.current?.classList.remove('loading')
   }
   const findIndexChange = (arr, target) => {
     return arr.findIndex((item) => !target.includes(item))
@@ -139,9 +143,12 @@ const MembersLoad = () => {
       </div>
     )
   }
+  if (loading && loadMembers !== 1) {
+    loadmoreRef.current.classList.add('loading')
+  }
   const totalMembers = data?.membersLoad?.count
   const handleLoadMembers = () => {
-    if (membersRender.length >= data?.membersLoad?.count) {
+    if (membersRender.length >= totalMembers) {
       return showNotification({
         title: 'All members have been loaded!',
         autoClose: 4000,
@@ -291,7 +298,7 @@ const MembersLoad = () => {
                   borderColor: theme.colors.gray[5],
                 },
                 dropdown: {
-                  background: '#25262B',
+                  background: '#1A1B1E',
                 },
                 item: {
                   margin: '2px 0',
@@ -353,29 +360,39 @@ const MembersLoad = () => {
         ))}
 
         <Modal
-          // title="Member Profile"
+          title="Member Profile"
           opened={openProfile}
           onClose={() => setOpenProfile(false)}
           zIndex={3}
           overlayColor="transparent"
+          padding={6}
           styles={() => ({
             modal: {
-              marginTop: '20px',
+              overflowX: 'hidden',
+              marginTop: '40px',
               backgroundColor: 'rgba(0, 0, 0, .9)',
-              '@media(min-width: 768px)': {
-                marginTop: '50px',
+              width: 'auto',
+              '@media(min-width: 1024px)': {
+                padding: '20px',
                 marginLeft: '300px',
                 width: '700px',
               },
             },
-            header: {
-              fontSize: '1.4rem',
+            inner: {
+              padding: '30px 6px',
+              '@media(min-width: 1024px)': {
+                padding: '60px 16px',
+              },
+            },
+            title: {
+              margin: '0 auto',
+              fontSize: '28px',
               fontWeight: 500,
               color: '#fff',
             },
             close: {
               backgroundColor: '#f2f2f2',
-              marginRight: 10,
+              marginRight: 20,
               width: 32,
               height: 32,
               borderRadius: '50%',
@@ -391,19 +408,17 @@ const MembersLoad = () => {
           zIndex={3}
           padding={0}
           styles={(theme) => ({
-            roor:{
-            },
             modal: {
               overflowX: 'hidden',
               marginTop: '40px',
               width: 'auto',
               backgroundColor: '#2C2E33',
-              '@media(min-width: 1024px)': {
+              '@media(min-width: 1025px)': {
                 marginLeft: '300px',
                 padding: '20px',
               },
             },
-            inner:{
+            inner: {
               padding: '30px 6px',
               '@media(min-width: 480px)': {
                 padding: '60px 16px',
@@ -417,7 +432,7 @@ const MembersLoad = () => {
             },
             close: {
               backgroundColor: '#f2f2f2',
-              marginRight: 10,
+              marginRight: 16,
               width: 32,
               height: 32,
               borderRadius: '50%',
@@ -427,25 +442,16 @@ const MembersLoad = () => {
           <EditMember member={member} handleModal={handleModal} idx={idx} />
         </Modal>
       </div>
-      {totalMembers > 8 && (
-        <button
-          style={{
-            color: '#fff',
-            width: '300px',
-            padding: '10px 10px',
-            // borderColor: '#753a88',
-            // backgroundImage: 'linear-gradient(to right, #753a88, #C2255C)',
-          }}
-          className="btn-purple"
-          onClick={handleLoadMembers}
-        >
-          <ion-icon
-            style={{ fontSize: 26, marginRight: 10, fontWeight: 700 }}
-            name="sync-outline"
-          ></ion-icon>{' '}
-          Load More
-        </button>
-      )}
+      <button
+        style={{
+          width: '300px',
+        }}
+        className="btn-purple"
+        onClick={handleLoadMembers}
+      >
+        <ion-icon ref={loadmoreRef} name="sync-outline"></ion-icon>
+        Load More
+      </button>
     </>
   )
 }

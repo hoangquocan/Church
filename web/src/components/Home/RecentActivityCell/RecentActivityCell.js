@@ -38,7 +38,7 @@ export const Loading = () => (
 export const Empty = () => <div></div>
 
 export const Failure = ({ error }) => (
-  <div>Not assign one group yet</div>
+  <div className='text-center'>Error! Please refesh page to view</div>
 )
 
 export const Success = ({ recentActivity }) => {

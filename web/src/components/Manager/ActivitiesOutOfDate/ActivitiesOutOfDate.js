@@ -118,23 +118,24 @@ const ActivitiesOutOfDate = ({ activities }) => {
           zIndex={101}
           overlayOpacity={0.2}
           overlayBlur={3}
-          centered
+          // centered
+          padding={0}
           styles={(theme) => ({
-            root: {
-              '@media(max-width: 480px)': {},
-            },
             modal: {
+              overflowX: 'hidden',
               background: '#2C2E33',
-              // background: 'linear-gradient(  #5C5F66,#5C5F66,#5C5F66)',
               boxShadow: '0 15px 25px rgba(0, 0, 0, .9)',
-              width: 800,
+              width: 'auto',
               borderRadius: '10px',
-              '@media(max-width: 768px)': {
-                width: 600,
+              '@media(min-width: 1024px)': {
+                marginLeft: '300px',
+                padding: '20px',
               },
-              '@media(max-width: 480px)': {
-                width: 410,
-                padding: 2,
+            },
+            inner: {
+              padding: '30px 6px',
+              '@media(min-width: 480px)': {
+                padding: '60px 16px',
               },
             },
             title: {
@@ -142,14 +143,13 @@ const ActivitiesOutOfDate = ({ activities }) => {
               fontSize: '28px',
               fontWeight: 500,
               color: '#fff',
-              // marginBottom: 0,
             },
-            inner: { backgroundColor: 'transparent' },
             close: {
               backgroundColor: '#DEE2E6',
-              // borderColor: '#000',
-              marginRight: 14,
+              marginRight: 20,
               marginTop: 2,
+              width: 32,
+              height: 32,
               color: '#000',
               borderRadius: '50%',
             },
@@ -163,4 +163,3 @@ const ActivitiesOutOfDate = ({ activities }) => {
 }
 // export default memo(ActivitiesOutOfDate)
 export default ActivitiesOutOfDate
-

@@ -4,7 +4,7 @@ import './Activity.scss'
 const Activity = ({ activity }) => {
   return (
     <div className="activity-wrapper">
-      <Divider size="sm" mb={20} ml="-40px" mr="-40px" />
+      <Divider size="sm" mt={-16} mb={20} ml="-40px" mr="-40px" />
       <Image
         width="100%"
         height={240}

@@ -29,7 +29,7 @@ const Home = () => {
   // }
   const month = quarter?.getMonth() + 1
   const year = quarter?.getFullYear()
-  
+
   return (
     <>
       <div className="home-wrapper">
@@ -75,7 +75,7 @@ const Home = () => {
                 }}
                 onClick={() => setViewQuarter(true)}
               >
-                Submit
+                View
                 {/* <ion-icon name="eye-outline"></ion-icon> */}
               </button>
             </div>

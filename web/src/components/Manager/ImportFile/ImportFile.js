@@ -137,7 +137,7 @@ const ImportFile = () => {
             justifyContent: 'center',
             fontSize: '20px',
             fontWeight: 500,
-            width: '140px',
+            width: '300px',
             border: 'none',
             color: '#fff',
             borderTopRightRadius: '20px',
@@ -148,7 +148,7 @@ const ImportFile = () => {
         >
           Upload
           <ion-icon
-            style={{ paddingLeft: '6px', fontSize: '20px' }}
+            style={{ paddingLeft: '6px', fontSize: '24px' }}
             name="cloud-upload-outline"
           ></ion-icon>
         </button>

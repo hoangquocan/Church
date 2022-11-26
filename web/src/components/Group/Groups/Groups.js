@@ -128,7 +128,6 @@ const Groups = ({ groups, page }) => {
             </Text>
             <Menu
               width={200}
-              height={90}
               trigger="hover"
               openDelay={300}
               closeDelay={100}
@@ -139,7 +138,7 @@ const Groups = ({ groups, page }) => {
                   borderColor: theme.colors.gray[5],
                 },
                 dropdown: {
-                  background: '#25262B',
+                  background: '#1A1B1E',
                 },
                 item: {
                   margin: '2px 0',

@@ -145,7 +145,7 @@ const EditAvatar = ({ member, handleModal, idx, handleCloseModal }) => {
         <Image
           src={file.preview}
           height={300}
-          width={380}
+          width={366}
           fit='contain'
           withPlaceholder
           m=" 0 auto 30px"
