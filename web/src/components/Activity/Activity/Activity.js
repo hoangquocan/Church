@@ -9,7 +9,6 @@ const Activity = ({ activity }) => {
         width="100%"
         height={240}
         fit="contain"
-        // mt={10}
         mb={40}
         src={activity.urlAttendance}
         withPlaceholder
@@ -35,7 +34,7 @@ const Activity = ({ activity }) => {
             <tbody key={item.id}>
               <tr>
                 <td>
-                  <p>{item.member.name}</p>
+                  <p>{item.member?.name}</p>
                 </td>
                 <td className={item.present ? 'Present' : 'Absent'}>
                   {item.present ? 'Present' : 'Absent'}

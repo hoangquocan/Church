@@ -1,20 +1,15 @@
 export const schema = gql`
   type Attendance {
     id: Int!
-    activity: Activity!
-    activityId: Int!
-    member: Member!
-    memberId: Int!
+    activity: Activity
+    activityId: Int
+    member: Member
+    memberId: Int
     present: Boolean!
     submittedBy: String
     createdAt: DateTime!
   }
-  # type attendanceByDate {
-  #   # attendances: [Attendance]
-  #   _count: Int
-  # }
   type Query {
-    # attendanceByDate(groupId: Int, startDate: DateTime, endDate: DateTime): attendanceByDate @requireAuth
     attendances: [Attendance!]! @requireAuth
     attendance(id: Int!): Attendance @requireAuth
   }
@@ -42,5 +37,6 @@ export const schema = gql`
     updateAttendance(id: Int!, input: UpdateAttendanceInput!): Attendance!
       @requireAuth
     deleteAttendance(id: Int!): Attendance! @requireAuth
+    deleteAttenOf(memberId:Int!): Attendance! @requireAuth
   }
 `

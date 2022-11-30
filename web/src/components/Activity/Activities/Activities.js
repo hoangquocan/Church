@@ -142,9 +142,7 @@ const Activities = ({ activities, page }) => {
             <Menu
               width={200}
               height={90}
-              trigger="hover"
-              openDelay={300}
-              closeDelay={100}
+              trigger="click"
               position="bottom-end"
               shadow="rgba(0, 0, 0, 0.7) 0px 3px 6px, rgba(0, 0, 0, 0.83) 0px 3px 6px"
               styles={(theme) => ({

@@ -190,7 +190,7 @@ const Attendance = ({ activity, handleModal }) => {
           </tbody>
         </table>
         <label>
-          Picture<span> (Take a picture of your activity )</span>
+          Picture<span> (Take a picture of your activity)</span>
         </label>
         <div className="attendance-imgpicker">
           <input

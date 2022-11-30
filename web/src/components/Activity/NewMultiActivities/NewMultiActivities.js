@@ -95,6 +95,7 @@ const NewMultiActivities = () => {
       <form style={{ paddingTop: '80px' }} onSubmit={handleSubmit(onSubmit)}>
         <label>Activity Name</label>
         <TextInput
+        required
           value={name}
           onChange={(e) => setName(e.currentTarget.value)}
         />

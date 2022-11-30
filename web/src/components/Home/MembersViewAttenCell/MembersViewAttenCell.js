@@ -21,7 +21,7 @@ export const beforeQuery = ({ groupId }) => {
 }
 
 export const Loading = () => (
-  <div style={{ textAlign:'center', marginTop: '5%'}}>
+  <div style={{ textAlign:'center', marginTop: '50px'}}>
     <Skeleton height={60} mt={16} width="50%" radius="md" />
     <Skeleton height={50} mt={20} radius="sm" />
     <Skeleton height={50} mt={20} radius="sm" />

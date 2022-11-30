@@ -142,7 +142,7 @@ const ManagerQuestion = ({ questionsView }) => {
           <Menu
             width={200}
             height={90}
-            trigger="hover"
+            trigger="click"
             openDelay={100}
             closeDelay={200}
             position="bottom-end"

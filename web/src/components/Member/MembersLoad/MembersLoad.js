@@ -1,13 +1,14 @@
-import { useEffect, useState, memo, useRef, useMemo } from 'react'
+import { useEffect, useState, memo, useRef } from 'react'
 import { useQuery, useMutation } from '@redwoodjs/web'
 import { Avatar, Text, Menu, Modal, Divider, Loader } from '@mantine/core'
 import { showNotification } from '@mantine/notifications'
 import { openConfirmModal } from '@mantine/modals'
 import { IconEdit, IconMail, IconTrash, IconEye } from '@tabler/icons'
 import { useAuth } from '@redwoodjs/auth'
+
 import EditMember from '../EditMember/EditMember'
-import './MembersLoad.scss'
 import Member from '../Member/Member'
+import './MembersLoad.scss'
 
 export const QUERY = gql`
   query MembersLoadQuery($load: Int!) {
@@ -34,6 +35,13 @@ const DELETE_MEMBER = gql`
   mutation DeleteMember($id: Int!) {
     deleteMember(id: $id) {
       id
+    }
+  }
+`
+const DEL_ATTENDANCE_OF_MEMBER = gql`
+  mutation DelAttendanceOfMem($memberId: Int!) {
+    deleteAttenOf(memberId: $memberId) {
+      memberId
     }
   }
 `
@@ -129,6 +137,8 @@ const MembersLoad = () => {
     },
     refetchQueries: [{ query: QUERY, variables: { load: loadMembers } }],
   })
+
+  const [deleteAttendanceOfMem] = useMutation(DEL_ATTENDANCE_OF_MEMBER)
 
   if (loading && loadMembers === 1) {
     return (
@@ -238,6 +248,9 @@ const MembersLoad = () => {
         deleteMember({
           variables: { id },
         })
+        deleteAttendanceOfMem({
+          variables: { memberId: id },
+        })
         setMembersRender((prev) => {
           prev.splice(idx, 1)
           return prev
@@ -288,9 +301,7 @@ const MembersLoad = () => {
             </Text>
             <Menu
               width={200}
-              trigger="hover"
-              openDelay={300}
-              closeDelay={100}
+              trigger="click"
               position="bottom-end"
               shadow="rgba(0, 0, 0, 0.7) 0px 3px 6px, rgba(0, 0, 0, 0.83) 0px 3px 6px"
               styles={(theme) => ({

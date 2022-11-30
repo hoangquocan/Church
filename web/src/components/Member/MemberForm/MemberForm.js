@@ -33,7 +33,7 @@ const MemberForm = (props) => {
       <Form
         onSubmit={handleSubmit(onSubmit)}
         config={{ mode: 'onBlur' }}
-        error={props.error}
+        formMethods={props.formMethods}
       >
         <FormError error={props.error} />
         <Label name="name">Full Name</Label>

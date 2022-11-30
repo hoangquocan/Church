@@ -54,9 +54,9 @@ const GroupAddMem = ({ members, id, name }) => {
 
   return (
     <div className="group-addmem">
-    <h2 className="text-title" >
+    <h4 className="text-title" >
         Add Member To {name}
-      </h2>
+      </h4>
       <table cellSpacing="0">
         <thead>
           <tr>

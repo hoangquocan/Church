@@ -137,7 +137,7 @@ const ImportFile = () => {
             justifyContent: 'center',
             fontSize: '20px',
             fontWeight: 500,
-            width: '300px',
+            width: '120px',
             border: 'none',
             color: '#fff',
             borderTopRightRadius: '20px',

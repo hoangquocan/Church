@@ -1,15 +1,14 @@
 .memberAttendance-wrapper {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  // align-items: center;
+  justify-content: space-between;
+  overflow-wrap: wrap;
   text-align: center;
   box-shadow: 1px 10px 15px rgba(0, 0, 0, 0.9);
   border-radius: 10px;
   margin-bottom: 30px;
   padding: 20px;
-  // width: 100%;
-  min-height: 1250px;
+  height: calc(100% - 42px);  min-height: 1250px;
   min-width: 400px;
   background: #fff;
   font-weight: 500;

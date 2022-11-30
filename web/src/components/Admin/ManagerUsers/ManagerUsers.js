@@ -72,7 +72,7 @@ const ManagerUsers = ({ users }) => {
           <Menu
             width={200}
             height={90}
-            trigger="hover"
+            trigger="click"
             openDelay={300}
             closeDelay={100}
             position="bottom-end"

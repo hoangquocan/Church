@@ -43,7 +43,7 @@ export const Empty = () => {
       >
         <ion-icon
           style={{ paddingRight: '10px', fontSize: '1.8rem' }}
-          name="arrow-back-circle-outline"
+          name="arrow-undo-outline"
         ></ion-icon>
         Go Back
       </button>

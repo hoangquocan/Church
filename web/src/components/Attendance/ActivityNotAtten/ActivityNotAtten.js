@@ -75,10 +75,10 @@ const ActivityNotAtten = ({ activities }) => {
                         activity.id
                       )
                     }
-                    className="inline-button inline-button-small inline-button-blue"
+                    className="inline-button inline-button-blue"
                     title={'Attendance Activity ' + activity.name}
                   >
-                    Attendance
+                    Attendance<ion-icon name="arrow-redo-circle-outline"></ion-icon>
                   </button>
                 </nav>
               </td>

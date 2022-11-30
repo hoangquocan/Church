@@ -110,6 +110,7 @@ const Groups = ({ groups, page }) => {
           <div
             key={group.id}
             className="groups-item"
+            // onClick={() => handleMouseEnter(idx)}
             onMouseEnter={() => handleMouseEnter(idx)}
             onMouseLeave={() => handleMouseLeave(idx)}
           >
@@ -127,10 +128,8 @@ const Groups = ({ groups, page }) => {
               Total Members <span>{group.members.length}</span>
             </Text>
             <Menu
-              width={200}
-              trigger="hover"
-              openDelay={300}
-              closeDelay={100}
+              width={190}
+              trigger="click"
               position="bottom-end"
               shadow="rgba(0, 0, 0, 0.7) 0px 3px 6px, rgba(0, 0, 0, 0.83) 0px 3px 6px"
               styles={(theme) => ({

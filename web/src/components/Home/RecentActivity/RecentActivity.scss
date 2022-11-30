@@ -1,12 +1,12 @@
 .recentActivity-wrapper {
   display: flex;
   justify-content: flex-start;
+  height: calc(100% - 42px);
   min-height: 1250px;
   margin-bottom: 30px;
   padding: 10px;
   box-shadow: 1px 10px 15px rgba(0, 0, 0, 0.8);
   border-radius: 10px;
-  // background: linear-gradient(to right, #1971C2, #339AF0);
   background: #fff;
   .mantine-Group-root {
     min-width: 340px;

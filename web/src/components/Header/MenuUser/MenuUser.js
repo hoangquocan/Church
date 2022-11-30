@@ -3,7 +3,7 @@ import { useQuery } from '@redwoodjs/web'
 import { Link, routes, navigate } from '@redwoodjs/router'
 import { useEffect, useState } from 'react'
 // import { Loader } from '@mantine/core'
-import { Avatar, Menu, Indicator, createStyles } from '@mantine/core'
+import { Avatar, Menu, Indicator } from '@mantine/core'
 import { showNotification } from '@mantine/notifications'
 
 import './MenuUser.scss'
@@ -25,10 +25,6 @@ const MenuUser = () => {
     skip: !email,
     variables: { email },
   })
-  // if (loading) {
-  //   return <div>Auth Loading...</div>
-  // }
-  // if (error) return `Error! ${error.message}`
   let user = {}
   if (data) {
     user = data.user
@@ -47,18 +43,6 @@ const MenuUser = () => {
     await logOut()
     navigate('/')
   }
-  const useStyles = createStyles((theme) => ({
-    shadow: {
-      boxShadow: theme.shadows.md,
-    },
-    item: {
-      '&[data-hovered]': {
-        backgroundColor: theme.colors.cyan[4],
-        color: theme.white,
-      },
-    },
-  }))
-  const { classes } = useStyles()
 
   return (
     <div className="header-menu-user">
@@ -70,14 +54,23 @@ const MenuUser = () => {
       </Indicator> */}
 
       <Menu
-        classNames={classes}
         shadow="rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.83) 0px 3px 6px"
-        trigger="hover"
-        closeDelay={400}
+        trigger="click"
         position="bottom-end"
+        closeOnItemClick={false}
         styles={(theme) => ({
           divider: {
             borderColor: theme.colors.gray[7],
+          },
+          itemLabel: {
+            display: 'flex',
+            alignItems: 'center',
+          },
+          item: {
+            '&[data-hovered]': {
+              backgroundColor: theme.colors.cyan[4],
+              color: theme.white,
+            },
           },
         })}
       >
@@ -96,46 +89,150 @@ const MenuUser = () => {
                   width: '40px',
                   height: '40px',
                 },
+                '&:hover': {
+                  cursor: 'pointer',
+                },
               },
             })}
           />
         </Menu.Target>
         <Menu.Dropdown>
           <Link to={routes.userProfile({ email: email })} title=" View Profile">
-            <Menu.Item>
+            <Menu.Item  closeMenuOnClick>
               <ion-icon name="person-circle-outline"></ion-icon>View Profile
             </Menu.Item>
           </Link>
-          <Menu.Item
-            onClick={() =>
-              showNotification({
-                color: 'teal',
-                title: 'Sorry! We are updating this feature',
-                autoClose: 4000,
-                radius: 'md',
-                styles: (theme) => ({
-                  root: {
-                    borderColor: theme.colors.teal[7],
-                    backgroundColor: theme.colors.teal[1],
-                    '&::before': { backgroundColor: theme.teal },
+          <Menu.Item>
+            <Menu
+              position="bottom"
+              closeOnItemClick={false}
+              withArrow
+              offset={12}
+              trigger="click"
+              shadow="rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.83) 0px 3px 6px"
+              styles={(theme) => ({
+                dropdown: {
+                  left: 0,
+                  background: '#E9ECEF',
+                },
+                itemLabel: {
+                  display: 'flex',
+                  alignItems: 'center',
+                },
+                item: {
+                  '&[data-hovered]': {
+                    backgroundColor: theme.colors.cyan[4],
+                    color: theme.white,
                   },
-
-                  closeButton: {
-                    color: theme.colors.gray[7],
-                    '&:hover': {
-                      color: theme.white,
-                      backgroundColor: theme.colors.gray[6],
-                    },
-                  },
-                }),
-              })
-            }
-          >
-            <ion-icon name="settings-outline"></ion-icon>Setting
+                },
+              })}
+            >
+              <Menu.Target>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    width: '100%',
+                  }}
+                >
+                  <ion-icon name="settings-outline"></ion-icon>
+                  Setting
+                </div>
+              </Menu.Target>
+              <Menu.Dropdown>
+                <Menu.Item component="a">
+                  <Menu
+                    position="left"
+                    width={180}
+                    closeOnItemClick={false}
+                    withArrow
+                    offset={18}
+                    trigger="click"
+                    shadow="rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.83) 0px 3px 6px"
+                    styles={(theme) => ({
+                      dropdown: {
+                        left: 0,
+                        background: '#E9ECEF',
+                      },
+                      itemLabel: {
+                        display: 'flex',
+                        alignItems: 'center',
+                      },
+                      item: {
+                        '&[data-hovered]': {
+                          backgroundColor: theme.colors.cyan[4],
+                          color: theme.white,
+                        },
+                      },
+                    })}
+                  >
+                    <Menu.Target>
+                      <div
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          width: '100%',
+                        }}
+                      >
+                        <ion-icon name="language-outline"></ion-icon>Language
+                      </div>
+                    </Menu.Target>
+                    <Menu.Dropdown>
+                      <Menu.Item>English</Menu.Item>
+                      <Menu.Item>Tiếng Việt</Menu.Item>
+                    </Menu.Dropdown>
+                  </Menu>
+                </Menu.Item>
+                <Menu.Item component="a">
+                  <Menu
+                    position="left"
+                    width={180}
+                    closeOnItemClick={false}
+                    withArrow
+                    offset={18}
+                    trigger="click"
+                    shadow="rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.83) 0px 3px 6px"
+                    styles={(theme) => ({
+                      dropdown: {
+                        left: 0,
+                        background: '#E9ECEF',
+                      },
+                      itemLabel: {
+                        display: 'flex',
+                        alignItems: 'center',
+                      },
+                      item: {
+                        '&[data-hovered]': {
+                          backgroundColor: theme.colors.cyan[4],
+                          color: theme.white,
+                        },
+                      },
+                    })}
+                  >
+                    <Menu.Target>
+                      <div
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          width: '100%',
+                        }}
+                      >
+                        <ion-icon name="moon-outline"></ion-icon>Appearance
+                      </div>
+                    </Menu.Target>
+                    <Menu.Dropdown>
+                      <Menu.Item>Dark Theme</Menu.Item>
+                      <Menu.Item>Light Theme</Menu.Item>
+                    </Menu.Dropdown>
+                  </Menu>
+                </Menu.Item>
+              </Menu.Dropdown>
+            </Menu>
           </Menu.Item>
           <Link to={routes.feedback()}>
             <Menu.Item>
-              <ion-icon name="help-circle-outline"></ion-icon>Feedback And Help
+              <ion-icon name="help-circle-outline"></ion-icon>
+              Feedback And Help
             </Menu.Item>
           </Link>
           <Menu.Divider />

@@ -3,10 +3,10 @@ import { Avatar, Group, Stack } from '@mantine/core'
 import './RecentActivity.scss'
 
 const RecentActivity = ({ activities }) => {
-  const members = activities[0].attendance.map((item) => ({
-    name: item.member.name,
-    urlAvatar: item.member.urlAvatar,
-    phone: item.member.phoneNumber,
+  const members = activities[0].group.members.map((item) => ({
+    name: item.name,
+    urlAvatar: item.urlAvatar,
+    phone: item.phoneNumber,
   }))
   const totalMembers = members.length
   const activityOne = activities[0]

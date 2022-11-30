@@ -1,5 +1,5 @@
 import RecentActivity from '../RecentActivity/RecentActivity'
-import { Loader, Skeleton } from '@mantine/core'
+import { Skeleton } from '@mantine/core'
 
 export const QUERY = gql`
   query RecentActivityQuery($groupId: Int) {
@@ -7,6 +7,15 @@ export const QUERY = gql`
       id
       name
       date
+      group{
+        id
+        members{
+          id
+          name
+          urlAvatar
+          phoneNumber
+        }
+      }
       attendance{
         id
         member{
@@ -24,7 +33,7 @@ export const beforeQuery = ({ groupId }) => {
   return {variables: {groupId: groupId}}
 }
 export const Loading = () => (
-  <div style={{ textAlign:'center', marginTop: '5%'}}>
+  <div style={{ textAlign:'center', marginTop: '50px'}}>
     <Skeleton height={60} mt={16} width="50%" radius="md" />
     <Skeleton height={50} mt={20} radius="sm" />
     <Skeleton height={50} mt={20} radius="sm" />

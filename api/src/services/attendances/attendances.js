@@ -28,7 +28,12 @@ export const deleteAttendance = ({ id }) => {
     where: { id },
   })
 }
-
+export const deleteAttenOf = ({ memberId }) => {
+console.log(memberId)
+  return db.attendance.deleteMany({
+    where: { memberId: memberId },
+  })
+}
 export const Attendance = {
   activity: (_obj, { root }) =>
     db.attendance.findUnique({ where: { id: root.id } }).activity(),

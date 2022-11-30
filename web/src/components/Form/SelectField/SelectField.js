@@ -18,6 +18,7 @@ const SelectField = ({ data, value, onChange, label, ...props }) => {
         transition="pop-top-left"
         transitionDuration={500}
         transitionTimingFunction="ease"
+        dropdownPosition='bottom'
         styles={(theme) => ({
           wrapper: {
             backgroundColor: 'white',

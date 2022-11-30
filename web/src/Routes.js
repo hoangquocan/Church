@@ -28,6 +28,7 @@ const Routes = () => {
 
         <Private unauthenticated="home" roles={['admin', 'manager']}>
           <Route path="/groups/new" page={GroupNewGroupPage} name="newGroup" />
+          <Route path="/groups/{id:Int,name:String}/add-member" page={GroupGroupAddMemPage} name="groupAddMem" />
           <Route path="/activities/new" page={ActivityNewActivityPage} name="newActivity" />
           <Route path="/activities/new-multi-activities" page={ActivityNewMultiActivitiesPage} name="newMultiActivities" />
           <Route path="/manager/create-question" page={ManagerCreateQuestionPage} name="createQuestion" />
@@ -48,7 +49,6 @@ const Routes = () => {
           <Route path="/attendanced" page={AttendanceAttendancedPage} name="attendanced" />
           <Route path="/groups" page={GroupGroupsPage} name="groups" />
           <Route path="/groups/{id:Int}" page={GroupGroupPage} name="group" />
-          <Route path="/groups/{id:Int,name:String}/add-member" page={GroupGroupAddMemPage} name="groupAddMem" />
           <Route path="/reports" page={ReportReportsPage} name="reports" />
           <Route path="/report-create" page={ReportReportCreatePage} name="reportCreate" />
           <Route path="/report-info" page={ReportReportInfoPage} name="reportInfo" />
