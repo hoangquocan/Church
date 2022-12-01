@@ -52,9 +52,8 @@ const Header = () => {
       <Modal
         opened={openedSearch}
         onClose={() => handleCloseSearch()}
-        // fullScreen
+        withCloseButton={false}
         overlayOpacity={0}
-        zIndex={3}
         overlayBlur={0}
         transition="fade"
         transitionDuration={500}
@@ -62,33 +61,54 @@ const Header = () => {
         padding={0}
         styles={() => ({
           root: {
-            backgroundImage: 'linear-gradient(to right, #ffafbd  , #ffc3a0)',
+            background: '#021027',
           },
           modal: {
             backgroundColor: 'transparent',
-            border: 'none',
-            boxShadow: 'none',
             marginBottom: '50px',
             minHeight: '800px',
-            top: '10px',
-            width: '410px'
           },
-          close: {
-            marginBottom: '-78px',
-            WebkitAppearance: 'none',
-            color: '#000',
-            borderRadius: '50%',
-            background: '#fff',
+          inner: {
+            padding: '40px 4px',
+          },
+          body: {
+            display: 'flex',
+            alignItems: 'center',
           },
         })}
       >
-        <SearchBar />
+        <ion-icon
+          style={{
+            color: 'var(--color-primary)',
+            fontSize: '26px',
+            marginRight: '8px',
+          }}
+          onClick={() => handleCloseSearch()}
+          name="arrow-undo-outline"
+        ></ion-icon>
+        <SearchBar handleCloseSearch={handleCloseSearch} />
       </Modal>
       <Modal
         title={
-          type == 'login'
-            ? <><ion-icon style={{position: 'absolute', left: '12px'}} onClick={() => setOpened(false)} name="arrow-undo-outline"></ion-icon> Welcome to BTN Gia Định</>
-            : <><ion-icon style={{position: 'absolute', left: '12px'}} onClick={() => setOpened(false)} name="arrow-undo-outline"></ion-icon>Sign up for System</>
+          type == 'login' ? (
+            <>
+              <ion-icon
+                style={{ position: 'absolute', left: '12px' }}
+                onClick={() => setOpened(false)}
+                name="arrow-undo-outline"
+              ></ion-icon>{' '}
+              Welcome to BTN Gia Định
+            </>
+          ) : (
+            <>
+              <ion-icon
+                style={{ position: 'absolute', left: '12px' }}
+                onClick={() => setOpened(false)}
+                name="arrow-undo-outline"
+              ></ion-icon>
+              Sign up for System
+            </>
+          )
         }
         opened={opened}
         onClose={() => setOpened(false)}
@@ -100,19 +120,19 @@ const Header = () => {
         fullScreen
         styles={() => ({
           root: {
-            // width:'100%',
-            '@media(min-width: 480px)':{
-            background: '#74C0FC',
-            }
+            background: '#101113',
+            '@media(min-width: 480px)': {
+              background: '#5C5F66',
+            },
           },
           modal: {
             backgroundColor: 'rgba(0, 0, 0, .7)',
           },
-          inner:{
-            '@media(min-width: 480px)':{
+          inner: {
+            '@media(min-width: 480px)': {
               width: '450px',
-              margin:'0 auto'
-            }
+              margin: '0 auto',
+            },
           },
           title: {
             fontSize: '1.4rem',
@@ -129,7 +149,7 @@ const Header = () => {
         })}
       >
         <Divider size="sm" mb="20px" ml="-19px" mr="-19px" color="#dd5e89" />
-        <Logo/>
+        <Logo />
         {type === 'login' && <Login handleLogin={handleLogin} />}
         {type === 'signup' && <SignUp handleLogin={handleLogin} />}
         <Divider size="sm" mt={30} ml="-19px" mr="-19px" color="#dd5e89" />
@@ -158,7 +178,7 @@ const Header = () => {
           </>
         ) : (
           <button className="btn-cyan" onClick={() => setOpened(true)}>
-          <ion-icon name="log-in-outline"></ion-icon>Log In
+            <ion-icon name="log-in-outline"></ion-icon>Log In
           </button>
         )}
       </div>

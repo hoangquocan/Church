@@ -2,9 +2,9 @@ import './MemberItem.scss'
 import { Avatar, Group, Stack, Text } from '@mantine/core'
 import { Link, routes } from '@redwoodjs/router'
 
-const MemberItem = ({ data }) => {
+const MemberItem = ({ data, handleCloseSearch }) => {
   return (
-    <div className="memberitem-wrapper">
+    <div className="memberitem-wrapper" onMouseDown={() => handleCloseSearch()}>
       <Link to={routes.member({ id: data.id })}>
         <Group>
           <Avatar src={data.urlAvatar} radius='50%' size="lg" color="cyan" />

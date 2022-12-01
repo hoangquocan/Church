@@ -17,7 +17,7 @@ const QUERY = gql`
     }
   }
 `
-const SearchBar = () => {
+const SearchBar = ({handleCloseSearch}) => {
   const [nameSearch, setNameSearch] = useState('')
   // const [searchResult, setSearchResult] = useState([])
   const [showResult, setShowResult] = useState(false)
@@ -28,13 +28,6 @@ const SearchBar = () => {
     skip: !nameSearch,
     variables: { nameSearch: nameSearch },
   })
-  // if (loading)
-  //   {return (
-  //     <div style={{ textAlign: 'center' }}>
-  //       <Loader variant="oval" size="md" color="dark" />
-  //     </div>
-  //   )}
-  // if (error) return `Error! ${error.message}`
 
   let searchResult = []
   if (data) {
@@ -43,7 +36,6 @@ const SearchBar = () => {
 
   const handleClear = () => {
     setNameSearch('')
-    // setSearchResult([])
     inputRef.current.focus()
   }
 
@@ -67,7 +59,7 @@ const SearchBar = () => {
             <Popper>
               <h4 style={{paddingLeft: '12px', color: '#868E96'}}>Members</h4>
               {searchResult.map((member) => (
-                <MemberItem key={member.id} data={member} />
+                <MemberItem handleCloseSearch={handleCloseSearch} key={member.id} data={member} />
               ))}
             </Popper>
           </div>
