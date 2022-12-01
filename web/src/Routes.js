@@ -44,8 +44,8 @@ const Routes = () => {
           <Route path="/report-create" page={ReportReportCreatePage} name="reportCreate" />
           <Route path="/report-info" page={ReportReportInfoPage} name="reportInfo" />
           <Route path="/reports/viewreport" page={ReportReportPage} name="report" />
-          <Route path="/" page={HomePage} name="home" />
         </Private>
+          <Route path="/" page={HomePage} name="home" />
 
         <Route path="/{email:String}" page={UserProfilePage} name="userProfile" />
       </Set>

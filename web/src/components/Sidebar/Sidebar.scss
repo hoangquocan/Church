@@ -12,7 +12,6 @@
   position: fixed;
   // z-index: 5;
   background: #03578f;
-  // background-image: linear-gradient(to bottom, #424246  , #0e0608);
   transition: 0.5s;
   padding-bottom: 40px;
   @media (max-width: 1366px) {
@@ -27,13 +26,6 @@
     border-right: 1px solid #45f3ff;
     height: auto;
     min-height: 100vh;
-    // overflow-y: scroll;
-    // overflow-x: hidden;
-    // &::-webkit-scrollbar {
-    //   background-color: transparent;
-    //   width: 0px;
-    // display: none;
-    // }
   }
 
   .logo {
@@ -54,9 +46,6 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        // span {
-        //   font-size: 0.8rem;
-        // }
       }
     }
     img {
@@ -81,7 +70,6 @@
       margin: 0;
       background-color: hsl(0, 0%, 67%);
       border-radius: 20px;
-      // border: 1px solid transparent;
       background-clip: content-box;
       height: 56px;
     }
@@ -89,7 +77,6 @@
   &.active {
     width: 0px;
     border: none;
-    // background: #23242a;
     @media (max-width: 1366px) {
       width: var(--sidebar-width);
       left: 0;

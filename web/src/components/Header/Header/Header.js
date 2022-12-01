@@ -9,6 +9,7 @@ import Login from '../Login/Login'
 import SignUp from '../SignUp/SignUp'
 import MenuUser from '../MenuUser'
 import './Header.scss'
+import Logo from 'src/components/Logo/Logo'
 
 const Header = () => {
   const [opened, setOpened] = useState(false)
@@ -71,11 +72,6 @@ const Header = () => {
             minHeight: '800px',
             top: '10px',
             width: '410px'
-            // '@media(max-width: 480px)': {
-            //   padding: '8px',
-            //   top: '10px',
-            //   paddingRight: '4px',
-            // },
           },
           close: {
             marginBottom: '-78px',
@@ -91,8 +87,8 @@ const Header = () => {
       <Modal
         title={
           type == 'login'
-            ? 'Log in to System'
-            : 'Sign up for System'
+            ? <><ion-icon style={{position: 'absolute', left: '12px'}} onClick={() => setOpened(false)} name="arrow-undo-outline"></ion-icon> Welcome to BTN Gia Định</>
+            : <><ion-icon style={{position: 'absolute', left: '12px'}} onClick={() => setOpened(false)} name="arrow-undo-outline"></ion-icon>Sign up for System</>
         }
         opened={opened}
         onClose={() => setOpened(false)}
@@ -100,34 +96,43 @@ const Header = () => {
         transition="fade"
         transitionDuration={600}
         transitionTimingFunction="ease"
-        styles={(theme) => ({
+        withCloseButton={false}
+        fullScreen
+        styles={() => ({
           root: {
-            // backgroundImage: 'linear-gradient(to right, #ffafbd  , #ffc3a0)',
-            background: '#fff'
+            // width:'100%',
+            '@media(min-width: 480px)':{
+            background: '#74C0FC',
+            }
           },
           modal: {
-            // backgroundColor: '#ee9ca7',
             backgroundColor: 'rgba(0, 0, 0, .7)',
-            borderRadius: '10px',
-            boxShadow: '0 15px 25px rgba(0, 0, 0, .4)',
+          },
+          inner:{
+            '@media(min-width: 480px)':{
+              width: '450px',
+              margin:'0 auto'
+            }
           },
           title: {
             fontSize: '1.4rem',
             margin: '0 auto',
             fontWeight: 500,
             color: '#fff',
+            display: 'flex',
+            alignItems: 'center',
           },
           header: {
-            fontSize: '1.4rem',
             marginBottom: '6px',
-            marginTop: '-6px',
+            marginTop: '50px',
           },
         })}
       >
-        <Divider size="sm" mb="16px" ml="-20px" mr="-20px" color="#dd5e89" />
+        <Divider size="sm" mb="20px" ml="-19px" mr="-19px" color="#dd5e89" />
+        <Logo/>
         {type === 'login' && <Login handleLogin={handleLogin} />}
         {type === 'signup' && <SignUp handleLogin={handleLogin} />}
-        <Divider size="sm" mt={30} ml="-20px" mr="-20px" color="#dd5e89" />
+        <Divider size="sm" mt={30} ml="-19px" mr="-19px" color="#dd5e89" />
         {type === 'login' ? (
           <div className="login-signup">
             <p>Don't have an account? </p>{' '}

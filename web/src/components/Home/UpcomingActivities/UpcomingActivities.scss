@@ -12,14 +12,13 @@
   .activity-item {
     position: relative;
     background: transparent;
-    // background: linear-gradient( to right, #1864AB,#48b1bf);
     padding: 10px 10px 20px;
     border-radius: 20px;
     min-height: 200px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: flex-end;
+    justify-content: center;
     border: 2px solid #7266b9;
     transition: all .4s;
     &:hover {
@@ -29,7 +28,7 @@
     }
     .name {
       font-size: 1.8em;
-      font-weight: 500;
+      font-weight: 600;
     }
     .date {
       font-size: 1.3em;

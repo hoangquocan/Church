@@ -1,8 +1,8 @@
 .attendanced-activity {
-  color: #fff;
+  // color: #fff;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  width: 100%;
+  min-width: 390px;
   margin-top: 30px;
   gap: 30px;
   line-height: 2;
@@ -16,9 +16,10 @@
   }
   table{
     background: var(--layout-bg-color);
+    color: #fff;
     padding: 10px;
     border-radius: 10px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0 , .7);
+    box-shadow: 0 1px 2px rgba(0, 0, 0 , .7);
     tr{
       td:last-child{
         text-align: center;
@@ -31,7 +32,7 @@
     }
   }
   .Present {
-    color: #1971c2;
+    color: #0000ff;
   }
   .Absent {
     color: #e03131;

@@ -40,6 +40,9 @@ const SignUp = ({ handleLogin }) => {
   if (data) {
     userExist = data.users.map((user) => user.email)
   }
+  if(error) {
+    console.log(error)
+  }
   const { signUp } = useAuth()
   const form = useForm({
     initialValues: {

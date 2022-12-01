@@ -16,7 +16,7 @@ export const schema = gql`
     leaderNoGroup: [User!]! @requireAuth
     usersHasRole: [User!]! @requireAuth
     usersExist: [User!]! @skipAuth
-    users: [User!]! @requireAuth
+    users: [User!]! @skipAuth
     user(email: String): User @requireAuth
   }
 

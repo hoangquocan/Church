@@ -3,9 +3,10 @@ import { useMutation, useQuery } from '@redwoodjs/web'
 import { PasswordInput, TextInput, Divider } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { showNotification } from '@mantine/notifications'
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 
 import './Login.scss'
+
 const CREATE_USER = gql`
   mutation CreateUserMutation($input: CreateUserInput!) {
     createUser(input: $input) {

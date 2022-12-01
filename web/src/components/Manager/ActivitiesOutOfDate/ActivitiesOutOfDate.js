@@ -90,11 +90,11 @@ const ActivitiesOutOfDate = ({ activities }) => {
             onMouseEnter={() => handleMouseEnter(idx)}
             onMouseLeave={() => handleMouseLeave(idx)}
           >
-            <Text size={24} weight={700} color="#A61E4D" ml={10} mr={10}>
+            <Text size={26} weight={700} color="#A61E4D" ml={10} mr={10} mb={10}>
               {activity.name}
             </Text>
-            <Text>{new Date(activity.date).toLocaleString('pt-BR')}</Text>
-            <Text>{activity.group.name}</Text>
+            <Text size={18} mb={10}>{new Date(activity.date).toLocaleString('pt-BR')}</Text>
+            <Text size={18} mb={10}>{activity.group.name}</Text>
             <button
               className="inline-button inline-button-small inline-button-red"
               onClick={() => handleDelete(+activity.id, activity.name, idx)}

@@ -1,5 +1,5 @@
 .viewAttendanced-wrapper {
-  color: #fff;
+  // color: #fff;
   padding: 20px 20px;
   display: flex;
   flex-direction: column;
@@ -8,8 +8,9 @@
   background: #74C0FC;
   max-width: 32em;
   border-radius: 10px;
-  margin: 30px auto 100px;
+  margin: 30px 8px 100px;
   @media (min-width: 480px) {
+    margin: 30px auto 100px;
     max-width: 40em;
   }
   @media (min-width: 769px) {
@@ -17,8 +18,8 @@
   }
 
   .viewAttendanced-select {
-    width: 400px;
-    max-width: 380px;
+    width: 350px;
+    max-width: 350px;
     gap: 20px;
     margin-bottom: 20px;
     display: flex;
@@ -34,8 +35,8 @@
       }
     }
     label {
-      // color: var(--color-primary);
       font-size: 16px;
+      margin-bottom: 4px;
     }
   }
 }
