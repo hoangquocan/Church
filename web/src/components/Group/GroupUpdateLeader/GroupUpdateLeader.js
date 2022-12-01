@@ -27,7 +27,7 @@ const GROUP_UPDATE_LEADER = gql`
   }
 `
 
-const GroupUpdateLeader = ({ group, page, handleModal }) => {
+const GroupUpdateLeader = ({ group, page, handleModal, idx }) => {
   const [leader, setLeader] = useState()
   const { data } = useQuery(LEADER_NO_GROUP)
   const [updateGroup] = useMutation(GROUP_UPDATE_LEADER, {
@@ -54,7 +54,7 @@ const GroupUpdateLeader = ({ group, page, handleModal }) => {
           },
         }),
       }),
-        handleModal()
+        handleModal(idx)
     },
     refetchQueries: [{ query: QUERY, variables: { page: page } }],
   })

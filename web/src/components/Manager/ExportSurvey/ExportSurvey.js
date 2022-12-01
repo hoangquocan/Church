@@ -44,7 +44,6 @@ const ExportSurvey = ({ questions }) => {
     openConfirmModal({
       title: 'Are you sure want to Download?',
       labels: { confirm: 'Download', cancel: 'Cancel' },
-      // confirmProps: { color: 'red' },
       onConfirm: () => csvRef.current.link.click(),
     })
   }
@@ -63,7 +62,7 @@ const ExportSurvey = ({ questions }) => {
       {questionChoose.length > 0 && (
         <div className="export-questions">
           <h3>
-            {'Questions for' +
+            {'Questions For' +
               ' T' +
               (new Date(questionChoose[0]?.time).getMonth() + 1) +
               '/' +

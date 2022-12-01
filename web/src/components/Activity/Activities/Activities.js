@@ -20,6 +20,7 @@ const DELETE_ACTIVITY_MUTATION = gql`
 const Activities = ({ activities, page }) => {
   const [opened, setOpened] = useState(false)
   const [activity, setActivity] = useState()
+  const [idxActivity, setIdxActivity] = useState()
 
   const { hasRole } = useAuth()
   const iconRefs = useRef([])
@@ -123,6 +124,7 @@ const Activities = ({ activities, page }) => {
           <div
             key={activity.id}
             className="activities-item"
+            onMouseDown={() => handleMouseEnter(idx)}
             onMouseEnter={() => handleMouseEnter(idx)}
             onMouseLeave={() => handleMouseLeave(idx)}
           >
@@ -173,6 +175,7 @@ const Activities = ({ activities, page }) => {
                   onClick={() => {
                     setActivity(activity)
                     setOpened(true)
+                    setIdxActivity(idx)
                   }}
                 >
                   View Info
@@ -192,7 +195,9 @@ const Activities = ({ activities, page }) => {
         <Modal
           title="Activity Info"
           opened={opened}
-          onClose={() => setOpened(false)}
+          onClose={() => {setOpened(false)
+          handleMouseLeave(idxActivity)
+          }}
           zIndex={3}
           overlayColor="transparent"
           overlayBlur={1}
@@ -202,8 +207,6 @@ const Activities = ({ activities, page }) => {
               overflowX: 'hidden',
               width: 'auto',
               marginTop: '20px',
-              backgroundColor: 'rgba(0, 0, 0, .9)',
-              backgroundColor: '#fff',
               '@media(min-width: 1024px)': {
                 marginTop: '50px',
                 marginLeft: '300px',
@@ -224,7 +227,7 @@ const Activities = ({ activities, page }) => {
             close: {
               color: '#000',
               backgroundColor: '#f2f2f2',
-              marginRight: 20,
+              marginRight: 26,
               width: 32,
               height: 32,
               borderRadius: '50%',

@@ -18,6 +18,7 @@ const ActivitiesOutOfDate = ({ activities }) => {
   const [opened, setOpened] = useState(false)
   const [activity, setActivity] = useState()
   const [activitiesOOD, setActivitiesOOD] = useState([])
+
   const btnRefs = useRef([])
   useEffect(() => {
     btnRefs.current = btnRefs.current.slice(0, activities?.length)
@@ -85,6 +86,7 @@ const ActivitiesOutOfDate = ({ activities }) => {
           <div
             key={activity.id}
             className="activity-item"
+            onMouseDown={() => handleMouseEnter(idx)}
             onMouseEnter={() => handleMouseEnter(idx)}
             onMouseLeave={() => handleMouseLeave(idx)}
           >
@@ -118,7 +120,6 @@ const ActivitiesOutOfDate = ({ activities }) => {
           zIndex={101}
           overlayOpacity={0.2}
           overlayBlur={3}
-          // centered
           padding={0}
           styles={(theme) => ({
             modal: {

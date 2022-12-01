@@ -19,7 +19,6 @@
     align-items: center;
     min-width: 280px;
     min-height: 250px;
-    // gap: 10px;
     padding: 0 10px 20px;
     margin-bottom: 20px;
     color: #fff;
@@ -33,12 +32,14 @@
       font-size: 20px;
       border-radius: 50%;
       padding: 4px;
-      display: none;
-      &:hover {
-        background: #5C5F66;
-      }
+      display: block;
+      background: #25262b;
+      color: #25262b;
       &.hovered {
-        display: block;
+        color: #fff;
+      }
+      &:hover {
+        background: #373A40;
       }
     }
     &:hover {

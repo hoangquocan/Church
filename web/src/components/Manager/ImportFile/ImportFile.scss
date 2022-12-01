@@ -5,7 +5,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  background: #2c2e33;
+  background: #74C0FC;
   max-width: 32em;
   border-radius: 10px;
   margin: 20px auto;
@@ -21,7 +21,7 @@
     font-size: 16px;
     flex-direction: row;
     position: relative;
-    margin: 20px 0;
+    margin: 30px 0;
     max-width: 400px;
     height: 40px;
     border: 1px solid #ff6ec4;
@@ -37,7 +37,7 @@
     input {
       position: relative;
       font-weight: 500;
-      width: calc(100% - 120px);
+      width: calc(100% - 126px);
       display: flex;
       align-items: center;
       color: #f2f2f2;

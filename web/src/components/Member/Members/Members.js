@@ -39,7 +39,7 @@ const Members = ({ groupId, members }) => {
           root: {
             borderColor: theme.colors.red[4],
             backgroundColor: theme.colors.red[1],
-            '&::before': { backgroundColor: theme.white },
+            '&::before': { backgroundColor: theme.red },
           },
 
           title: { color: theme.colors.red[5] },

@@ -127,7 +127,7 @@ const ImportFile = () => {
 
   return (
     <div className="importfile-wrapper" style={{ textAlign: 'center' }}>
-      <h1 style={{ color: '#fff' }}>Upload File Members</h1>
+      <h2>Upload File Members</h2>
       <form onSubmit={(e) => handleOnSubmit(e)}>
         <input type="file" accept={'.csv'} onClick={(e) => handleClick(e)} onChange={handleOnChange} required />
         <button
@@ -137,7 +137,7 @@ const ImportFile = () => {
             justifyContent: 'center',
             fontSize: '20px',
             fontWeight: 500,
-            width: '120px',
+            width: '126px',
             border: 'none',
             color: '#fff',
             borderTopRightRadius: '20px',

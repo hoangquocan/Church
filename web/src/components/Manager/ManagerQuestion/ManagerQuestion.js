@@ -19,6 +19,7 @@ const DELETE_QUESTION_MUTATION = gql`
 const ManagerQuestion = ({ questionsView }) => {
   const [opened, setOpened] = useState(false)
   const [question, setQuestion] = useState()
+  const [idxQuestion, setIdxQuestion] = useState()
 
   const iconsRef = useRef([])
   const divRefs = useRef([])
@@ -77,7 +78,7 @@ const ManagerQuestion = ({ questionsView }) => {
         styles: (theme) => ({
           root: {
             borderColor: theme.colors.red[4],
-            backgroundColor: theme.colors.red[1 ],
+            backgroundColor: theme.colors.red[1],
             '&::before': { backgroundColor: theme.red },
           },
 
@@ -125,17 +126,12 @@ const ManagerQuestion = ({ questionsView }) => {
   }
   return (
     <div style={{ color: '#fff' }} className="manager-questions">
-      {/* <h2>Manager Question</h2> */}
       {questionsView.map((question, i) => (
         <div
           key={i}
-          style={{
-            marginTop: '30px',
-            backgroundColor: '#f2f2f2',
-            color: '#000',
-          }}
           ref={(el) => (divRefs.current[i] = el)}
           className="manager-questions-item"
+          onMouseDown={() => handleMouseOver(i)}
           onMouseEnter={() => handleMouseOver(i)}
           onMouseLeave={() => handleMouseLeave(i)}
         >
@@ -175,6 +171,7 @@ const ManagerQuestion = ({ questionsView }) => {
                 onClick={() => {
                   setQuestion(question)
                   setOpened(true)
+                  setIdxQuestion(i)
                 }}
                 color="gray"
                 icon={<IconEdit size={16} />}
@@ -192,7 +189,8 @@ const ManagerQuestion = ({ questionsView }) => {
             </Menu.Dropdown>
           </Menu>
           <h4>
-            Tháng {new Date(question.time).getMonth() +
+            Tháng{' '}
+            {new Date(question.time).getMonth() +
               1 +
               '/' +
               new Date(question.time).getFullYear()}
@@ -207,7 +205,10 @@ const ManagerQuestion = ({ questionsView }) => {
       <Modal
         title="Update Questions"
         opened={opened}
-        onClose={() => setOpened(false)}
+        onClose={() => {
+          setOpened(false)
+          handleMouseLeave(idxQuestion)
+        }}
         styles={() => ({
           modal: {
             width: 800,
@@ -216,10 +217,10 @@ const ManagerQuestion = ({ questionsView }) => {
             },
           },
           title: {
-              margin: '0 auto',
-              fontSize: '28px',
-              fontWeight: 500,
-            },
+            margin: '0 auto',
+            fontSize: '28px',
+            fontWeight: 500,
+          },
           close: {
             backgroundColor: '#f2f2f2',
             marginRight: 10,

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Pagination, useMantineTheme } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
 import { useQuery } from '@redwoodjs/web'
+import { MetaTags } from '@redwoodjs/web'
 import ActivitiesPageCell from 'src/components/Activity/ActivitiesPageCell'
 
 const QUERY = gql`
@@ -22,6 +23,7 @@ const ActivitiesPage = () => {
   const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm}px)`)
   return (
     <>
+      <MetaTags title="Activities" />
       <ActivitiesPageCell page={activePage} />
       <Pagination
         position="center"

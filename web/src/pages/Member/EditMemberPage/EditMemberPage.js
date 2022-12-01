@@ -3,7 +3,7 @@ import EditMemberCell from 'src/components/Member/EditMemberCell'
 const EditMemberPage = ({ id }) => {
   return (
     <>
-      <MetaTags title="EditMember" description="EditMember page" />
+      <MetaTags title="Edit Member" description="EditMember page" />
       <EditMemberCell id={id} />
     </>
   )

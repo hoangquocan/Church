@@ -1,7 +1,6 @@
 import { Avatar, Group, Text, Menu, Modal, Divider } from '@mantine/core'
 import { useState, useRef, useEffect } from 'react'
 import { IconEdit, IconMail } from '@tabler/icons'
-// import { useMutation } from '@redwoodjs/web'
 
 import EditUserRole from '../EditUserRole/EditUserRole'
 import './ManagerUsers.scss'
@@ -9,6 +8,8 @@ import './ManagerUsers.scss'
 const ManagerUsers = ({ users }) => {
   const [opened, setOpened] = useState(false)
   const [user, setUser] = useState()
+  const [idx, setIdx] = useState()
+
   const iconRefs = useRef([])
   useEffect(() => {
     iconRefs.current = iconRefs.current.slice(0, users.length)
@@ -40,6 +41,7 @@ const ManagerUsers = ({ users }) => {
         <div
           key={user.id}
           className="user-item"
+          onMouseDown={() => handleMouseEnter(idx)}
           onMouseEnter={() => handleMouseEnter(idx)}
           onMouseLeave={() => handleMouseLeave(idx)}
         >
@@ -55,7 +57,7 @@ const ManagerUsers = ({ users }) => {
               },
             })}
           />
-          <Text align="center" size="lg" weight={700}>
+          <Text color="#A61E4D" align="center" size="xl" weight={700}>
             {user.name || 'No update yet'}
           </Text>
           <Text align="center" size="md" color="dimmed">
@@ -63,12 +65,12 @@ const ManagerUsers = ({ users }) => {
           </Text>
           <Group>
             {user.userRoles.map((role) => (
-                <Text key={role.id} align="center" size="lg" weight={400}>
-                  {role.name == 'user' ? '' : role.name.toUpperCase()}
-                </Text>
+              <Text key={role.id} align="center" size="lg" weight={400}>
+                {role.name == 'user' ? '' : role.name.toUpperCase()}
+              </Text>
             ))}
           </Group>
-                <Text>{checkLeader(user) ? user.group?.name : null}</Text>
+          <Text size="lg">{checkLeader(user) ? user.group?.name : null}</Text>
           <Menu
             width={200}
             height={90}
@@ -103,6 +105,7 @@ const ManagerUsers = ({ users }) => {
                 onClick={() => {
                   setUser(user)
                   setOpened(true)
+                  setIdx(idx)
                 }}
                 color="white"
                 icon={<IconEdit size={16} />}
@@ -110,10 +113,11 @@ const ManagerUsers = ({ users }) => {
                 Update Role
               </Menu.Item>
               <Divider />
-              <a target='_blank' href="https://mail.google.com/mail/u/0/#inbox">
-              <Menu.Item color="white" icon={<IconMail size={16} />}>
-                Send Email
-              </Menu.Item></a>
+              <a target="_blank" href="https://mail.google.com/mail/u/0/#inbox">
+                <Menu.Item color="white" icon={<IconMail size={16} />}>
+                  Send Email
+                </Menu.Item>
+              </a>
             </Menu.Dropdown>
           </Menu>
         </div>
@@ -121,14 +125,17 @@ const ManagerUsers = ({ users }) => {
       <Modal
         title="Update User Role"
         opened={opened}
-        onClose={() => setOpened(false)}
+        onClose={() => {
+          setOpened(false)
+          handleMouseLeave(idx)
+        }}
         zIndex={3}
-        styles={(theme) => ({
+        styles={() => ({
           modal: {
             marginTop: '100px',
             '@media(min-width: 1024px)': {
-                marginLeft: '300px',
-              },
+              marginLeft: '300px',
+            },
           },
           header: {
             fontSize: '1.4rem',

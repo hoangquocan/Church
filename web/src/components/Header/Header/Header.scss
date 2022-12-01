@@ -3,13 +3,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  // width: 100%;
   width: calc(100% - var(--sidebar-width));
   height: var(--header-height);
   padding: 0px 20px;
   box-shadow: inset 0 -10px 10px -10px #48b1bf;
   background-color: var(--layout-bg-color);
-  // border-radius: 5px;
   position: fixed;
   top: 0;
   left: var(--sidebar-width);
@@ -20,12 +18,11 @@
     @media (max-width: 480px) {
       top: -60px;
       left: 0;
-      // z-index: 12;
       .sidebar-toggle {
         color: #fff;
         position: fixed;
         right: 0;
-        padding-left: 70px;
+        padding-left: 60px;
         transition-delay: 0.3s;
         transform: translateY(70px);
       }

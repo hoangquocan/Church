@@ -1,9 +1,11 @@
 import MembersLoad from 'src/components/Member/MembersLoad/MembersLoad'
 import './MembersPage.scss'
-const MembersPage = () => {
+import { MetaTags } from '@redwoodjs/web'
 
+const MembersPage = () => {
   return (
     <div className="members-page__wrapper">
+      <MetaTags title="Members" />
       <MembersLoad />
     </div>
   )

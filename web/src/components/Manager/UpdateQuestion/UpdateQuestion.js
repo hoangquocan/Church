@@ -51,27 +51,12 @@ const UpdateQuestion = ({ question, handleModal }) => {
       questionThree: question.questionThree,
     },
     validate: {
-      questionOne: (value) => {
-        if (value.length < 10) {
-          return 'Please write for Question One'
-        } else if (value.length > 191) {
-          return 'Please write less than 191 words'
-        }
-      },
-      questionTwo: (value) => {
-        if (value.length < 10) {
-          return 'Please write for Question One'
-        } else if (value.length > 191) {
-          return 'Please write less than 191 words'
-        }
-      },
-      questionThree: (value) => {
-        if (value.length < 10) {
-          return 'Please write for Question One'
-        } else if (value.length > 191) {
-          return 'Please write less than 191 words'
-        }
-      },
+      questionOne: (value) =>
+        value.length < 10 ? 'Please write for Question One' : null,
+      questionTwo: (value) =>
+        value.length < 10 ? 'Please write for Question Two' : null,
+      questionThree: (value) =>
+        value.length < 10 ? 'Please write for Question Three' : null,
     },
   })
   const handleUpdate = (values) => {

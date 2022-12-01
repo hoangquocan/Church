@@ -4,7 +4,7 @@ import AttendanceActivityCell from 'src/components/Attendance/AttendanceActivity
 const ActivityNotAttenPage = ({ id }) => {
   return (
     <>
-      <MetaTags title="ActivityNotAtten" description="ActivityNotAtten page" />
+      <MetaTags title="Attendance" description="Activity Not Attendance page" />
       <AttendanceActivityCell id={id} />
     </>
   )

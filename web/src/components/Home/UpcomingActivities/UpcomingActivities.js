@@ -32,6 +32,7 @@ const UpcomingActivities = ({ upcomingActivities }) => {
         <div
           key={activity.id}
           className="activity-item"
+          onMouseDown={() => handleMouseEnter(i)}
           onMouseEnter={() => handleMouseEnter(i)}
           onMouseLeave={() => handleMouseLeave(i)}
         >
@@ -64,12 +65,13 @@ const UpcomingActivities = ({ upcomingActivities }) => {
         overlayOpacity={0.2}
         overlayBlur={3}
         centered
-        styles={(theme) => ({
+        styles={() => ({
           modal: {
             background: '#2C2E33',
             boxShadow: '0 15px 25px rgba(0, 0, 0, .9)',
             width: 800,
             borderRadius: '10px',
+            overflowX: 'hidden',
             '@media(max-width: 768px)': {
               width: 600,
             },
@@ -78,17 +80,21 @@ const UpcomingActivities = ({ upcomingActivities }) => {
               padding: 2,
             },
           },
+          inner: {
+              padding: '30px 6px',
+              backgroundColor: 'transparent',
+              '@media(min-width: 1024px)': {
+                padding: '60px 16px',
+              },
+            },
           title: {
             margin: '0 auto',
             fontSize: '28px',
             fontWeight: 500,
             color: '#fff',
-            // marginBottom: 0,
           },
-          inner: { backgroundColor: 'transparent' },
           close: {
             backgroundColor: '#DEE2E6',
-            // borderColor: '#000',
             marginRight: 14,
             marginTop: 2,
             color: '#000',

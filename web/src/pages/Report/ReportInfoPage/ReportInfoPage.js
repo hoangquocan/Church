@@ -5,8 +5,7 @@ const ReportInfoPage = ({ time }) => {
   const data = JSON.parse(time)
   return (
     <>
-      <MetaTags title="ReportInfo" description="ReportInfo page" />
-
+      <MetaTags title="Report" description="ReportInfo page" />
       <ReportByGroupCell timequery={data} />
     </>
   )

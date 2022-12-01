@@ -4,10 +4,8 @@ import { showNotification } from '@mantine/notifications'
 import { openConfirmModal } from '@mantine/modals'
 import { navigate, routes } from '@redwoodjs/router'
 import { useMutation, useQuery } from '@redwoodjs/web'
-import { useEffect } from 'react'
 
 import './ReportInfo.scss'
-// import 'src/components/Member/MemberForm/MemberForm.scss'
 
 const CREATE_REPORT_MUTATION = gql`
   mutation CreateReportMutation($input: CreateReportInput!) {

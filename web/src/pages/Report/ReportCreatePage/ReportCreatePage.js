@@ -4,7 +4,7 @@ import { MetaTags } from '@redwoodjs/web'
 const ReportCreatePage = () => {
   return (
     <>
-      <MetaTags title="ReportCreate" description="ReportCreate page" />
+      <MetaTags title="Create Report" description="ReportCreate page" />
 
       <ReportCreate />
     </>

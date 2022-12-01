@@ -21,6 +21,7 @@ const DELETE_GROUP_MUTATION = gql`
 const Groups = ({ groups, page }) => {
   const [opened, setOpened] = useState(false)
   const [group, setGroup] = useState()
+  const [idx, setIdx] =useState()
 
   const iconRefs = useRef([])
   const { hasRole } = useAuth()
@@ -58,7 +59,7 @@ const Groups = ({ groups, page }) => {
     awaitRefetchQueries: true,
   })
 
-  const handleDelete = (id, name) => {
+  const handleDelete = (id, name, idx) => {
     if (!hasRole(['admin', 'manager'])) {
       return showNotification({
         color: 'red',
@@ -86,21 +87,23 @@ const Groups = ({ groups, page }) => {
       labels: { confirm: 'Yes', cancel: 'Cancel' },
       confirmProps: { color: 'red' },
       onConfirm: () => deleteGroup({ variables: { id } }),
+      onClose:() => handleMouseLeave(idx),
     })
   }
 
   const handleMouseEnter = (idx) => {
     setTimeout(() => {
-      iconRefs.current[idx].classList.add('hovered')
+      iconRefs.current[idx]?.classList.add('hovered')
     }, 400)
   }
   const handleMouseLeave = (idx) => {
     setTimeout(() => {
-      iconRefs.current[idx].classList.remove('hovered')
+      iconRefs.current[idx]?.classList.remove('hovered')
     }, 400)
   }
-  const handleModal = () => {
+  const handleModal = (idx) => {
     setOpened(false)
+    handleMouseLeave(idx)
   }
 
   return (
@@ -110,7 +113,7 @@ const Groups = ({ groups, page }) => {
           <div
             key={group.id}
             className="groups-item"
-            // onClick={() => handleMouseEnter(idx)}
+            onMouseDown={() => handleMouseEnter(idx)}
             onMouseEnter={() => handleMouseEnter(idx)}
             onMouseLeave={() => handleMouseLeave(idx)}
           >
@@ -182,6 +185,7 @@ const Groups = ({ groups, page }) => {
                   onClick={() => {
                     setGroup(group)
                     setOpened(true)
+                    setIdx(idx)
                   }}
                 >
                   Update
@@ -190,7 +194,7 @@ const Groups = ({ groups, page }) => {
                 <Menu.Item
                   color="red"
                   icon={<IconTrash size={20} />}
-                  onClick={() => handleDelete(+group.id, group.name)}
+                  onClick={() => handleDelete(+group.id, group.name, idx)}
                 >
                   Delete
                 </Menu.Item>
@@ -201,7 +205,10 @@ const Groups = ({ groups, page }) => {
         <Modal
           title="Update Group"
           opened={opened}
-          onClose={() => setOpened(false)}
+          onClose={() => {
+            setOpened(false)
+            handleMouseLeave(idx)
+          }}
           zIndex={3}
           styles={() => ({
             modal: {
@@ -231,6 +238,7 @@ const Groups = ({ groups, page }) => {
           <GroupUpdateLeader
             group={group}
             page={page}
+            idx={idx}
             handleModal={handleModal}
           />
         </Modal>

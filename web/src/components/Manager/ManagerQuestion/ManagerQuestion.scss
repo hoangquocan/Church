@@ -1,5 +1,5 @@
 .manager-questions {
-  background: transparent;
+  // background: #fff;
   max-width: 32em;
   border-radius: 10px;
   margin: 40px auto;
@@ -17,6 +17,9 @@
     padding: 20px;
     border-radius: 10px;
     line-height: 1.5;
+    background: #74C0FC;
+    color: #000;
+    margin-top: 30px;
     h4 {
       margin-left: 20px;
     }
@@ -24,30 +27,30 @@
       position: absolute;
       right: 20px;
       top: 8px;
-      font-size: 20px;
+      font-size: 24px;
       padding: 6px;
-      display: none;
-      background: #ced4da;
+      color: #74C0FC;
       border-radius: 50%;
       transition: 0.5s;
       cursor: pointer;
+      display: block;
       &.hover {
-        display: block;
-
+        color: #000;
       }
       &:hover {
-        transform: scale(1.2);
+        background: #4DABF7;
+        transform: scale(1.1);
       }
     }
   }
-  p:nth-child(1) {
-    color: #1864AB;
-  }
-  p:nth-child(2) {
-    color: #F59F00
-    ;
-  }
-  p:nth-child(3) {
-    color: #D6336C;
-  }
+  // p:nth-child(1) {
+  //   color: #1864AB;
+  // }
+  // p:nth-child(2) {
+  //   color: #F59F00
+  //   ;
+  // }
+  // p:nth-child(3) {
+  //   color: #D6336C;
+  // }
 }

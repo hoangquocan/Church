@@ -215,6 +215,7 @@ const MembersLoad = () => {
     }
     setOpened(false)
     setOpenProfile(false)
+    handleMouseLeave(idx)
   }
 
   const handleDelete = (id, idx) => {
@@ -266,6 +267,7 @@ const MembersLoad = () => {
           <div
             key={member.id}
             className="members-item"
+            onMouseDown={() => handleMouseEnter(idx)}
             onMouseEnter={() => handleMouseEnter(idx)}
             onMouseLeave={() => handleMouseLeave(idx)}
           >
@@ -373,7 +375,10 @@ const MembersLoad = () => {
         <Modal
           title="Member Profile"
           opened={openProfile}
-          onClose={() => setOpenProfile(false)}
+          onClose={() => {
+            setOpenProfile(false)
+            handleMouseLeave(idx)
+          }}
           zIndex={3}
           overlayColor="transparent"
           padding={6}
@@ -415,7 +420,10 @@ const MembersLoad = () => {
         <Modal
           title="Update Member"
           opened={opened}
-          onClose={() => setOpened(false)}
+          onClose={() => {
+            setOpened(false)
+            handleMouseLeave(idx)
+          }}
           zIndex={3}
           padding={0}
           styles={(theme) => ({

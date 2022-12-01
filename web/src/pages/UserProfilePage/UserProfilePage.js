@@ -1,11 +1,11 @@
-import { Link, routes } from '@redwoodjs/router'
-import { MetaTags } from '@redwoodjs/web'
 import UserProfileCell from 'src/components/User/UserProfileCell'
+import { MetaTags } from '@redwoodjs/web'
 
-const UserProfilePage = ({email}) => {
+const UserProfilePage = ({ email }) => {
   return (
     <>
-     <UserProfileCell email={email}/>
+      <MetaTags title="Profile  " />
+      <UserProfileCell email={email} />
     </>
   )
 }

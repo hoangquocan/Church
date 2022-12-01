@@ -1,9 +1,11 @@
 import GroupAddMemCell from 'src/components/Group/GroupAddMemCell'
+import { MetaTags } from '@redwoodjs/web'
 
 const GroupAddMemPage = ({ id, name }) => {
   return (
     <>
-      <GroupAddMemCell id={id} name={name}/>
+      <MetaTags title="Add Member" />
+      <GroupAddMemCell id={id} name={name} />
     </>
   )
 }

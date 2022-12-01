@@ -46,7 +46,7 @@ export const Empty = () => {
 
 export const Success = ({ group }) => {
   if (group.members.length == 0) {
-    return <h3>No Member Of Group</h3>
+    return <h3 className='text-center'>No Member Of Group</h3>
   }
   return <Members groupId={group.id} members={group.members} isGroup={true} />
 }

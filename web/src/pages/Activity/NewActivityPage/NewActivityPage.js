@@ -4,7 +4,7 @@ import ActivityFormCell from 'src/components/Activity/ActivityFormCell'
 const NewActivityPage = () => {
   return (
     <>
-      <MetaTags title="NewActivity" description="NewActivity page" />
+      <MetaTags title="New Activity" description="New Activity page" />
       <ActivityFormCell />
     </>
   )

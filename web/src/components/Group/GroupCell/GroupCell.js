@@ -21,9 +21,10 @@ export const QUERY = gql`
 `
 export const Loading = () => (
   <>
-    <Skeleton height={22} mt={16} radius="xl" />
-    <Skeleton height={22} mt={16} radius="xl" />
-    <Skeleton height={22} mt={16} width="70%" radius="xl" />
+    <Skeleton height={26} mt={16} width="300px" radius="xl" />
+    <Skeleton height={26} mt={16} width="350px" radius="xl" />
+    <Skeleton height={26} mt={16} width="260px" radius="xl" />
+    <Skeleton height={26} mt={16} width="320px" radius="xl" />
   </>
 )
 
